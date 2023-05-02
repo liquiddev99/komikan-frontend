@@ -112,6 +112,15 @@ export default function DetaiManga() {
                   <p className="truncate">{synonym}</p>
                 ))}
               </div>
+
+              <div className="mt-3">
+                <div className="text-lg mb-1 font-semibold text-teal-400">
+                  Tags
+                </div>
+                {manga.tags.map((tag) => (
+                  <p className="truncate">{tag.name}</p>
+                ))}
+              </div>
             </div>
 
             <div className="w-4/5 mt-6">

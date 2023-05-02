@@ -7,6 +7,7 @@ import {
   fetchComickInfo,
   fetchComickChapters,
   fetchComickPages,
+  searchManga,
 } from "../utils/manga";
 
 export function useTrendingManga() {
@@ -43,6 +44,19 @@ export function useDetailManga(id: string) {
 
   return {
     manga: data,
+    loading: isLoading,
+    error,
+  };
+}
+
+export function useSearchManga(q: string) {
+  const { data, isLoading, error } = useSWR(
+    q ? [`/api/manga/search/${q}`, q] : null,
+    ([_, q]) => searchManga(q)
+  );
+
+  return {
+    searchedManga: data,
     loading: isLoading,
     error,
   };

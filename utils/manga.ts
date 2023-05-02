@@ -49,6 +49,9 @@ const mangaQuery = `
       description
       status
       genres
+      tags {
+      name
+      }
       synonyms
       trailer {
         id
@@ -126,6 +129,28 @@ const mangaQuery = `
   }
 `;
 
+const searchQuery = `
+  query ($q: String) {
+    Page(page: 1, perPage: 10) {
+      media(search: $q, type: MANGA) {
+        id
+        idMal
+        title {
+          romaji
+          english
+        }
+        status
+        coverImage {
+          extraLarge
+        }
+        trending
+        averageScore
+        favourites
+      }
+    }
+  }
+`;
+
 const trending = "TRENDING_DESC";
 const popularity = "POPULARITY_DESC";
 
@@ -152,6 +177,14 @@ export async function fetchDetailManga(
   const res = await axios.post("https://graphql.anilist.co", {
     query: mangaQuery,
     variables: { id },
+  });
+  return res.data;
+}
+
+export async function searchManga(q: string): Promise<IMangaList> {
+  const res = await axios.post("https://graphql.anilist.co", {
+    query: searchQuery,
+    variables: { q },
   });
   return res.data;
 }
@@ -193,6 +226,8 @@ export async function fetchComickChapters(
 
     await Promise.all(promises);
   }
+
+  chapters.sort((a, b) => Number(b?.chap) - Number(a?.chap));
 
   return chapters as any;
 }

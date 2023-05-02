@@ -2,8 +2,20 @@ import { useState } from "react";
 import Image from "next/image";
 import Logo from "../../public/logo.png";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function Header() {
+  const [textSearch, setTextSearch] = useState("");
+  const router = useRouter();
+
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setTextSearch(e.target.value);
+  }
+  function onSearch(e: React.FormEvent) {
+    e.preventDefault();
+    router.push(`/search?q=${textSearch}`);
+  }
+
   return (
     <div className="pt-6 pb-7 layout">
       <div className="flex justify-between items-center">
@@ -27,7 +39,7 @@ export default function Header() {
             href="#"
             className="mr-7 font-medium hover:text-pink transition-colors duration-100"
           >
-            Install CLI
+            Search
           </Link>
           <Link
             href="#"
@@ -35,12 +47,16 @@ export default function Header() {
           >
             About Us
           </Link>
-          <Link
-            href="#"
-            className="mr-7 font-medium hover:text-pink transition-colors duration-100"
-          >
-            Community
-          </Link>
+
+          <form onSubmit={onSearch}>
+            <input
+              type="text"
+              placeholder="Search Manga"
+              className="bg-slate-800 px-4 py-1 rounded-md outline-none"
+              value={textSearch}
+              onChange={handleChange}
+            />
+          </form>
         </div>
       </div>
     </div>

@@ -23,6 +23,9 @@ export interface IDetailManga extends IManga {
     month: number;
     day: number;
   };
+  tags: {
+    name: string;
+  }[];
   characters: {
     edges: {
       role: string;
