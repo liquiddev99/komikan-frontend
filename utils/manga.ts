@@ -114,6 +114,11 @@ const mangaQuery = `
           }
         }
       }
+      externalLinks {
+        url
+        site
+        language
+      }
       trailer {
         site
         id

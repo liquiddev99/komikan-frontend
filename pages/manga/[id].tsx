@@ -53,7 +53,7 @@ export default function DetaiManga() {
   console.log("langList", comickInfo?.langList);
 
   return (
-    <div className="min-h-[70vh]">
+    <div className="min-h-[90vh]">
       {manga && (
         <div className="">
           {manga.bannerImage && (
@@ -130,6 +130,24 @@ export default function DetaiManga() {
                 </div>
                 {manga.tags.map((tag) => (
                   <p className="truncate">{tag.name}</p>
+                ))}
+              </div>
+
+              <div className="mt-3">
+                <div className="text-lg mb-1 font-semibold text-teal-400">
+                  External Links
+                </div>
+                {manga.externalLinks.map((item) => (
+                  <div key={v4()} className="text-blue-500">
+                    <a
+                      target="_blank"
+                      href={item.url}
+                      className="hover:underline"
+                    >
+                      {item.site} {item.language && item.site && " - "}{" "}
+                      {item.language}
+                    </a>
+                  </div>
                 ))}
               </div>
             </div>
@@ -241,59 +259,63 @@ export default function DetaiManga() {
                 </div>
               </div>
 
-              <div className="mt-8">
-                <div className="mb-3 text-2xl font-semibold text-teal-500">
-                  Characters
-                </div>
-                <div className="grid grid-cols-3 gap-5">
-                  {manga.characters.edges.slice(0, 9).map((character) => (
-                    <div className="flex">
-                      <Image
-                        src={character.node.image.large}
-                        className="mr-3 object-cover"
-                        alt="Character"
-                        width={70}
-                        height={110}
-                      />
+              {manga.characters.edges.length ? (
+                <div className="mt-8">
+                  <div className="mb-3 text-2xl font-semibold text-teal-500">
+                    Characters
+                  </div>
+                  <div className="grid grid-cols-3 gap-5">
+                    {manga.characters.edges.slice(0, 9).map((character) => (
+                      <div className="flex">
+                        <Image
+                          src={character.node.image.large}
+                          className="mr-3 object-cover"
+                          alt="Character"
+                          width={70}
+                          height={110}
+                        />
 
-                      <div className="mt-2">
-                        <p>
-                          {character.node.name.userPreferred ||
-                            character.node.name.full}
-                        </p>
-                        <p className="text-slate-400">{character.role}</p>
+                        <div className="mt-2">
+                          <p>
+                            {character.node.name.userPreferred ||
+                              character.node.name.full}
+                          </p>
+                          <p className="text-slate-400">{character.role}</p>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
-              </div>
+              ) : null}
 
-              <div className="mt-8">
-                <div className="mb-3 text-2xl font-semibold text-teal-500">
-                  Staffs
-                </div>
-                <div className="grid grid-cols-3 gap-5">
-                  {manga.staff.edges.slice(0, 9).map((staff) => (
-                    <div className="flex">
-                      <Image
-                        src={staff.node.image.large}
-                        className="mr-3 object-cover"
-                        alt="Character"
-                        width={70}
-                        height={110}
-                      />
+              {manga.staff.edges.length ? (
+                <div className="mt-8">
+                  <div className="mb-3 text-2xl font-semibold text-teal-500">
+                    Staffs
+                  </div>
+                  <div className="grid grid-cols-3 gap-5">
+                    {manga.staff.edges.slice(0, 9).map((staff) => (
+                      <div className="flex">
+                        <Image
+                          src={staff.node.image.large}
+                          className="mr-3 object-cover"
+                          alt="Character"
+                          width={70}
+                          height={110}
+                        />
 
-                      <div className="mt-2">
-                        <p>
-                          {staff.node.name.userPreferred ||
-                            staff.node.name.full}
-                        </p>
-                        <p className="text-slate-400">{staff.role}</p>
+                        <div className="mt-2">
+                          <p>
+                            {staff.node.name.userPreferred ||
+                              staff.node.name.full}
+                          </p>
+                          <p className="text-slate-400">{staff.role}</p>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
-              </div>
+              ) : null}
 
               {manga.trailer && (
                 <div className="mt-8">

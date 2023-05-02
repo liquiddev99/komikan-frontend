@@ -4,6 +4,7 @@ import { v4 } from "uuid";
 import Image from "next/image";
 import { FaSmile, FaHeart } from "react-icons/fa";
 import Link from "next/link";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 import Status from "@/components/manga/Status";
 
@@ -11,13 +12,21 @@ export default function Search() {
   const router = useRouter();
   const q = router.query.q as string;
 
-  const { searchedManga } = useSearchManga(q);
+  const { searchedManga, loading } = useSearchManga(q);
 
   return (
     <div className="layout">
       <h3 className="text-3xl font-medium border-b border-slate-400 pb-1">
         Result for "{q}"
       </h3>
+      {loading && (
+        <div className="flex items-center justify-center h-[30rem]">
+          <AiOutlineLoading3Quarters className="w-12 h-12 animate-spin" />
+        </div>
+      )}
+      {searchedManga && !searchedManga.data.Page.media.length && (
+        <div className="text-2xl mt-10">No manga found</div>
+      )}
       <div className="mt-8 container-list-manga">
         {searchedManga &&
           searchedManga.data.Page.media.map((manga) => (

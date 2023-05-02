@@ -74,6 +74,11 @@ export interface IDetailManga extends IManga {
       };
     }[];
   };
+  externalLinks: {
+    url: string;
+    site: string;
+    language: string;
+  }[];
 }
 
 export interface IMangaList {
