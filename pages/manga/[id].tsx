@@ -43,7 +43,10 @@ export default function DetaiManga() {
   console.log("manga", manga);
 
   function getFlagEmoji(countryCode: string) {
-    const codePoints = countryCode
+    let code = countryCode.slice(0, 2);
+    if (code === "en") code = "gb";
+    if (code === "vi") code = "vn";
+    const codePoints = code
       .toUpperCase()
       .split("")
       .map((char) => 127397 + char.charCodeAt(0));
@@ -194,7 +197,9 @@ export default function DetaiManga() {
                     </option>
                     {comickInfo &&
                       comickInfo.langList.map((lang) => (
-                        <option value={lang}>{lang}</option>
+                        <option value={lang}>
+                          {getFlagEmoji(lang)} {lang}
+                        </option>
                       ))}
                   </select>
                 </div>
