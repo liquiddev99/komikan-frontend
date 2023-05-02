@@ -100,12 +100,11 @@ const mangaQuery = `
       recommendations {
         edges {
           node {
-            id
             mediaRecommendation {
               id
               title {
-                romaji
                 english
+                userPreferred
               }
               coverImage {
                 large

@@ -26,7 +26,12 @@
 .embla__container {
   display: flex;
 }
-.embla__slide {
+.embla__slide__main {
   flex: 0 0 100%;
+  min-width: 0;
+}
+
+.embla__slide__recommend {
+  flex: 0 0 14%;
   min-width: 0;
 }

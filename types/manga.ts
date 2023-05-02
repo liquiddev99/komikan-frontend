@@ -57,6 +57,22 @@ export interface IDetailManga extends IManga {
   trailer: {
     id: string;
   } | null;
+  recommendations: {
+    edges: {
+      node: {
+        mediaRecommendation: {
+          id: string;
+          title: {
+            userPreferred: string;
+            english: string;
+          };
+          coverImage: {
+            large: string;
+          };
+        };
+      };
+    }[];
+  };
 }
 
 export interface IMangaList {

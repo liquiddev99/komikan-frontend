@@ -2,10 +2,15 @@ import { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { FaSmile, FaHeart } from "react-icons/fa";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import {
+  AiOutlineLoading3Quarters,
+  AiOutlineArrowLeft,
+  AiOutlineArrowRight,
+} from "react-icons/ai";
 import { IoLibraryOutline, IoLanguage } from "react-icons/io5";
 import { FcCalendar } from "react-icons/fc";
 import { v4 } from "uuid";
+import useEmblaCarousel from "embla-carousel-react";
 
 import Status from "@/components/manga/Status";
 import {
@@ -20,6 +25,10 @@ export default function DetaiManga() {
   const [lang, setLang] = useState("en");
   const router = useRouter();
   const id = router.query.id as string;
+  const [emblaRef, embla] = useEmblaCarousel({
+    dragFree: true,
+    containScroll: "trimSnaps",
+  });
 
   const { manga: rawManga } = useDetailManga(id);
   const { comickId } = useComickId(rawManga?.data.Media.idMal);
@@ -30,6 +39,8 @@ export default function DetaiManga() {
   );
 
   const manga = rawManga?.data.Media;
+
+  console.log("manga", manga);
 
   function getFlagEmoji(countryCode: string) {
     const codePoints = countryCode
@@ -301,6 +312,65 @@ export default function DetaiManga() {
                   </div>
                 </div>
               )}
+
+              {manga.recommendations.edges.length ? (
+                <div className="mt-8">
+                  <div className="mb-3 text-2xl font-semibold text-teal-500">
+                    Recommendations
+                  </div>
+                  <div className="embla mt-3 relative" ref={emblaRef}>
+                    <div className="embla__container cursor-move">
+                      {manga.recommendations.edges.map((recommendation) => (
+                        <div className="embla__slide__recommend mx-3 first:ml-0">
+                          <Link
+                            href={`/manga/${recommendation.node.mediaRecommendation.id}`}
+                            key={v4()}
+                          >
+                            <div className="rounded-md flex flex-col h-full overflow-hidden">
+                              <div className="flex w-full pb-[140%] relative">
+                                <Image
+                                  src={
+                                    recommendation.node.mediaRecommendation
+                                      .coverImage.large
+                                  }
+                                  alt="Cover"
+                                  fill
+                                  sizes="20vw"
+                                  className="object-cover rounded-md"
+                                />
+                              </div>
+                              <div className="flex flex-col flex-grow justify-between py-2">
+                                <span className="font-semibold line-clamp-2">
+                                  {recommendation.node.mediaRecommendation.title
+                                    .userPreferred ||
+                                    recommendation.node.mediaRecommendation
+                                      .title.english}
+                                </span>
+
+                                <div className="mt-2">
+                                  <Status status={manga.status} />
+                                </div>
+                              </div>
+                            </div>
+                          </Link>
+                        </div>
+                      ))}
+                    </div>
+                    <AiOutlineArrowRight
+                      onClick={() => {
+                        embla?.scrollTo(embla.selectedScrollSnap() + 5);
+                      }}
+                      className="w-11 h-11 absolute top-1/3 right-1 z-10 rounded-full bg-black/70 p-2.5 cursor-pointer"
+                    />
+                    <AiOutlineArrowLeft
+                      onClick={() => {
+                        embla?.scrollTo(embla.selectedScrollSnap() - 5);
+                      }}
+                      className="w-11 h-11 absolute top-1/3 left-1 z-10 rounded-full bg-black/70 p-2.5 cursor-pointer"
+                    />
+                  </div>
+                </div>
+              ) : null}
             </div>
           </div>
         </div>

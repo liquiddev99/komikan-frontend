@@ -49,7 +49,7 @@ export default function Home({ trendingManga, popularManga }: Props) {
               .map((manga) => (
                 <div
                   key={manga.id}
-                  className="embla__slide h-[30rem] bg-no-repeat bg-cover bg-center"
+                  className="embla__slide__main h-[30rem] bg-no-repeat bg-cover bg-center"
                   style={{ backgroundImage: `url("${manga.bannerImage}")` }}
                 >
                   <div className="w-full h-full bg-gradient-to-t from-black/90 to-slate-800/80 absolute"></div>
