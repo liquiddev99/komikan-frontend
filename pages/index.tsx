@@ -1,118 +1,214 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
+import { useEffect, useState } from "react";
+import { GetStaticProps } from "next";
+import Image from "next/image";
+import useEmblaCarousel from "embla-carousel-react";
+import { v4 } from "uuid";
+import { FaSmile, FaHeart } from "react-icons/fa";
+import Link from "next/link";
+import Status from "@/components/manga/Status";
+import { IMangaList } from "@/types/manga";
+import { fetchPopularManga, fetchTrendingManga } from "@/utils/manga";
 
-const inter = Inter({ subsets: ['latin'] })
+interface Props {
+  trendingManga: IMangaList;
+  popularManga: IMangaList;
+}
 
-export default function Home() {
+export default function Home({ trendingManga, popularManga }: Props) {
+  const [emblaRef, embla] = useEmblaCarousel({ loop: true });
+  const [pause, setPause] = useState(false);
+
+  useEffect(() => {
+    if (!embla) return;
+    function autoPlay() {
+      embla?.scrollNext();
+    }
+
+    let id = setInterval(autoPlay, 3500);
+
+    if (pause) {
+      clearInterval(id);
+    }
+
+    return () => clearInterval(id);
+  }, [embla, pause]);
+
   return (
-    <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
-    >
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">pages/index.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <main className="layout">
+      {trendingManga && (
+        <div
+          className="embla rounded-2xl"
+          ref={emblaRef}
+          onMouseEnter={() => setPause(true)}
+          onMouseLeave={() => setPause(false)}
+        >
+          <div className="embla__container cursor-move">
+            {trendingManga.data.Page.media
+              .filter((manga) => manga.bannerImage)
+              .slice(0, 5)
+              .map((manga) => (
+                <div
+                  key={manga.id}
+                  className="embla__slide h-[30rem] bg-no-repeat bg-cover bg-center"
+                  style={{ backgroundImage: `url("${manga.bannerImage}")` }}
+                >
+                  <div className="w-full h-full bg-gradient-to-t from-black/90 to-slate-800/80 absolute"></div>
+                  <div className="relative flex justify-between mt-5">
+                    <Image
+                      src={manga.coverImage.extraLarge}
+                      alt="Cover"
+                      width={300}
+                      height={460}
+                      className="object-contain ml-10 mr-11"
+                    />
+                    <div className="w-4/5 text-slate-100 mt-3 mr-7 shrink">
+                      <h3 className="text-4xl font-semibold mb-3">
+                        {manga.title.english ?? manga.title.romaji}
+                      </h3>
+                      <div
+                        dangerouslySetInnerHTML={{ __html: manga.description }}
+                        className="line-clamp-6"
+                      ></div>
+
+                      <div className="mt-4 flex">
+                        <Link
+                          href={`/manga/${manga.id}`}
+                          className="rounded-lg bg-red-500 flex items-center justify-center px-5 py-1.5 font-semibold uppercase mr-3"
+                        >
+                          Detail
+                        </Link>
+                        <button className="rounded-lg bg-green-600 flex items-center justify-center px-5 py-1.5 uppercase">
+                          Add to favorite
+                        </button>
+                      </div>
+
+                      <div className="my-4 flex items-center">
+                        <div className="flex items-center mr-3">
+                          <FaSmile className="h-5 w-5 text-green-500 mr-2" />
+                          <span>{manga.averageScore}%</span>
+                        </div>
+                        <div className="flex items-center">
+                          <FaHeart className="h-5 w-5 text-rose-500 mr-2" />
+                          <span>{manga.favourites}</span>
+                        </div>
+                      </div>
+
+                      <Status status={manga.status} />
+
+                      <div className="mt-4 flex">
+                        {manga.genres.map((genre) => (
+                          <div
+                            key={v4()}
+                            className="mr-3 px-6 py-1 bg-rose-500 rounded-full"
+                          >
+                            {genre}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+          </div>
+        </div>
+      )}
+
+      <div className="mt-12">
+        <h3 className="text-3xl font-medium">Trending Manga</h3>
+        <div className="mt-8 container-list-manga">
+          {trendingManga &&
+            trendingManga.data.Page.media.slice(6).map((manga) => (
+              <Link href={`/manga/${manga.id}`} key={v4()}>
+                <div className="rounded-md flex flex-col h-full overflow-hidden">
+                  <div className="flex w-full pb-[140%] relative">
+                    <Image
+                      src={manga.coverImage.extraLarge}
+                      alt="Cover"
+                      fill
+                      sizes="20vw"
+                      className="object-cover rounded-md"
+                    />
+                  </div>
+                  <div className="flex flex-col flex-grow justify-between py-2">
+                    <span className="font-semibold line-clamp-2">
+                      {manga.title.english || manga.title.romaji}
+                    </span>
+
+                    <div className="mt-1">
+                      <div className="mb-3 flex items-center">
+                        <div className="flex items-center mr-3">
+                          <FaSmile className="h-5 w-5 text-green-500 mr-2" />
+                          <span>{manga.averageScore}%</span>
+                        </div>
+                        <div className="flex items-center">
+                          <FaHeart className="h-5 w-5 text-rose-500 mr-2" />
+                          <span>{manga.favourites}</span>
+                        </div>
+                      </div>
+
+                      <Status status={manga.status} />
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            ))}
         </div>
       </div>
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700/10 after:dark:from-sky-900 after:dark:via-[#0141ff]/40 before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+      <div className="mt-16">
+        <h3 className="text-3xl font-medium">All Time Popular</h3>
+        <div className="mt-8 container-list-manga">
+          {popularManga &&
+            popularManga.data.Page.media.slice(6).map((manga) => (
+              <Link href={`/manga/${manga.id}`} key={v4()}>
+                <div className="rounded-md flex flex-col h-full overflow-hidden">
+                  <div className="flex w-full pb-[140%] relative">
+                    <Image
+                      src={manga.coverImage.extraLarge}
+                      alt="Cover"
+                      fill
+                      sizes="20vw"
+                      className="object-cover rounded-md"
+                    />
+                  </div>
+                  <div className="flex flex-col flex-grow justify-between py-2">
+                    <span className="font-semibold">
+                      {manga.title.english || manga.title.romaji}
+                    </span>
 
-      <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
+                    <div className="mt-1">
+                      <div className="mb-3 flex items-center">
+                        <div className="flex items-center mr-3">
+                          <FaSmile className="h-5 w-5 text-green-500 mr-2" />
+                          <span>{manga.averageScore}%</span>
+                        </div>
+                        <div className="flex items-center">
+                          <FaHeart className="h-5 w-5 text-rose-500 mr-2" />
+                          <span>{manga.favourites}</span>
+                        </div>
+                      </div>
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Discover and deploy boilerplate example Next.js&nbsp;projects.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+                      <Status status={manga.status} />
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            ))}
+        </div>
       </div>
     </main>
-  )
+  );
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+  const trendingManga = await fetchTrendingManga();
+  const popularManga = await fetchPopularManga();
+
+  return {
+    props: {
+      trendingManga,
+      popularManga,
+    },
+    revalidate: 60,
+  };
+};
