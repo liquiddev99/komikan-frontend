@@ -109,6 +109,7 @@ const mangaQuery = `
               coverImage {
                 large
               }
+              status
             }
           }
         }
@@ -232,6 +233,7 @@ export async function fetchComickChapters(
 }
 
 export function showStatus(status: string) {
+  if (!status) return "";
   return status.charAt(0).toUpperCase() + status.slice(1).toLowerCase();
 }
 

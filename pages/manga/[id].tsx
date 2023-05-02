@@ -348,7 +348,12 @@ export default function DetaiManga() {
                                 </span>
 
                                 <div className="mt-2">
-                                  <Status status={manga.status} />
+                                  <Status
+                                    status={
+                                      recommendation.node.mediaRecommendation
+                                        .status
+                                    }
+                                  />
                                 </div>
                               </div>
                             </div>

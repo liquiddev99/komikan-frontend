@@ -69,6 +69,7 @@ export interface IDetailManga extends IManga {
           coverImage: {
             large: string;
           };
+          status: string;
         };
       };
     }[];
