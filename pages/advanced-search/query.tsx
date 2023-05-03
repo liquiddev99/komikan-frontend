@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { FaSmile, FaHeart } from "react-icons/fa";
 
@@ -8,8 +8,11 @@ import Link from "next/link";
 import Image from "next/image";
 import Status from "@/components/manga/Status";
 import Head from "next/head";
+import { v4 } from "uuid";
+import ScrollToTopButton from "@/components/chapter/ScrollToTopButton";
 
 export default function Query() {
+  const targetRef = useRef<HTMLDivElement>(null);
   const [genres, setGenres] = useState<string[]>([]);
   const [tags, setTags] = useState<string[]>([]);
   const [status, setStatus] = useState<string[]>([]);
@@ -24,9 +27,30 @@ export default function Query() {
       setStatus((router.query.status as string)?.split(","));
   }, [router.isReady]);
 
-  const { manga, loading } = useAdvancedSearch(genres, tags, status);
+  const { outerListManga, loading, setPage, page, validating, isEnd } =
+    useAdvancedSearch(genres, tags, status);
 
-  console.log("manga", manga);
+  useEffect(() => {
+    if (isEnd) {
+      window.removeEventListener("scroll", handleScroll);
+      return;
+    }
+    function handleScroll() {
+      const { scrollTop, clientHeight, scrollHeight } =
+        document.documentElement;
+      if (
+        scrollTop + clientHeight + 500 >= scrollHeight &&
+        !validating &&
+        !isEnd
+      ) {
+        setPage(page + 1);
+      }
+    }
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [setPage, page, validating, isEnd]);
 
   return (
     <div className="layout">
@@ -41,47 +65,57 @@ export default function Query() {
           <AiOutlineLoading3Quarters className="w-12 h-12 animate-spin" />
         </div>
       )}
-      {manga && !manga.data.Page.media.length && (
+      {outerListManga && !outerListManga.length && (
         <div className="text-2xl mt-10">No manga found</div>
       )}
-      <div className="mt-8 container-list-manga">
-        {manga &&
-          manga.data.Page.media.map((manga) => (
-            <Link href={`/manga/${manga.id}`} key={manga.id}>
-              <div className="rounded-md flex flex-col h-full overflow-hidden">
-                <div className="flex w-full pb-[140%] relative">
-                  <Image
-                    src={manga.coverImage.extraLarge}
-                    alt="Cover"
-                    fill
-                    sizes="20vw"
-                    className="object-cover rounded-md"
-                  />
-                </div>
-                <div className="flex flex-col flex-grow justify-between py-2">
-                  <span className="font-semibold line-clamp-1">
-                    {manga.title.english || manga.title.romaji}
-                  </span>
+      <div className="mt-8" ref={targetRef}>
+        {outerListManga &&
+          outerListManga.map((innerListManga) => (
+            <div key={v4()} className="container-list-manga">
+              {innerListManga.map((manga) => (
+                <Link href={`/manga/${manga.id}`} key={manga.id}>
+                  <div className="rounded-md flex flex-col h-full overflow-hidden">
+                    <div className="flex w-full pb-[140%] relative">
+                      <Image
+                        src={manga.coverImage.extraLarge}
+                        alt="Cover"
+                        fill
+                        sizes="20vw"
+                        className="object-cover rounded-md"
+                      />
+                    </div>
+                    <div className="flex flex-col flex-grow justify-between py-2">
+                      <span className="font-semibold line-clamp-1">
+                        {manga.title.english || manga.title.romaji}
+                      </span>
 
-                  <div className="mt-1">
-                    <div className="mb-3 flex items-center">
-                      <div className="flex items-center mr-3">
-                        <FaSmile className="h-5 w-5 text-green-500 mr-2" />
-                        <span>{manga.averageScore}%</span>
-                      </div>
-                      <div className="flex items-center">
-                        <FaHeart className="h-5 w-5 text-rose-500 mr-2" />
-                        <span>{manga.favourites}</span>
+                      <div className="mt-1">
+                        <div className="mb-3 flex items-center">
+                          <div className="flex items-center mr-3">
+                            <FaSmile className="h-5 w-5 text-green-500 mr-2" />
+                            <span>{manga.averageScore}%</span>
+                          </div>
+                          <div className="flex items-center">
+                            <FaHeart className="h-5 w-5 text-rose-500 mr-2" />
+                            <span>{manga.favourites}</span>
+                          </div>
+                        </div>
+
+                        <Status status={manga.status} />
                       </div>
                     </div>
-
-                    <Status status={manga.status} />
                   </div>
-                </div>
-              </div>
-            </Link>
+                </Link>
+              ))}
+            </div>
           ))}
       </div>
+      {validating && !isEnd && (
+        <div className="flex items-center justify-center h-[40rem]">
+          <AiOutlineLoading3Quarters className="w-12 h-12 animate-spin" />
+        </div>
+      )}
+      <ScrollToTopButton />
     </div>
   );
 }

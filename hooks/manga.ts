@@ -1,4 +1,5 @@
 import useSWR from "swr";
+import useSWRInfinite from "swr/infinite";
 import {
   fetchDetailManga,
   fetchComickId,
@@ -12,6 +13,8 @@ import {
   fetchTags,
 } from "../utils/manga";
 import { advancedSearch } from "@/utils/search";
+import { IManga, IMangaList } from "../types/manga";
+import { useState } from "react";
 
 export function useTrendingManga() {
   const { data, isLoading, error } = useSWR(
@@ -145,16 +148,33 @@ export function useAdvancedSearch(
   tags: string[],
   status: string[]
 ) {
-  const { data, error, isLoading } = useSWR(
-    genres || tags || status
-      ? ["/api/manga/advanced-search", genres, tags, status]
-      : null,
-    ([_, genres, tags, status]) => advancedSearch(genres, tags, status)
-  );
+  const [isEnd, setIsEnd] = useState(false);
+  const { data, error, isLoading, setSize, size, isValidating } =
+    useSWRInfinite(
+      (pageIndex, previousPageData: IManga[]) => {
+        if (previousPageData && !previousPageData.length) {
+          setIsEnd(true);
+          return null;
+        } // reached the end
+        return [
+          `/api/manga/advanced-search?page=${pageIndex}`,
+          genres,
+          tags,
+          status,
+          pageIndex + 1,
+        ];
+      },
+      ([_, genres, tags, status, page]) =>
+        advancedSearch(genres, tags, status, page)
+    );
 
   return {
-    manga: data,
+    outerListManga: data,
+    setPage: setSize,
+    page: size,
     loading: isLoading,
+    validating: isValidating,
     error,
+    isEnd,
   };
 }
