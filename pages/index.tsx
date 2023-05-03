@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { useEffect, useState } from "react";
 import { GetStaticProps } from "next";
 import Image from "next/image";
@@ -5,6 +6,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import { v4 } from "uuid";
 import { FaSmile, FaHeart } from "react-icons/fa";
 import Link from "next/link";
+
 import Status from "@/components/manga/Status";
 import { IMangaList } from "@/types/manga";
 import { fetchPopularManga, fetchTrendingManga } from "@/utils/manga";
@@ -35,6 +37,9 @@ export default function Home({ trendingManga, popularManga }: Props) {
 
   return (
     <main className="layout">
+      <Head>
+        <title>Mangazine</title>
+      </Head>
       {trendingManga && (
         <div
           className="embla rounded-2xl"

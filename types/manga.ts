@@ -115,6 +115,8 @@ export interface IChapterInComick {
 
 export interface IComick {
   chapter: {
+    chap: string;
+    title: string;
     md_images: IPages[];
     md_comics: {
       id: number;

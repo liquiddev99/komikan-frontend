@@ -20,6 +20,7 @@ import {
   useComickInfo,
 } from "@/hooks/manga";
 import Link from "next/link";
+import Head from "next/head";
 
 export default function DetaiManga() {
   const [lang, setLang] = useState("en");
@@ -40,8 +41,6 @@ export default function DetaiManga() {
 
   const manga = rawManga?.data.Media;
 
-  console.log("manga", manga);
-
   function getFlagEmoji(countryCode: string) {
     let code = countryCode.slice(0, 2);
     if (code === "en") code = "gb";
@@ -53,10 +52,13 @@ export default function DetaiManga() {
     return String.fromCodePoint(...codePoints);
   }
 
-  console.log("langList", comickInfo?.langList);
-
   return (
     <div className="min-h-[90vh]">
+      <Head>
+        <title>
+          {manga?.title.english || manga?.title.romaji || "Mangazine"}
+        </title>
+      </Head>
       {manga && (
         <div className="">
           {manga.bannerImage && (

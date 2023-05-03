@@ -1,6 +1,7 @@
 import ScrollToTopButton from "@/components/chapter/ScrollToTopButton";
 import { useComickChapter } from "@/hooks/manga";
 import { IChapterInComick } from "@/types/manga";
+import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -48,8 +49,15 @@ export default function Chapter() {
     router.prefetch(`/chapter/${chapter.next.hid}`);
   }, [chapter?.next.hid]);
 
+  console.log(chapter);
   return (
     <div className="layout min-h-[80vh]">
+      <Head>
+        <title>
+          {chapter?.chapter.chap && "Chap"} {chapter?.chapter.chap}{" "}
+          {chapter?.chapter.title && " - "} {chapter?.chapter.title}
+        </title>
+      </Head>
       <div className="flex flex-col justify-center items-center">
         <div className="w-full flex justify-center items-center mb-6">
           {alId && (
