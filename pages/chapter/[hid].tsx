@@ -29,7 +29,24 @@ export default function Chapter() {
     setAlId(chapter.chapter.md_comics.links.al);
   }, [chapter?.chapter.md_comics.links.al]);
 
-  console.log(chapter);
+  useEffect(() => {
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "ArrowLeft" && chapter?.prev)
+        router.push(`/chapter/${chapter.prev.hid}`);
+      if (event.key === "ArrowRight" && chapter?.next)
+        router.push(`/chapter/${chapter.next.hid}`);
+    }
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [chapter]);
+
+  useEffect(() => {
+    if (!chapter?.next.hid) return;
+    router.prefetch(`/chapter/${chapter.next.hid}`);
+  }, [chapter?.next.hid]);
 
   return (
     <div className="layout min-h-[80vh]">
@@ -43,7 +60,6 @@ export default function Chapter() {
               Manga Info
             </Link>
           )}
-
           {chapters.length ? (
             <div className="flex items-center">
               <AiOutlineArrowLeft
@@ -64,13 +80,10 @@ export default function Chapter() {
                     router.push(`/chapter/${e.target.value}`);
                   }
                 }}
+                value={hid}
               >
                 {chapters.map((chap) => (
-                  <option
-                    value={chap.hid}
-                    key={chap.hid}
-                    selected={hid === chap.hid}
-                  >
+                  <option value={chap.hid} key={chap.hid}>
                     Chap {chap.chap} {chap.title && " - "} {chap.title}
                   </option>
                 ))}
@@ -134,13 +147,10 @@ export default function Chapter() {
                     router.push(`/chapter/${e.target.value}`);
                   }
                 }}
+                value={hid}
               >
                 {chapters.map((chap) => (
-                  <option
-                    value={chap.hid}
-                    key={chap.hid}
-                    selected={hid === chap.hid}
-                  >
+                  <option value={chap.hid} key={chap.hid}>
                     Chap {chap.chap} {chap.title && " - "} {chap.title}
                   </option>
                 ))}
