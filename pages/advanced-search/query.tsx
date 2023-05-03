@@ -71,7 +71,7 @@ export default function Query() {
       <div className="mt-8" ref={targetRef}>
         {outerListManga &&
           outerListManga.map((innerListManga) => (
-            <div key={v4()} className="container-list-manga">
+            <div key={v4()} className="container-list-manga mt-6">
               {innerListManga.map((manga) => (
                 <Link href={`/manga/${manga.id}`} key={manga.id}>
                   <div className="rounded-md flex flex-col h-full overflow-hidden">
