@@ -137,7 +137,7 @@ const mangaQuery = `
 const searchQuery = `
   query ($q: String) {
     Page(page: 1, perPage: 10) {
-      media(search: $q, type: MANGA) {
+      media(search: $q, type: MANGA, genre_not_in: ["Hentai"]) {
         id
         idMal
         title {
@@ -242,7 +242,7 @@ export function showStatus(status: string) {
   return status.charAt(0).toUpperCase() + status.slice(1).toLowerCase();
 }
 
-export async function fetchComickPages(hid: string): Promise<IComick> {
+export async function fetchComickChapter(hid: string): Promise<IComick> {
   const res = await axios.get(`https://api.comick.app/chapter/${hid}`);
   return res.data;
 }

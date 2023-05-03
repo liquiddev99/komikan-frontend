@@ -6,8 +6,8 @@ import {
   fetchTrendingManga,
   fetchComickInfo,
   fetchComickChapters,
-  fetchComickPages,
   searchManga,
+  fetchComickChapter,
 } from "../utils/manga";
 
 export function useTrendingManga() {
@@ -107,11 +107,11 @@ export function useComickChapters(
 export function useComickPages(hid: string | null | undefined) {
   const { data, isLoading, error } = useSWR(
     hid ? [`/api/comick/pages/${hid}`, hid] : null,
-    ([_, hid]) => fetchComickPages(hid)
+    ([_, hid]) => fetchComickChapter(hid)
   );
 
   return {
-    pages: data?.chapter?.md_images,
+    chapter: data,
     loading: isLoading,
     error,
   };

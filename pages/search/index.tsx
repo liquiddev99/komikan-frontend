@@ -42,7 +42,7 @@ export default function Search() {
                   />
                 </div>
                 <div className="flex flex-col flex-grow justify-between py-2">
-                  <span className="font-semibold line-clamp-2">
+                  <span className="font-semibold line-clamp-1">
                     {manga.title.english || manga.title.romaji}
                   </span>
 

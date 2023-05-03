@@ -130,7 +130,7 @@ export default function Home({ trendingManga, popularManga }: Props) {
                     />
                   </div>
                   <div className="flex flex-col flex-grow justify-between py-2">
-                    <span className="font-semibold line-clamp-2">
+                    <span className="font-semibold line-clamp-1">
                       {manga.title.english || manga.title.romaji}
                     </span>
 
@@ -172,7 +172,7 @@ export default function Home({ trendingManga, popularManga }: Props) {
                     />
                   </div>
                   <div className="flex flex-col flex-grow justify-between py-2">
-                    <span className="font-semibold">
+                    <span className="font-semibold line-clamp-1">
                       {manga.title.english || manga.title.romaji}
                     </span>
 

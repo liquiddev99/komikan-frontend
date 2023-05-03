@@ -6,15 +6,15 @@ export default function Chapter() {
   const router = useRouter();
   const hid = router.query.hid as string;
 
-  const { pages } = useComickPages(hid);
+  const { chapter } = useComickPages(hid);
 
-  console.log("pages", pages);
+  console.log(chapter);
 
   return (
     <div className="layout">
       <div className="flex flex-col justify-center items-center min-h-[60rem]">
-        {pages &&
-          pages.map((page, index) => (
+        {chapter &&
+          chapter.chapter.md_images.map((page, index) => (
             <Image
               src={`https://meo.comick.pictures/${page.b2key}`}
               alt="Page"
