@@ -107,16 +107,34 @@ interface IPages {
   h: number;
 }
 
+export interface IChapterInComick {
+  chap: string;
+  hid: string;
+  title: string;
+}
+
 export interface IComick {
   chapter: {
     md_images: IPages[];
+    md_comics: {
+      id: number;
+      links: {
+        al: string;
+      };
+    };
   };
-  chapters: {
-    chap: string;
-    hid: string;
-    title: string;
-  }[];
+  chapters: IChapterInComick[];
   langList: string[];
+  next: {
+    chap: string;
+    title: string;
+    hid: string;
+  };
+  prev: {
+    chap: string;
+    title: string;
+    hid: string;
+  };
 }
 
 export interface IChapter {

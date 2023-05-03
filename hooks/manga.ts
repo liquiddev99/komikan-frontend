@@ -104,9 +104,9 @@ export function useComickChapters(
   };
 }
 
-export function useComickPages(hid: string | null | undefined) {
+export function useComickChapter(hid: string | null | undefined) {
   const { data, isLoading, error } = useSWR(
-    hid ? [`/api/comick/pages/${hid}`, hid] : null,
+    hid ? [`/api/comick/chapter/${hid}`, hid] : null,
     ([_, hid]) => fetchComickChapter(hid)
   );
 

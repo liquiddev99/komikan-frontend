@@ -1,18 +1,99 @@
-import { useComickPages } from "@/hooks/manga";
+import ScrollToTopButton from "@/components/chapter/ScrollToTopButton";
+import { useComickChapter } from "@/hooks/manga";
+import { IChapterInComick } from "@/types/manga";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import {
+  AiOutlineLoading3Quarters,
+  AiOutlineArrowLeft,
+  AiOutlineArrowRight,
+} from "react-icons/ai";
 
 export default function Chapter() {
+  const [chapters, setChapters] = useState<IChapterInComick[]>([]);
+  const [alId, setAlId] = useState("");
   const router = useRouter();
   const hid = router.query.hid as string;
 
-  const { chapter } = useComickPages(hid);
+  const { chapter, loading: loadingChapter } = useComickChapter(hid);
+
+  useEffect(() => {
+    if (!chapter) return;
+    setChapters(chapter.chapters);
+  }, [chapter?.chapter.md_comics.id]);
+
+  useEffect(() => {
+    if (!chapter?.chapter.md_comics.links.al) return;
+    setAlId(chapter.chapter.md_comics.links.al);
+  }, [chapter?.chapter.md_comics.links.al]);
 
   console.log(chapter);
 
   return (
-    <div className="layout">
-      <div className="flex flex-col justify-center items-center min-h-[60rem]">
+    <div className="layout min-h-[80vh]">
+      <div className="flex flex-col justify-center items-center">
+        <div className="w-full flex justify-center items-center mb-6">
+          {alId && (
+            <Link
+              href={`/manga/${chapter?.chapter.md_comics.links.al}`}
+              className="px-3 py-1 rounded-md bg-sky-500 font-medium mr-4"
+            >
+              Manga Info
+            </Link>
+          )}
+
+          {chapters.length ? (
+            <div className="flex items-center">
+              <AiOutlineArrowLeft
+                className={`w-10 h-10 p-2.5 border-r border-slate-700 bg-slate-800 cursor-pointer ${
+                  !chapter?.prev
+                    ? "cursor-not-allowed text-slate-600"
+                    : "cursor-pointer"
+                }`}
+                onClick={() => {
+                  if (chapter?.prev)
+                    router.push(`/chapter/${chapter?.prev.hid}`);
+                }}
+              />
+              <select
+                className="text-slate-200 px-4 py-2 h-10 bg-slate-800 cursor-pointer"
+                onChange={(e) => {
+                  if (e.target.value) {
+                    router.push(`/chapter/${e.target.value}`);
+                  }
+                }}
+              >
+                {chapters.map((chap) => (
+                  <option
+                    value={chap.hid}
+                    key={chap.hid}
+                    selected={hid === chap.hid}
+                  >
+                    Chap {chap.chap} {chap.title && " - "} {chap.title}
+                  </option>
+                ))}
+              </select>
+              <AiOutlineArrowRight
+                className={`w-10 h-10 p-2.5 border-l border-slate-700 bg-slate-800 cursor-pointer ${
+                  !chapter?.next
+                    ? "cursor-not-allowed text-slate-600"
+                    : "cursor-pointer"
+                }`}
+                onClick={() => {
+                  if (chapter?.next)
+                    router.push(`/chapter/${chapter?.next.hid}`);
+                }}
+              />
+            </div>
+          ) : null}
+        </div>
+        {loadingChapter && (
+          <div className="min-h-[80vh]">
+            <AiOutlineLoading3Quarters className="h-12 w-12 animate-spin mt-10" />
+          </div>
+        )}
         {chapter &&
           chapter.chapter.md_images.map((page, index) => (
             <Image
@@ -24,7 +105,62 @@ export default function Chapter() {
               unoptimized
             />
           ))}
+        <div className="w-full flex justify-center items-center my-6">
+          {alId && (
+            <Link
+              href={`/manga/${chapter?.chapter.md_comics.links.al}`}
+              className="px-3 py-1 rounded-md bg-sky-500 font-medium mr-4"
+            >
+              Manga Info
+            </Link>
+          )}
+          {chapters.length ? (
+            <div className="flex items-center">
+              <AiOutlineArrowLeft
+                className={`w-10 h-10 p-2.5 border-r border-slate-700 bg-slate-800 cursor-pointer ${
+                  !chapter?.prev
+                    ? "cursor-not-allowed text-slate-600"
+                    : "cursor-pointer"
+                }`}
+                onClick={() => {
+                  if (chapter?.prev)
+                    router.push(`/chapter/${chapter?.prev.hid}`);
+                }}
+              />
+              <select
+                className="text-slate-200 px-4 py-2 h-10 bg-slate-800 cursor-pointer"
+                onChange={(e) => {
+                  if (e.target.value) {
+                    router.push(`/chapter/${e.target.value}`);
+                  }
+                }}
+              >
+                {chapters.map((chap) => (
+                  <option
+                    value={chap.hid}
+                    key={chap.hid}
+                    selected={hid === chap.hid}
+                  >
+                    Chap {chap.chap} {chap.title && " - "} {chap.title}
+                  </option>
+                ))}
+              </select>
+              <AiOutlineArrowRight
+                className={`w-10 h-10 p-2.5 border-l border-slate-700 bg-slate-800 ${
+                  !chapter?.next
+                    ? "text-slate-600 cursor-not-allowed"
+                    : "cursor-pointer"
+                }`}
+                onClick={() => {
+                  if (chapter?.next)
+                    router.push(`/chapter/${chapter?.next.hid}`);
+                }}
+              />
+            </div>
+          ) : null}
+        </div>
       </div>
+      <ScrollToTopButton />
     </div>
   );
 }
