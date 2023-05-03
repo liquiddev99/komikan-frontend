@@ -36,10 +36,10 @@ export default function Header() {
             Home
           </Link>
           <Link
-            href="#"
+            href="/advanced-search"
             className="mr-7 font-medium hover:text-pink transition-colors duration-100"
           >
-            Search
+            Advanced Search
           </Link>
           <Link
             href="#"

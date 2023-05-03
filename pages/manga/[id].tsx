@@ -350,44 +350,48 @@ export default function DetaiManga() {
                   <div className="embla mt-3 relative" ref={emblaRef}>
                     <div className="embla__container cursor-move">
                       {manga.recommendations.edges.map((recommendation) => (
-                        <div className="embla__slide__recommend mx-3 first:ml-0">
-                          <Link
-                            href={`/manga/${recommendation.node.mediaRecommendation.id}`}
-                            key={v4()}
-                          >
-                            <div className="rounded-md flex flex-col h-full overflow-hidden">
-                              <div className="flex w-full pb-[140%] relative">
-                                <Image
-                                  src={
-                                    recommendation.node.mediaRecommendation
-                                      .coverImage.large
-                                  }
-                                  alt="Cover"
-                                  fill
-                                  sizes="20vw"
-                                  className="object-cover rounded-md"
-                                />
-                              </div>
-                              <div className="flex flex-col flex-grow justify-between py-2">
-                                <span className="font-semibold line-clamp-2">
-                                  {recommendation.node.mediaRecommendation.title
-                                    .userPreferred ||
-                                    recommendation.node.mediaRecommendation
-                                      .title.english}
-                                </span>
+                        <>
+                          {recommendation.node.mediaRecommendation && (
+                            <div className="embla__slide__recommend mx-3 first:ml-0">
+                              <Link
+                                href={`/manga/${recommendation.node.mediaRecommendation.id}`}
+                                key={v4()}
+                              >
+                                <div className="rounded-md flex flex-col h-full overflow-hidden">
+                                  <div className="flex w-full pb-[140%] relative">
+                                    <Image
+                                      src={
+                                        recommendation.node.mediaRecommendation
+                                          .coverImage.large
+                                      }
+                                      alt="Cover"
+                                      fill
+                                      sizes="20vw"
+                                      className="object-cover rounded-md"
+                                    />
+                                  </div>
+                                  <div className="flex flex-col flex-grow justify-between py-2">
+                                    <span className="font-semibold line-clamp-2">
+                                      {recommendation.node.mediaRecommendation
+                                        .title.userPreferred ||
+                                        recommendation.node.mediaRecommendation
+                                          .title.english}
+                                    </span>
 
-                                <div className="mt-2">
-                                  <Status
-                                    status={
-                                      recommendation.node.mediaRecommendation
-                                        .status
-                                    }
-                                  />
+                                    <div className="mt-2">
+                                      <Status
+                                        status={
+                                          recommendation.node
+                                            .mediaRecommendation.status
+                                        }
+                                      />
+                                    </div>
+                                  </div>
                                 </div>
-                              </div>
+                              </Link>
                             </div>
-                          </Link>
-                        </div>
+                          )}
+                        </>
                       ))}
                     </div>
                     <AiOutlineArrowRight

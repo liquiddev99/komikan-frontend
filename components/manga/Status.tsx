@@ -24,6 +24,13 @@ export default function Status({ status }: Props) {
       </span>
     );
 
+  if (status === "NOT_YET_RELEASED")
+    return (
+      <span className="px-4 py-1 bg-gray-500 rounded-full text-sm text-white font-semibold">
+        {showStatus("Not yet released")}
+      </span>
+    );
+
   if (status === "CANCELLED")
     return (
       <span className="px-4 py-1 bg-gray-500 rounded-full text-sm text-white font-semibold">

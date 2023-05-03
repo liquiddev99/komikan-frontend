@@ -146,3 +146,8 @@ export interface IChapter {
   group_name: string[];
   created_at: string;
 }
+
+export interface ITag {
+  id: number;
+  name: string;
+}

@@ -8,7 +8,10 @@ import {
   fetchComickChapters,
   searchManga,
   fetchComickChapter,
+  fetchGenres,
+  fetchTags,
 } from "../utils/manga";
+import { advancedSearch } from "@/utils/search";
 
 export function useTrendingManga() {
   const { data, isLoading, error } = useSWR(
@@ -112,6 +115,45 @@ export function useComickChapter(hid: string | null | undefined) {
 
   return {
     chapter: data,
+    loading: isLoading,
+    error,
+  };
+}
+
+export function useGenres() {
+  const { data, error, isLoading } = useSWR("/api/manga/genres", fetchGenres);
+
+  return {
+    genres: data,
+    loading: isLoading,
+    error,
+  };
+}
+
+export function useTags() {
+  const { data, error, isLoading } = useSWR("/api/manga/tags", fetchTags);
+
+  return {
+    tags: data,
+    loading: isLoading,
+    error,
+  };
+}
+
+export function useAdvancedSearch(
+  genres: string[],
+  tags: string[],
+  status: string[]
+) {
+  const { data, error, isLoading } = useSWR(
+    genres || tags || status
+      ? ["/api/manga/advanced-search", genres, tags, status]
+      : null,
+    ([_, genres, tags, status]) => advancedSearch(genres, tags, status)
+  );
+
+  return {
+    manga: data,
     loading: isLoading,
     error,
   };

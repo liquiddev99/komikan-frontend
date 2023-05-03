@@ -3,6 +3,7 @@ import {
   IReturnDetailManga,
   IComick,
   IChapter,
+  ITag,
 } from "@/types/manga";
 import axios from "axios";
 
@@ -136,7 +137,7 @@ const mangaQuery = `
 
 const searchQuery = `
   query ($q: String) {
-    Page(page: 1, perPage: 10) {
+    Page(page: 1, perPage: 36) {
       media(search: $q, type: MANGA, genre_not_in: ["Hentai"]) {
         id
         idMal
@@ -152,6 +153,21 @@ const searchQuery = `
         averageScore
         favourites
       }
+    }
+  }
+`;
+
+const genreQuery = `
+  query {
+    GenreCollection
+  }
+`;
+
+const tagsQuery = `
+  query {
+    MediaTagCollection {
+      id
+      name
     }
   }
 `;
@@ -245,4 +261,18 @@ export function showStatus(status: string) {
 export async function fetchComickChapter(hid: string): Promise<IComick> {
   const res = await axios.get(`https://api.comick.app/chapter/${hid}`);
   return res.data;
+}
+
+export async function fetchGenres(): Promise<string[]> {
+  const res = await axios.post("https://graphql.anilist.co", {
+    query: genreQuery,
+  });
+  return res.data?.data?.GenreCollection;
+}
+
+export async function fetchTags(): Promise<ITag[]> {
+  const res = await axios.post("https://graphql.anilist.co", {
+    query: tagsQuery,
+  });
+  return res.data?.data?.MediaTagCollection;
 }
