@@ -4,6 +4,7 @@ import {
   IComick,
   IChapter,
   ITag,
+  IManga,
 } from "@/types/manga";
 import axios from "axios";
 
@@ -136,8 +137,8 @@ const mangaQuery = `
 `;
 
 const searchQuery = `
-  query ($q: String) {
-    Page(page: 1, perPage: 36) {
+  query ($q: String, $page: Int) {
+    Page(page: $page, perPage: 36) {
       media(search: $q, type: MANGA, genre_not_in: ["Hentai"]) {
         id
         idMal
@@ -202,12 +203,12 @@ export async function fetchDetailManga(
   return res.data;
 }
 
-export async function searchManga(q: string): Promise<IMangaList> {
+export async function searchManga(q: string, page: number): Promise<IManga[]> {
   const res = await axios.post("https://graphql.anilist.co", {
     query: searchQuery,
-    variables: { q },
+    variables: { q, page },
   });
-  return res.data;
+  return res.data?.data?.Page?.media;
 }
 
 export async function fetchComickId(malId: number) {

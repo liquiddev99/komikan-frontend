@@ -13,7 +13,7 @@ import {
   fetchTags,
 } from "../utils/manga";
 import { advancedSearch } from "@/utils/search";
-import { IManga, IMangaList } from "../types/manga";
+import { IManga } from "../types/manga";
 import { useState } from "react";
 
 export function useTrendingManga() {
@@ -50,19 +50,6 @@ export function useDetailManga(id: string) {
 
   return {
     manga: data,
-    loading: isLoading,
-    error,
-  };
-}
-
-export function useSearchManga(q: string) {
-  const { data, isLoading, error } = useSWR(
-    q ? [`/api/manga/search/${q}`, q] : null,
-    ([_, q]) => searchManga(q)
-  );
-
-  return {
-    searchedManga: data,
     loading: isLoading,
     error,
   };
@@ -140,6 +127,32 @@ export function useTags() {
     tags: data,
     loading: isLoading,
     error,
+  };
+}
+
+export function useSearchManga(q: string) {
+  const [isEnd, setIsEnd] = useState(false);
+  const { data, error, isLoading, setSize, size, isValidating } =
+    useSWRInfinite(
+      (pageIndex, previousPageData: IManga[]) => {
+        if (previousPageData && !previousPageData.length) {
+          console.log("end");
+          setIsEnd(true);
+          return null;
+        } // reached the end
+        return [`/api/manga/search?q=${q}&page=${pageIndex}`, q, pageIndex + 1];
+      },
+      ([_, q, page]) => searchManga(q, page)
+    );
+
+  return {
+    outerListManga: data,
+    setPage: setSize,
+    page: size,
+    loading: isLoading,
+    validating: isValidating,
+    error,
+    isEnd,
   };
 }
 
