@@ -49,7 +49,6 @@ export default function Chapter() {
     router.prefetch(`/chapter/${chapter.next.hid}`);
   }, [chapter?.next.hid]);
 
-  console.log(chapter);
   return (
     <div className="layout min-h-[80vh]">
       <Head>

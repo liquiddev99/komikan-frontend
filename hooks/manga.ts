@@ -11,6 +11,8 @@ import {
   fetchComickChapter,
   fetchGenres,
   fetchTags,
+  chaptersFetcher,
+  chapterFetcher,
 } from "../utils/manga";
 import { advancedSearch } from "@/utils/search";
 import { IManga } from "../types/manga";
@@ -86,8 +88,8 @@ export function useComickChapters(
   lang = "en"
 ) {
   const { data, isLoading, error } = useSWR(
-    comickId ? [`/api/comick/chapters/${comickId}`, comickId, lang] : null,
-    ([_, comickId, lang]) => fetchComickChapters(comickId, lang)
+    comickId ? `/api/chapters/${comickId}?lang=${lang}` : null,
+    chaptersFetcher
   );
 
   return {
@@ -99,8 +101,8 @@ export function useComickChapters(
 
 export function useComickChapter(hid: string | null | undefined) {
   const { data, isLoading, error } = useSWR(
-    hid ? [`/api/comick/chapter/${hid}`, hid] : null,
-    ([_, hid]) => fetchComickChapter(hid)
+    hid ? `/api/chapter/${hid}` : null,
+    chapterFetcher
   );
 
   return {
@@ -136,7 +138,6 @@ export function useSearchManga(q: string) {
     useSWRInfinite(
       (pageIndex, previousPageData: IManga[]) => {
         if (previousPageData && !previousPageData.length) {
-          console.log("end");
           setIsEnd(true);
           return null;
         } // reached the end

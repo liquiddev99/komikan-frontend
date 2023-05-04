@@ -179,6 +179,16 @@ const popularity = "POPULARITY_DESC";
 const trendingQuery = queryFactory(trending, 30);
 const popularityQuery = queryFactory(popularity, 30);
 
+export async function chaptersFetcher(url: string): Promise<IChapter[]> {
+  const res = await axios.get(url);
+  return res.data;
+}
+
+export async function chapterFetcher(url: string): Promise<IComick> {
+  const res = await axios.get(url);
+  return res.data;
+}
+
 export async function fetchTrendingManga(): Promise<IMangaList> {
   const res = await axios.post("https://graphql.anilist.co", {
     query: trendingQuery,
