@@ -6,13 +6,12 @@ import {
   fetchPopularManga,
   fetchTrendingManga,
   fetchComickInfo,
-  fetchComickChapters,
   searchManga,
-  fetchComickChapter,
   fetchGenres,
   fetchTags,
   chaptersFetcher,
   chapterFetcher,
+  comickInfoFetcher,
 } from "../utils/manga";
 import { advancedSearch } from "@/utils/search";
 import { IManga } from "../types/manga";
@@ -59,8 +58,8 @@ export function useDetailManga(id: string) {
 
 export function useComickId(malId: number | null | undefined) {
   const { data, isLoading, error } = useSWR(
-    malId ? [`/api/comick/${malId}`, malId] : null,
-    ([_, malId]) => fetchComickId(malId)
+    malId ? `/api/mal/${malId}` : null,
+    fetchComickId
   );
 
   return {
@@ -72,8 +71,8 @@ export function useComickId(malId: number | null | undefined) {
 
 export function useComickInfo(comickId: string | null | undefined) {
   const { data, isLoading, error } = useSWR(
-    comickId ? [`/api/comick/info/${comickId}`, comickId] : null,
-    ([_, comickId]) => fetchComickInfo(comickId)
+    comickId ? `/api/comick/info/${comickId}` : null,
+    comickInfoFetcher
   );
 
   return {
@@ -88,7 +87,7 @@ export function useComickChapters(
   lang = "en"
 ) {
   const { data, isLoading, error } = useSWR(
-    comickId ? `/api/chapters/${comickId}?lang=${lang}` : null,
+    comickId ? `/api/comick/chapters/${comickId}?lang=${lang}` : null,
     chaptersFetcher
   );
 
@@ -101,7 +100,7 @@ export function useComickChapters(
 
 export function useComickChapter(hid: string | null | undefined) {
   const { data, isLoading, error } = useSWR(
-    hid ? `/api/chapter/${hid}` : null,
+    hid ? `/api/comick/chapter/${hid}` : null,
     chapterFetcher
   );
 

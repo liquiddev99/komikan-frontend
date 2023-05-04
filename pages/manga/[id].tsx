@@ -125,7 +125,9 @@ export default function DetaiManga() {
                   Synonyms
                 </div>
                 {manga.synonyms.map((synonym) => (
-                  <p className="truncate">{synonym}</p>
+                  <p className="truncate" key={v4()}>
+                    {synonym}
+                  </p>
                 ))}
               </div>
 
@@ -134,7 +136,9 @@ export default function DetaiManga() {
                   Tags
                 </div>
                 {manga.tags.map((tag) => (
-                  <p className="truncate">{tag.name}</p>
+                  <p className="truncate" key={v4()}>
+                    {tag.name}
+                  </p>
                 ))}
               </div>
 
@@ -193,13 +197,13 @@ export default function DetaiManga() {
                         setLang(e.target.value);
                       }
                     }}
+                    defaultValue=""
+                    value={lang}
                   >
-                    <option value="" selected>
-                      Select Language
-                    </option>
+                    <option value="">Select Language</option>
                     {comickInfo &&
                       comickInfo.langList.map((lang) => (
-                        <option value={lang}>
+                        <option value={lang} key={v4()}>
                           {getFlagEmoji(lang)} {lang}
                         </option>
                       ))}
@@ -273,7 +277,7 @@ export default function DetaiManga() {
                   </div>
                   <div className="grid grid-cols-3 gap-5">
                     {manga.characters.edges.slice(0, 9).map((character) => (
-                      <div className="flex">
+                      <div className="flex" key={v4()}>
                         <Image
                           src={character.node.image.large}
                           className="mr-3 object-cover"
@@ -302,7 +306,7 @@ export default function DetaiManga() {
                   </div>
                   <div className="grid grid-cols-3 gap-5">
                     {manga.staff.edges.slice(0, 9).map((staff) => (
-                      <div className="flex">
+                      <div className="flex" key={v4()}>
                         <Image
                           src={staff.node.image.large}
                           className="mr-3 object-cover"
@@ -350,48 +354,49 @@ export default function DetaiManga() {
                   <div className="embla mt-3 relative" ref={emblaRef}>
                     <div className="embla__container cursor-move">
                       {manga.recommendations.edges.map((recommendation) => (
-                        <>
+                        <div
+                          className="embla__slide__recommend mx-3 first:ml-0"
+                          key={v4()}
+                        >
                           {recommendation.node.mediaRecommendation && (
-                            <div className="embla__slide__recommend mx-3 first:ml-0">
-                              <Link
-                                href={`/manga/${recommendation.node.mediaRecommendation.id}`}
-                                key={v4()}
-                              >
-                                <div className="rounded-md flex flex-col h-full overflow-hidden">
-                                  <div className="flex w-full pb-[140%] relative">
-                                    <Image
-                                      src={
+                            <Link
+                              href={`/manga/${recommendation.node.mediaRecommendation.id}`}
+                              key={v4()}
+                            >
+                              <div className="rounded-md flex flex-col h-full overflow-hidden">
+                                <div className="flex w-full pb-[140%] relative">
+                                  <Image
+                                    src={
+                                      recommendation.node.mediaRecommendation
+                                        .coverImage.large
+                                    }
+                                    alt="Cover"
+                                    fill
+                                    sizes="20vw"
+                                    className="object-cover rounded-md"
+                                  />
+                                </div>
+                                <div className="flex flex-col flex-grow justify-between py-2">
+                                  <span className="font-semibold line-clamp-2">
+                                    {recommendation.node.mediaRecommendation
+                                      .title.userPreferred ||
+                                      recommendation.node.mediaRecommendation
+                                        .title.english}
+                                  </span>
+
+                                  <div className="mt-2">
+                                    <Status
+                                      status={
                                         recommendation.node.mediaRecommendation
-                                          .coverImage.large
+                                          .status
                                       }
-                                      alt="Cover"
-                                      fill
-                                      sizes="20vw"
-                                      className="object-cover rounded-md"
                                     />
                                   </div>
-                                  <div className="flex flex-col flex-grow justify-between py-2">
-                                    <span className="font-semibold line-clamp-2">
-                                      {recommendation.node.mediaRecommendation
-                                        .title.userPreferred ||
-                                        recommendation.node.mediaRecommendation
-                                          .title.english}
-                                    </span>
-
-                                    <div className="mt-2">
-                                      <Status
-                                        status={
-                                          recommendation.node
-                                            .mediaRecommendation.status
-                                        }
-                                      />
-                                    </div>
-                                  </div>
                                 </div>
-                              </Link>
-                            </div>
+                              </div>
+                            </Link>
                           )}
-                        </>
+                        </div>
                       ))}
                     </div>
                     <AiOutlineArrowRight

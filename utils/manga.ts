@@ -189,6 +189,11 @@ export async function chapterFetcher(url: string): Promise<IComick> {
   return res.data;
 }
 
+export async function comickInfoFetcher(url: string): Promise<IComick> {
+  const res = await axios.get(url);
+  return res.data;
+}
+
 export async function fetchTrendingManga(): Promise<IMangaList> {
   const res = await axios.post("https://graphql.anilist.co", {
     query: trendingQuery,
@@ -221,8 +226,8 @@ export async function searchManga(q: string, page: number): Promise<IManga[]> {
   return res.data?.data?.Page?.media;
 }
 
-export async function fetchComickId(malId: number) {
-  const res = await axios.get(`/api/comick?malId=${malId}`);
+export async function fetchComickId(url: string) {
+  const res = await axios.get(url);
   return res.data;
 }
 
