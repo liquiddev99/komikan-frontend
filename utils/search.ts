@@ -1,5 +1,5 @@
 import axios from "axios";
-import { IManga, IMangaList } from "@/types/manga";
+import { IManga } from "@/types/manga";
 
 function searchQuery(genres: string[], tags: string[], status: string[]) {
   return `

@@ -197,7 +197,6 @@ export default function DetaiManga() {
                         setLang(e.target.value);
                       }
                     }}
-                    defaultValue=""
                     value={lang}
                   >
                     <option value="">Select Language</option>
