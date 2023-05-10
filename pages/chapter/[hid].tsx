@@ -45,9 +45,9 @@ export default function Chapter() {
   }, [chapter]);
 
   useEffect(() => {
-    if (!chapter?.next.hid) return;
+    if (!chapter?.next?.hid) return;
     router.prefetch(`/chapter/${chapter.next.hid}`);
-  }, [chapter?.next.hid]);
+  }, [chapter?.next?.hid]);
 
   return (
     <div className="layout min-h-[80vh]">
