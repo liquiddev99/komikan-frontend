@@ -5,7 +5,6 @@ import {
   fetchComickId,
   fetchPopularManga,
   fetchTrendingManga,
-  fetchComickInfo,
   searchManga,
   fetchGenres,
   fetchTags,

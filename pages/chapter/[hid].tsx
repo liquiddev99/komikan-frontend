@@ -1,6 +1,8 @@
 import ScrollToTopButton from "@/components/chapter/ScrollToTopButton";
+import { useAuth } from "@/hooks/auth";
 import { useComickChapter } from "@/hooks/manga";
 import { IChapterInComick } from "@/types/manga";
+import { saveHistoryUnAuth } from "@/utils/history";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
@@ -18,7 +20,18 @@ export default function Chapter() {
   const router = useRouter();
   const hid = router.query.hid as string;
 
+  const { authenticated } = useAuth();
   const { chapter, loading: loadingChapter } = useComickChapter(hid);
+
+  useEffect(() => {
+    if (!chapter || authenticated) return;
+    saveHistoryUnAuth({
+      coverImage: `https://meo.comick.pictures/${chapter.chapter?.md_comics?.md_covers[0]?.b2key}`,
+      mangaId: chapter.chapter.md_comics.links.al,
+      title: chapter.chapter.md_comics.title,
+      readingChapter: { chap: chapter.chapter.chap, path: router.asPath },
+    });
+  }, [chapter]);
 
   useEffect(() => {
     if (!chapter) return;

@@ -42,6 +42,12 @@ export default function Header() {
             Advanced Search
           </Link>
           <Link
+            href="/history"
+            className="mr-7 font-medium hover:text-pink transition-colors duration-100"
+          >
+            History
+          </Link>
+          <Link
             href="#"
             className="mr-7 font-medium hover:text-pink transition-colors duration-100"
           >

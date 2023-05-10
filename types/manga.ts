@@ -119,7 +119,9 @@ export interface IComick {
     title: string;
     md_images: IPages[];
     md_comics: {
+      md_covers: { b2key: string; w: number; h: number }[];
       id: number;
+      title: string;
       links: {
         al: string;
       };
@@ -150,4 +152,12 @@ export interface IChapter {
 export interface ITag {
   id: number;
   name: string;
+}
+
+export interface IHistoryManga {
+  userId?: string;
+  mangaId: string;
+  coverImage: string;
+  title: string;
+  readingChapter: { chap: string; path: string };
 }
