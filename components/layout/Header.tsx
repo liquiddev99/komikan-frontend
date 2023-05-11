@@ -48,7 +48,7 @@ export default function Header() {
             History
           </Link>
           <Link
-            href="#"
+            href="/about"
             className="mr-7 font-medium hover:text-pink transition-colors duration-100"
           >
             About Us
