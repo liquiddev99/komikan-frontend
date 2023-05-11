@@ -17,12 +17,11 @@ export default function About() {
         <div className="max-w-3xl mx-auto text-slate-300 flex flex-col items-center text-[1.1rem]">
           <Image alt="Logo" src={Logo} width={300} />
           <p className="mt-4">
-            Dear manga lovers! Are you struggling to discover new manga to
-            indulge in? Have you exhausted all the manga within your preferred
-            genre and yearn for similar captivating stories? Just like you, I'm
-            an avid reader who comprehends the pang of disappointment that
-            arises after completing a beloved manga and the subsequent challenge
-            of unearthing books within my favored genre.{" "}
+            Are you struggling to discover new manga to read and feel disappoint
+            after completing a beloved manga and want to find others that
+            similar to the finished one? Just like you, I'm an avid reader who
+            comprehends that feeling after finished my favourite manga and the
+            challenge of unearthing manga within my favored genre.{" "}
           </p>
           <Image src={SadMeme} alt="Sad" width={330} className="mt-4" />
           <p className="mt-4">
@@ -35,8 +34,8 @@ export default function About() {
           </p>
           <Image src={HappyMeme} alt="Sad" width={330} className="mt-4" />
           <p className="mt-4">
-            I sincerely hope you enjoy the experience of reading manga on
-            Mangazine and stumble upon tales that ignite your passion.
+            I hope you enjoy the experience of reading manga on Mangazine and
+            can find your favorite manga to immerse yourself in it.
             <br /> Happy reading!
           </p>
         </div>
@@ -45,10 +44,8 @@ export default function About() {
         <div className="layout text-center max-w-3xl flex flex-col items-center">
           <h2 className="text-[2.5rem] font-bold">Support our Passion</h2>
           <p className="mt-2 text-slate-400">
-            By contributing to our platform, you are not only supporting the
-            growth and sustainability of Mangazine, but you are also directly
-            helping us to bring more amazing manga titles to our readers,
-            enhancing the overall manga experience for everyone involved.
+            Contribute together to our platform to help us maintain the server
+            and develop the app further, your help means a lot to us
           </p>
           <div className="mt-6 flex">
             <div className="relative mr-4">
@@ -68,6 +65,16 @@ export default function About() {
                 <Image src={Kofi} alt="Kofi" className="mr-1" width={40} />
                 Support Mangazine
               </button>
+              <div className="mt-2">
+                <a
+                  href="https://ko-fi.com/V7V5L69QP"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-slate-400"
+                >
+                  Visit us on Ko-fi
+                </a>
+              </div>
             </div>
           </div>
         </div>
