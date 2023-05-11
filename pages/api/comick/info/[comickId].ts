@@ -13,6 +13,7 @@ export default async function handler(
 
     return res.status(200).json(chapter);
   } catch (err) {
+    console.log(err)
     return res.status(400).json({ msg: "Failed to get Comick Info" });
   }
 }

@@ -12,18 +12,6 @@ export default function About() {
     <div>
       <Head>
         <title>About Us</title>
-        <script
-          data-name="BMC-Widget"
-          data-cfasync="false"
-          src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
-          data-id="liquiddev99"
-          data-description="Support me on Buy me a coffee!"
-          data-message="Thank you for taking the time to get to know me and for considering supporting Mangazine"
-          data-color="#FF5F5F"
-          data-position="Right"
-          data-x_margin="18"
-          data-y_margin="18"
-        ></script>
       </Head>
       <div className="layout min-h-screen">
         <div className="max-w-3xl mx-auto text-slate-300 flex flex-col items-center text-[1.1rem]">
