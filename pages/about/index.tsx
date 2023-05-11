@@ -55,32 +55,19 @@ export default function About() {
               <iframe
                 id="kofiframe"
                 src="https://ko-fi.com/liquiddev99/?hidefeed=true&widget=true&embed=true&preview=true"
-                className={`border-0 w-[330px] p-2 bg-[#f9f9f9] rounded-lg absolute bottom-[125%] left-0 transition-all origin-bottom-left duration-[400ms] ${
+                className={`border-0 w-[330px] p-2 bg-[#f9f9f9] rounded-lg absolute bottom-[125%] right-[-25%] transition-all origin-bottom duration-[420ms] ${
                   kofi ? "scale-100 opacity-100" : "scale-0 opacity-0"
                 }`}
                 height="650"
                 title="liquiddev99"
               ></iframe>
               <button
-                className="flex items-center rounded-full bg-[#FF5F5F] px-4 font-semibold"
+                className="flex items-center rounded-full bg-[#FF5F5F] px-4 font-bold"
                 onClick={() => setKofi(!kofi)}
               >
                 <Image src={Kofi} alt="Kofi" className="mr-1" width={40} />
-                Support me
+                Support Mangazine
               </button>
-            </div>
-
-            <div className="rounded-full">
-              <a
-                href="https://www.buymeacoffee.com/liquiddev99"
-                target="_blank"
-              >
-                <img
-                  src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png"
-                  alt="Buy Me A Coffee"
-                  className="h-[40px] w-[170px] rounded-full"
-                />
-              </a>
             </div>
           </div>
         </div>

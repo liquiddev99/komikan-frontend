@@ -11,9 +11,6 @@ import {
   chaptersFetcher,
   chapterFetcher,
   comickInfoFetcher,
-  fetchComickInfo,
-  fetchComickChapter,
-  fetchComickChapters,
 } from "../utils/manga";
 import { advancedSearch } from "@/utils/search";
 import { IManga } from "../types/manga";
@@ -73,8 +70,8 @@ export function useComickId(malId: number | null | undefined) {
 
 export function useComickInfo(comickId: string | null | undefined) {
   const { data, isLoading, error } = useSWR(
-    comickId ? [`/api/comick/info/${comickId}`, comickId] : null,
-    ([_, comickId]) => fetchComickInfo(comickId)
+    comickId ? `/api/comick/info/${comickId}` : null,
+    comickInfoFetcher
   );
 
   return {
@@ -89,7 +86,8 @@ export function useComickChapters(
   lang = "en"
 ) {
   const { data, isLoading, error } = useSWR(
-    comickId ? [`/api/comick/chapters/${comickId}?lang=${lang}`, comickId, lang] : null, (([_, comickId, lang]) => fetchComickChapters(comickId, lang))
+    comickId ? `/api/comick/chapters/${comickId}?lang=${lang}` : null,
+    chaptersFetcher
   );
 
   return {
