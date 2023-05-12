@@ -17,7 +17,7 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "cdn.buymeacoffee.com",
+        hostname: "uploads.mangadex.org",
         port: "",
         pathname: "/**/**",
       },
