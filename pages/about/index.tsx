@@ -14,26 +14,6 @@ export default function About() {
         <title>About Us</title>
       </Head>
       <div className="layout min-h-screen">
-        <img
-          src="https://uploads.mangadex.org/data-saver/fa965ac971d3ea4756e5a1dfcea10bab/D1-10ac8fb56bbcfb99f94dc9ff243c90b501a9d8ab78a83fb8044f448a81a10a9c.jpg"
-          alt="Oshi no Ko"
-        />
-        <img
-          src="https://uploads.mangadex.org/data-saver/c4b894636fa1a324dba775b0df88bd23/1-887da255d5f786ec3784f4885a4f1c7740c2e03048206472e946551f21714a59.jpg"
-          alt="Oshi no Ko"
-        />
-        <Image
-          src="https://uploads.mangadex.org/data-saver/fa965ac971d3ea4756e5a1dfcea10bab/D1-10ac8fb56bbcfb99f94dc9ff243c90b501a9d8ab78a83fb8044f448a81a10a9c.jpg"
-          alt="Oshi no Ko"
-          width={800}
-          height={1300}
-        />
-        <Image
-          src="https://uploads.mangadex.org/data-saver/c4b894636fa1a324dba775b0df88bd23/1-887da255d5f786ec3784f4885a4f1c7740c2e03048206472e946551f21714a59.jpg"
-          alt="Oshi no Ko"
-          width={800}
-          height={1300}
-        />
         <div className="max-w-3xl mx-auto text-slate-300 flex flex-col items-center text-[1.1rem]">
           <Image alt="Logo" src={Logo} width={300} />
           <p className="mt-4">
