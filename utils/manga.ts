@@ -5,6 +5,7 @@ import {
   IChapter,
   ITag,
   IManga,
+  IDetailManga,
 } from "@/types/manga";
 import axios from "axios";
 
@@ -208,14 +209,12 @@ export async function fetchPopularManga(): Promise<IMangaList> {
   return res.data;
 }
 
-export async function fetchDetailManga(
-  id: string
-): Promise<IReturnDetailManga> {
+export async function fetchDetailManga(id: string): Promise<IDetailManga> {
   const res = await axios.post("https://graphql.anilist.co", {
     query: mangaQuery,
     variables: { id },
   });
-  return res.data;
+  return res.data?.data?.Media;
 }
 
 export async function searchManga(q: string, page: number): Promise<IManga[]> {

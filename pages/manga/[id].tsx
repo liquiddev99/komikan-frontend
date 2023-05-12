@@ -21,6 +21,7 @@ import {
 } from "@/hooks/manga";
 import Link from "next/link";
 import Head from "next/head";
+import DetailMangaSkeleton from "@/components/skeleton/DetailMangaSkeleton";
 
 export default function DetaiManga() {
   const [lang, setLang] = useState("en");
@@ -31,15 +32,13 @@ export default function DetaiManga() {
     containScroll: "trimSnaps",
   });
 
-  const { manga: rawManga } = useDetailManga(id);
-  const { comickId } = useComickId(rawManga?.data.Media.idMal);
+  const { manga, loading } = useDetailManga(id);
+  const { comickId } = useComickId(manga?.idMal);
   const { comickInfo } = useComickInfo(comickId);
   const { chapters, loading: loadingChapters } = useComickChapters(
     comickId,
     lang
   );
-
-  const manga = rawManga?.data.Media;
 
   function getFlagEmoji(countryCode: string) {
     let code = countryCode.slice(0, 2);
@@ -59,6 +58,7 @@ export default function DetaiManga() {
           {manga?.title.english || manga?.title.romaji || "Mangazine"}
         </title>
       </Head>
+      {loading && <DetailMangaSkeleton />}
       {manga && (
         <div className="">
           {manga.bannerImage && (
