@@ -7,14 +7,23 @@ interface IProps {
 }
 
 export default function ChapterImage({ src, alt }: IProps) {
+  const [hide, setHide] = useState(true);
   const [width, setWidth] = useState(800);
   const [height, setHeight] = useState(1300);
+  const [retry, setRetry] = useState(0);
+
+  function handleError() {
+    if (retry > 5) return;
+    setRetry(retry + 1);
+  }
+
   return (
     <Image
       src={src}
       alt={alt}
       width={width}
       height={height}
+      className={`${hide ? "opacity-0" : ""}`}
       onLoadingComplete={(img) => {
         setWidth(
           img.naturalWidth >= 500 && img.naturalWidth < img.naturalHeight
@@ -26,7 +35,9 @@ export default function ChapterImage({ src, alt }: IProps) {
             ? img.naturalHeight * 1.5
             : img.naturalHeight * 2
         );
+        setHide(false);
       }}
+      onError={handleError}
     />
   );
 }
