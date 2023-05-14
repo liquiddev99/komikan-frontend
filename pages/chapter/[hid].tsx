@@ -128,11 +128,12 @@ export default function Chapter() {
           </div>
         )}
         {images &&
-          images.chapter.dataSaver.map((image) => (
+          images.chapter.dataSaver.map((image, index) => (
             <ChapterImage
               key={image}
               src={`https://uploads.mangadex.org/data-saver/${images.chapter.hash}/${image}`}
               alt="Image"
+              priority={index > 5 ? true : false}
             />
           ))}
         <div className="w-full flex justify-center items-center my-6">
