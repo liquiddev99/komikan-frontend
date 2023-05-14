@@ -13,17 +13,13 @@ import { v4 } from "uuid";
 import useEmblaCarousel from "embla-carousel-react";
 
 import Status from "@/components/manga/Status";
-import {
-  useDetailManga,
-  useComickId,
-  useComickChapters,
-  useComickInfo,
-} from "@/hooks/manga";
+import { useDetailManga } from "@/hooks/manga";
 import Link from "next/link";
 import Head from "next/head";
 import DetailMangaSkeleton from "@/components/skeleton/DetailMangaSkeleton";
+import { useDexChapters, useDexId, useMangadexInfo } from "@/hooks/mangadex";
 
-export default function DetaiManga() {
+export default function DetailManga() {
   const [lang, setLang] = useState("en");
   const router = useRouter();
   const id = router.query.id as string;
@@ -33,10 +29,10 @@ export default function DetaiManga() {
   });
 
   const { manga, loading } = useDetailManga(id);
-  const { comickId } = useComickId(manga?.idMal);
-  const { comickInfo } = useComickInfo(comickId);
-  const { chapters, loading: loadingChapters } = useComickChapters(
-    comickId,
+  const { mangaDexId } = useDexId(manga?.idMal);
+  const { mangadex } = useMangadexInfo(mangaDexId);
+  const { chapters: dexChapters, loading: loadingChapters } = useDexChapters(
+    mangaDexId,
     lang
   );
 
@@ -200,12 +196,14 @@ export default function DetaiManga() {
                     value={lang}
                   >
                     <option value="">Select Language</option>
-                    {comickInfo &&
-                      comickInfo.langList.map((lang) => (
-                        <option value={lang} key={v4()}>
-                          {getFlagEmoji(lang)} {lang}
-                        </option>
-                      ))}
+                    {mangadex &&
+                      mangadex.attributes.availableTranslatedLanguages.map(
+                        (lang) => (
+                          <option value={lang} key={v4()}>
+                            {getFlagEmoji(lang)} {lang}
+                          </option>
+                        )
+                      )}
                   </select>
                 </div>
 
@@ -214,11 +212,11 @@ export default function DetaiManga() {
                     <AiOutlineLoading3Quarters className="h-14 w-14 animate-spin" />
                   </div>
                 )}
-                {!loadingChapters && !chapters?.length && (
+                {!loadingChapters && !dexChapters?.length && (
                   <div>No chapters found</div>
                 )}
                 <div className="overflow-y-auto max-h-[30rem]">
-                  {chapters?.length ? (
+                  {dexChapters?.length ? (
                     <div>
                       <table className="w-full">
                         <thead className="sticky top-0 bg-bg-color">
@@ -231,33 +229,30 @@ export default function DetaiManga() {
                           </tr>
                         </thead>
                         <tbody>
-                          {chapters
-                            .filter((chapter) => chapter.chap)
+                          {dexChapters
+                            .filter((chapter) => chapter.attributes.chapter)
                             .map((chapter) => (
                               <tr
                                 className="hover:bg-slate-700 cursor-pointer"
-                                key={chapter.hid}
+                                key={chapter.id}
                                 onClick={() =>
-                                  router.push(`/chapter/${chapter.hid}`)
+                                  router.push(`/chapter/${chapter.id}`)
                                 }
                               >
                                 <td className="border-b border-slate-500 hover:bg-slate-700">
                                   <div className="flex justify-between py-2 px-3">
                                     <div>
-                                      Chapter {chapter.chap}{" "}
-                                      {chapter.title && "-"} {chapter.title}
+                                      Chapter {chapter.attributes.chapter}{" "}
+                                      {chapter.attributes.title && "-"}{" "}
+                                      {chapter.attributes.title}
                                     </div>
                                   </div>
                                 </td>
+                                <td className="py-2 pl-3 border-b border-slate-500"></td>
                                 <td className="py-2 pl-3 border-b border-slate-500">
-                                  {chapter?.group_name?.length > 0 ? (
-                                    <div>{chapter.group_name[0]}</div>
-                                  ) : null}
-                                </td>
-                                <td className="py-2 pl-3 border-b border-slate-500">
-                                  {chapter.created_at &&
+                                  {chapter.attributes.createdAt &&
                                     new Intl.DateTimeFormat("en-GB").format(
-                                      new Date(chapter.created_at)
+                                      new Date(chapter.attributes.createdAt)
                                     )}
                                 </td>
                               </tr>

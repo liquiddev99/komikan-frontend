@@ -1,12 +1,12 @@
 import {
   IMangaList,
-  IReturnDetailManga,
   IComick,
   IChapter,
   ITag,
   IManga,
   IDetailManga,
 } from "@/types/manga";
+import { IChapterDex } from "@/types/mangadex";
 import axios from "axios";
 
 function queryFactory(sortType: string, perPage: number) {
@@ -180,7 +180,22 @@ const popularity = "POPULARITY_DESC";
 const trendingQuery = queryFactory(trending, 30);
 const popularityQuery = queryFactory(popularity, 30);
 
+export async function fetcher(url: string) {
+  const res = await axios.get(url);
+  return res.data;
+}
+
+export async function genericFetcher<Type>(url: string): Promise<Type> {
+  const res = await axios.get(url);
+  return res.data;
+}
+
 export async function chaptersFetcher(url: string): Promise<IChapter[]> {
+  const res = await axios.get(url);
+  return res.data;
+}
+
+export async function chaptersDexFetcher(url: string): Promise<IChapterDex[]> {
   const res = await axios.get(url);
   return res.data;
 }
@@ -225,14 +240,47 @@ export async function searchManga(q: string, page: number): Promise<IManga[]> {
   return res.data?.data?.Page?.media;
 }
 
-export async function fetchComickId(url: string) {
-  const res = await axios.get(url);
-  return res.data;
-}
-
 export async function fetchComickInfo(comickId: string): Promise<IComick> {
   const res = await axios.get(`https://api.comick.app/comic/${comickId}`);
   return res.data;
+}
+
+export async function fetchDexChapters(
+  mangadexId: string,
+  lang: string
+): Promise<IChapterDex[]> {
+  const res = await axios.get(
+    `https://api.mangadex.org/manga/${mangadexId}/feed?translatedLanguage[]=${lang}&limit=300&order[chapter]=desc`
+  );
+
+  let chapters = [...res.data?.data];
+
+  if (res.data?.total > 300) {
+    const count = Math.ceil(res.data.total / 300);
+    const promises = [];
+    for (let i = 2; i <= count; i++) {
+      const offset = (i - 1) * 300;
+      promises.push(
+        axios
+          .get(
+            `https://api.mangadex.org/manga/${mangadexId}/feed?translatedLanguage[]=${lang}&limit=300&order[chapter]=desc&offset=${offset}`
+          )
+          .then((res) => {
+            chapters.push(...res.data?.data);
+          })
+      );
+    }
+
+    await Promise.all(promises);
+  }
+
+  chapters = chapters.filter((chapter) => chapter.attributes.pages > 0);
+
+  chapters.sort(
+    (a, b) => Number(b?.attributes.chapter) - Number(a?.attributes.chapter)
+  );
+
+  return chapters;
 }
 
 export async function fetchComickChapters(

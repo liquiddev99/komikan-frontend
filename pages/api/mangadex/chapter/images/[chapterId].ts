@@ -7,14 +7,14 @@ export default async function handler(
   res: NextApiResponse
 ) {
   try {
-    const malId = req.query.malId;
+    const chapterId = req.query.chapterId;
     const response = await axios.get(
-      `https://api.malsync.moe/mal/manga/${malId}`
+      `https://api.mangadex.org/at-home/server/${chapterId}`
     );
-    const malComick = response.data?.Sites?.Comick;
-    const comickId = Object.keys(malComick)[0];
-    return res.status(200).json({ comickId });
+
+    const chapter = response.data.chapter;
+    return res.status(200).json({ chapter });
   } catch (err) {
-    return res.status(400).json({ msg: "Failed to get Comick Info" });
+    return res.status(400).json({ msg: "Failed to get Mangadex Info" });
   }
 }

@@ -2,7 +2,7 @@ import useSWR from "swr";
 import useSWRInfinite from "swr/infinite";
 import {
   fetchDetailManga,
-  fetchComickId,
+  fetcher,
   fetchPopularManga,
   fetchTrendingManga,
   searchManga,
@@ -57,8 +57,8 @@ export function useDetailManga(id: string) {
 
 export function useComickId(malId: number | null | undefined) {
   const { data, isLoading, error } = useSWR(
-    malId ? `/api/mal/${malId}` : null,
-    fetchComickId
+    malId ? `/api/mal/comick/${malId}` : null,
+    fetcher
   );
 
   return {

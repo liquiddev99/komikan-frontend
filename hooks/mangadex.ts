@@ -1,0 +1,59 @@
+import { IChapterImages, IMangaDex } from "@/types/mangadex";
+import { chaptersDexFetcher, fetcher, genericFetcher } from "@/utils/manga";
+import useSWR from "swr";
+
+export function useDexId(malId: number | null | undefined) {
+  const { data, isLoading, error } = useSWR(
+    malId ? `/api/mal/mangadex/${malId}` : null,
+    fetcher
+  );
+
+  return {
+    mangaDexId: data?.mangaDexId,
+    loading: isLoading,
+    error,
+  };
+}
+
+export function useDexChapters(
+  mangadexId: string | null | undefined,
+  lang = "en"
+) {
+  const { data, isLoading, error } = useSWR(
+    mangadexId ? `/api/mangadex/chapters/${mangadexId}?lang=${lang}` : null,
+    chaptersDexFetcher
+  );
+
+  return {
+    chapters: data,
+    loading: isLoading,
+    error,
+  };
+}
+
+export function useImagesChapter(chapterId: string) {
+  const { data, isLoading, error } = useSWR(
+    chapterId ? `/api/mangadex/chapter/images/${chapterId}` : null,
+    genericFetcher<IChapterImages>
+  );
+
+  return {
+    images: data,
+    loading: isLoading,
+    error,
+  };
+}
+
+export function useMangadexInfo(mangaId: string) {
+  const { data: mangadex, isLoading, error } = useSWR(
+    mangaId ? `/api/mangadex/manga/info/${mangaId}` : null,
+    genericFetcher<IMangaDex>
+  );
+
+  return {
+    mangadex,
+    loading: isLoading,
+    error,
+  };
+
+}
