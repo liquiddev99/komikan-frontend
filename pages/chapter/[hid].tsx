@@ -1,18 +1,13 @@
 import ChapterImage from "@/components/chapter/ChapterImage";
 import ScrollToTopButton from "@/components/chapter/ScrollToTopButton";
-import { useAuth } from "@/hooks/auth";
-import { useComickChapter } from "@/hooks/manga";
 import {
   useChapterInfo,
   useDexChapters,
   useImagesChapter,
   useMangadexInfo,
 } from "@/hooks/mangadex";
-import { IChapterInComick } from "@/types/manga";
 import { IChapterDex } from "@/types/mangadex";
-import { saveHistoryUnAuth } from "@/utils/history";
 import Head from "next/head";
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -30,7 +25,6 @@ export default function Chapter() {
   const router = useRouter();
   const hid = router.query.hid as string;
 
-  const { authenticated } = useAuth();
   const { chapter } = useChapterInfo(hid);
   const mangadexId = chapter?.relationships.find(
     (item) => item["type"] === "manga"

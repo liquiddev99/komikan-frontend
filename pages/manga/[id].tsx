@@ -1,13 +1,8 @@
-import { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { FaSmile, FaHeart } from "react-icons/fa";
-import {
-  AiOutlineLoading3Quarters,
-  AiOutlineArrowLeft,
-  AiOutlineArrowRight,
-} from "react-icons/ai";
-import { IoLibraryOutline, IoLanguage } from "react-icons/io5";
+import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
+import { IoLibraryOutline } from "react-icons/io5";
 import { FcCalendar } from "react-icons/fc";
 import { v4 } from "uuid";
 import useEmblaCarousel from "embla-carousel-react";
@@ -17,11 +12,10 @@ import { useDetailManga } from "@/hooks/manga";
 import Link from "next/link";
 import Head from "next/head";
 import DetailMangaSkeleton from "@/components/skeleton/DetailMangaSkeleton";
-import { useDexChapters, useDexId, useMangadexInfo } from "@/hooks/mangadex";
+import { useDexId } from "@/hooks/mangadex";
 import ListChapters from "@/components/manga/ListChapters";
 
 export default function DetailManga() {
-  const [lang, setLang] = useState("en");
   const router = useRouter();
   const id = router.query.id as string;
   const [emblaRef, embla] = useEmblaCarousel({

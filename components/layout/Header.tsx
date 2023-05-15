@@ -3,9 +3,11 @@ import Image from "next/image";
 import Logo from "../../public/logo.png";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { IoMenu, IoClose } from "react-icons/io5";
 
 export default function Header() {
   const [textSearch, setTextSearch] = useState("");
+  const [menu, setMenu] = useState(false);
   const router = useRouter();
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -18,7 +20,7 @@ export default function Header() {
 
   return (
     <div className="pt-6 pb-7 layout">
-      <div className="flex justify-between items-center">
+      <div className="flex relative justify-between items-center">
         <Link href="/">
           <div className="flex items-center">
             <Image src={Logo} alt="Logo" width={50} height={50} />
@@ -28,29 +30,57 @@ export default function Header() {
           </div>
         </Link>
 
-        <div className="flex items-center">
-          <Link
-            href="/"
-            className="mr-7 font-medium hover:text-pink transition-colors duration-100"
-          >
+        <div
+          className="block lg:hidden cursor-pointer"
+          onClick={() => setMenu(!menu)}
+        >
+          {menu ? (
+            <IoClose className="w-8 h-8" />
+          ) : (
+            <IoMenu className="w-8 h-8" />
+          )}
+        </div>
+
+        <div
+          className={`absolute flex lg:hidden top-full rounded-lg bg-slate-800 w-full flex-col z-50 p-4 transition-transform origin-top duration-500 ${
+            menu ? "scale-y-100" : "scale-y-0"
+          }`}
+        >
+          <Link href="/" className="mr-7 font-medium mb-2">
             Home
           </Link>
-          <Link
-            href="/advanced-search"
-            className="mr-7 font-medium hover:text-pink transition-colors duration-100"
-          >
+          <Link href="/advanced-search" className="mr-7 font-medium mb-2">
             Advanced Search
           </Link>
-          <Link
-            href="/history"
-            className="mr-7 font-medium hover:text-pink transition-colors duration-100"
-          >
+          <Link href="/history" className="mr-7 font-medium mb-2">
             History
           </Link>
-          <Link
-            href="/about"
-            className="mr-7 font-medium hover:text-pink transition-colors duration-100"
-          >
+          <Link href="/about" className="mr-7 font-medium mb-2">
+            About Us
+          </Link>
+
+          <form onSubmit={onSearch}>
+            <input
+              type="text"
+              placeholder="Search Manga"
+              className="bg-slate-900 px-4 py-1 rounded-md outline-none"
+              value={textSearch}
+              onChange={handleChange}
+            />
+          </form>
+        </div>
+
+        <div className="hidden lg:flex items-center">
+          <Link href="/" className="mr-7 font-medium">
+            Home
+          </Link>
+          <Link href="/advanced-search" className="mr-7 font-medium">
+            Advanced Search
+          </Link>
+          <Link href="/history" className="mr-7 font-medium">
+            History
+          </Link>
+          <Link href="/about" className="mr-7 font-medium">
             About Us
           </Link>
 

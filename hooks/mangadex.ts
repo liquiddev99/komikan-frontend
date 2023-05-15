@@ -1,5 +1,5 @@
 import { IChapterImages, IMangaDex, IChapterDex } from "@/types/mangadex";
-import { chaptersDexFetcher, fetcher, genericFetcher } from "@/utils/manga";
+import { chaptersDexFetcher, genericFetcher } from "@/utils/manga";
 import useSWR from "swr";
 
 export function useDexId(malId: number | null | undefined) {

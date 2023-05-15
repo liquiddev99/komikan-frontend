@@ -42,7 +42,7 @@ export default function Home({ trendingManga, popularManga }: Props) {
       </Head>
       {trendingManga && (
         <div
-          className="embla rounded-2xl"
+          className="embla rounded-2xl hidden sm:block"
           ref={emblaRef}
           onMouseEnter={() => setPause(true)}
           onMouseLeave={() => setPause(false)}
@@ -54,7 +54,7 @@ export default function Home({ trendingManga, popularManga }: Props) {
               .map((manga) => (
                 <div
                   key={manga.id}
-                  className="embla__slide__main h-[30rem] bg-no-repeat bg-cover bg-center"
+                  className="embla__slide__main h-[25rem] sm:h-[27rem] lg:h-[30rem] bg-no-repeat bg-cover bg-center"
                   style={{ backgroundImage: `url("${manga.bannerImage}")` }}
                 >
                   <div className="w-full h-full bg-gradient-to-t from-black/90 to-slate-800/80 absolute"></div>
@@ -64,15 +64,15 @@ export default function Home({ trendingManga, popularManga }: Props) {
                       alt="Cover"
                       width={300}
                       height={460}
-                      className="object-contain ml-10 mr-11"
+                      className="object-contain ml-7 lg:ml-10 mr-7 lg:mr-11"
                     />
                     <div className="w-4/5 text-slate-100 mt-3 mr-7 shrink">
-                      <h3 className="text-4xl font-semibold mb-3">
+                      <h3 className="text-4xl font-semibold mb-12 md:mb-3 line-clamp-2 md:line-clamp-none">
                         {manga.title.english ?? manga.title.romaji}
                       </h3>
                       <div
                         dangerouslySetInnerHTML={{ __html: manga.description }}
-                        className="line-clamp-6"
+                        className="hidden md:line-clamp-4 lg:line-clamp-6"
                       ></div>
 
                       <div className="mt-4 flex">
@@ -83,7 +83,7 @@ export default function Home({ trendingManga, popularManga }: Props) {
                           Detail
                         </Link>
                         <button className="rounded-lg bg-green-600 flex items-center justify-center px-5 py-1.5 uppercase">
-                          Add to favorite
+                          Follow
                         </button>
                       </div>
 
@@ -100,7 +100,7 @@ export default function Home({ trendingManga, popularManga }: Props) {
 
                       <Status status={manga.status} />
 
-                      <div className="mt-4 flex">
+                      <div className="mt-4 hidden lg:flex">
                         {manga.genres.map((genre) => (
                           <div
                             key={v4()}
@@ -118,7 +118,7 @@ export default function Home({ trendingManga, popularManga }: Props) {
         </div>
       )}
 
-      <div className="mt-12">
+      <div className="sm:mt-12">
         <h3 className="text-3xl font-medium">Trending Manga</h3>
         <div className="mt-8 container-list-manga">
           {trendingManga &&

@@ -12,8 +12,8 @@ import {
 export default function Footer() {
   return (
     <div className="pt-20 pb-6">
-      <div className="flex justify-between layout">
-        <div className="w-1/3">
+      <div className="flex flex-col items-center md:flex-row justify-between layout">
+        <div className="md:w-1/3 px-4 sm:px-8 md:px-0 mb-0 sm:mb-8 md:mb-0">
           <div className="flex items-center">
             <Image src={Logo} alt="Logo" width={60} height={60} />
             <span className={`ml-3 mt-3 text-slate-100 text-2xl font-medium`}>
@@ -48,8 +48,8 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="flex justify-center ml-10">
-          <div className="mr-16">
+        <div className="sm:flex hidden sm:flex-row justify-between md:justify-center md:ml-10 w-full md:w-auto sm:px-8 md:px-0">
+          <div className="mr-4 sm:mr-16">
             <p className="mb-7 font-medium">INFOMATION</p>
             <div className="flex flex-col">
               <Link
@@ -73,7 +73,7 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="mr-16">
+          <div className="mr-4 sm:mr-16">
             <p className="mb-7 font-medium">LEGAL</p>
             <div className="flex flex-col">
               <Link
@@ -103,7 +103,7 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="mr-16">
+          <div className="">
             <p className="mb-7 font-medium">PRODUCT</p>
             <div className="flex flex-col">
               <Link
@@ -135,7 +135,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="mt-10 text-center text-sm text-slate-300">
+      <div className="mt-10 text-center text-sm text-slate-300 px-3 sm:px-0">
         © 2023 Mangazine. Built with ❤ by liquiddev99
       </div>
     </div>
