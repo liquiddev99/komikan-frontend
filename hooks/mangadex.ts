@@ -3,13 +3,13 @@ import { chaptersDexFetcher, fetcher, genericFetcher } from "@/utils/manga";
 import useSWR from "swr";
 
 export function useDexId(malId: number | null | undefined) {
-  const { data, isLoading, error } = useSWR(
+  const { data: mangadexIds, isLoading, error } = useSWR(
     malId ? `/api/mal/mangadex/${malId}` : null,
-    fetcher
+    genericFetcher<string[]>
   );
 
   return {
-    mangaDexId: data?.mangaDexId,
+    mangadexIds,
     loading: isLoading,
     error,
   };

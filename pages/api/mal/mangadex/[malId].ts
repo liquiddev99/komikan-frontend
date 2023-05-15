@@ -13,8 +13,8 @@ export default async function handler(
     );
 
     const malDex = response.data?.Sites?.Mangadex;
-    const mangaDexId = Object.keys(malDex)[0];
-    return res.status(200).json({ mangaDexId });
+    const mangadexIds = Object.keys(malDex);
+    return res.status(200).json(mangadexIds);
   } catch (err) {
     return res.status(400).json({ msg: "Failed to get Mangadex Info" });
   }

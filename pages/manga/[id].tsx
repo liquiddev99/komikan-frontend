@@ -18,6 +18,7 @@ import Link from "next/link";
 import Head from "next/head";
 import DetailMangaSkeleton from "@/components/skeleton/DetailMangaSkeleton";
 import { useDexChapters, useDexId, useMangadexInfo } from "@/hooks/mangadex";
+import ListChapters from "@/components/manga/ListChapters";
 
 export default function DetailManga() {
   const [lang, setLang] = useState("en");
@@ -29,23 +30,7 @@ export default function DetailManga() {
   });
 
   const { manga, loading } = useDetailManga(id);
-  const { mangaDexId } = useDexId(manga?.idMal);
-  const { mangadex } = useMangadexInfo(mangaDexId);
-  const { chapters: dexChapters, loading: loadingChapters } = useDexChapters(
-    mangaDexId,
-    lang
-  );
-
-  function getFlagEmoji(countryCode: string) {
-    let code = countryCode.slice(0, 2);
-    if (code === "en") code = "gb";
-    if (code === "vi") code = "vn";
-    const codePoints = code
-      .toUpperCase()
-      .split("")
-      .map((char) => 127397 + char.charCodeAt(0));
-    return String.fromCodePoint(...codePoints);
-  }
+  const { mangadexIds } = useDexId(manga?.idMal);
 
   return (
     <div className="min-h-[90vh]">
@@ -165,7 +150,7 @@ export default function DetailManga() {
                 dangerouslySetInnerHTML={{ __html: manga.description }}
               ></div>
 
-              <div className="mt-4 flex">
+              <div className="mt-4 mb-6 flex">
                 {manga.genres.map((genre) => (
                   <div
                     key={v4()}
@@ -176,93 +161,16 @@ export default function DetailManga() {
                 ))}
               </div>
 
-              <div className="mt-8">
-                <div className="mb-3">
-                  <span className="text-2xl font-semibold text-teal-500 mr-3">
-                    Chapters
-                  </span>
-                </div>
-                <div className="flex items-end mb-3">
-                  <div className="mr-2 flex items-center mb-0.5">
-                    <IoLanguage className="h-6 w-6 mr-1" /> Language
-                  </div>
-                  <select
-                    className="text-slate-200 rounded-md px-3 py-1 bg-slate-800"
-                    onChange={(e) => {
-                      if (e.target.value) {
-                        setLang(e.target.value);
-                      }
-                    }}
-                    value={lang}
-                  >
-                    <option value="">Select Language</option>
-                    {mangadex &&
-                      mangadex.attributes.availableTranslatedLanguages
-                        .filter((code) => code)
-                        .map((lang) => (
-                          <option value={lang} key={v4()}>
-                            {getFlagEmoji(lang)} {lang}
-                          </option>
-                        ))}
-                  </select>
-                </div>
+              {mangadexIds && mangadexIds.length > 1 && (
+                <h3 className="text-2xl font-semibold mb-4">
+                  {mangadexIds.length} variants of manga found
+                </h3>
+              )}
 
-                {loadingChapters && (
-                  <div className="flex justify-center items-center h-56">
-                    <AiOutlineLoading3Quarters className="h-14 w-14 animate-spin" />
-                  </div>
-                )}
-                {!loadingChapters && !dexChapters?.length && (
-                  <div>No chapters found</div>
-                )}
-                <div className="overflow-y-auto max-h-[30rem]">
-                  {dexChapters?.length ? (
-                    <div>
-                      <table className="w-full">
-                        <thead className="sticky top-0 bg-bg-color">
-                          <tr className="text-lg">
-                            <th className="text-left pl-3 pb-1">Chap</th>
-                            <th className="text-left pl-3 pb-1">Group</th>
-                            <th className="text-left pl-3 pb-1 pr-8">
-                              Published At
-                            </th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {dexChapters
-                            .filter((chapter) => chapter.attributes.chapter)
-                            .map((chapter) => (
-                              <tr
-                                className="hover:bg-slate-700 cursor-pointer"
-                                key={chapter.id}
-                                onClick={() =>
-                                  router.push(`/chapter/${chapter.id}`)
-                                }
-                              >
-                                <td className="border-b border-slate-500 hover:bg-slate-700">
-                                  <div className="flex justify-between py-2 px-3">
-                                    <div>
-                                      Chapter {chapter.attributes.chapter}{" "}
-                                      {chapter.attributes.title && "-"}{" "}
-                                      {chapter.attributes.title}
-                                    </div>
-                                  </div>
-                                </td>
-                                <td className="py-2 pl-3 border-b border-slate-500"></td>
-                                <td className="py-2 pl-3 border-b border-slate-500">
-                                  {chapter.attributes.createdAt &&
-                                    new Intl.DateTimeFormat("en-GB").format(
-                                      new Date(chapter.attributes.createdAt)
-                                    )}
-                                </td>
-                              </tr>
-                            ))}
-                        </tbody>
-                      </table>
-                    </div>
-                  ) : null}
-                </div>
-              </div>
+              {mangadexIds &&
+                mangadexIds.map((mangadexId) => (
+                  <ListChapters mangadexId={mangadexId} />
+                ))}
 
               {manga.characters.edges.length ? (
                 <div className="mt-8">

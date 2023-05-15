@@ -1,0 +1,118 @@
+import { useDexChapters, useMangadexInfo } from "@/hooks/mangadex";
+import { useState } from "react";
+import { IoLanguage } from "react-icons/io5";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { useRouter } from "next/router";
+import { v4 } from "uuid";
+
+interface IProps {
+  mangadexId: string;
+}
+export default function ListChapters({ mangadexId }: IProps) {
+  const router = useRouter();
+  const [lang, setLang] = useState("en");
+
+  const { mangadex } = useMangadexInfo(mangadexId);
+  const { chapters: dexChapters, loading: loadingChapters } = useDexChapters(
+    mangadexId,
+    lang
+  );
+
+  console.log("mangadex", mangadex);
+
+  function getFlagEmoji(countryCode: string) {
+    let code = countryCode.slice(0, 2);
+    if (code === "en") code = "gb";
+    if (code === "vi") code = "vn";
+    const codePoints = code
+      .toUpperCase()
+      .split("")
+      .map((char) => 127397 + char.charCodeAt(0));
+    return String.fromCodePoint(...codePoints);
+  }
+
+  return (
+    <div className="mb-5">
+      <div className="mb-3">
+        <span className="text-2xl font-semibold text-teal-500 mr-3">
+          {mangadex?.attributes.title.en}{" "}
+          {mangadex?.attributes.title?.en && "-"} Chapters
+        </span>
+      </div>
+      <div className="flex items-end mb-3">
+        <div className="mr-2 flex items-center mb-0.5">
+          <IoLanguage className="h-6 w-6 mr-1" /> Language
+        </div>
+        <select
+          className="text-slate-200 rounded-md px-3 py-1 bg-slate-800"
+          onChange={(e) => {
+            if (e.target.value) {
+              setLang(e.target.value);
+            }
+          }}
+          value={lang}
+        >
+          <option value="">Select Language</option>
+          {mangadex &&
+            mangadex.attributes.availableTranslatedLanguages
+              .filter((code) => code)
+              .map((lang) => (
+                <option value={lang} key={v4()}>
+                  {getFlagEmoji(lang)} {lang}
+                </option>
+              ))}
+        </select>
+      </div>
+
+      {loadingChapters && (
+        <div className="flex justify-center items-center h-56">
+          <AiOutlineLoading3Quarters className="h-14 w-14 animate-spin" />
+        </div>
+      )}
+      {!loadingChapters && !dexChapters?.length && <div>No chapters found</div>}
+      <div className="overflow-y-auto max-h-[30rem]">
+        {dexChapters?.length ? (
+          <div>
+            <table className="w-full">
+              <thead className="sticky top-0 bg-bg-color">
+                <tr className="text-lg">
+                  <th className="text-left pl-3 pb-1">Chap</th>
+                  <th className="text-left pl-3 pb-1">Group</th>
+                  <th className="text-left pl-3 pb-1 pr-8">Published At</th>
+                </tr>
+              </thead>
+              <tbody>
+                {dexChapters
+                  .filter((chapter) => chapter.attributes.chapter)
+                  .map((chapter) => (
+                    <tr
+                      className="hover:bg-slate-700 cursor-pointer"
+                      key={chapter.id}
+                      onClick={() => router.push(`/chapter/${chapter.id}`)}
+                    >
+                      <td className="border-b border-slate-500 hover:bg-slate-700">
+                        <div className="flex justify-between py-2 px-3">
+                          <div>
+                            Chapter {chapter.attributes.chapter}{" "}
+                            {chapter.attributes.title && "-"}{" "}
+                            {chapter.attributes.title}
+                          </div>
+                        </div>
+                      </td>
+                      <td className="py-2 pl-3 border-b border-slate-500"></td>
+                      <td className="py-2 pl-3 border-b border-slate-500">
+                        {chapter.attributes.createdAt &&
+                          new Intl.DateTimeFormat("en-GB").format(
+                            new Date(chapter.attributes.createdAt)
+                          )}
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+          </div>
+        ) : null}
+      </div>
+    </div>
+  );
+}

@@ -24,6 +24,7 @@ export interface IChapterImages {
 export interface IMangaDex {
   id: string;
   attributes: {
+    title: { en: string };
     availableTranslatedLanguages: string[];
     links: {
       al: string;
