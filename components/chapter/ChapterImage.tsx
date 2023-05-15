@@ -1,23 +1,31 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 
 interface IProps {
   src: string;
   alt: string;
   priority: boolean;
-  loading: "lazy" | "eager" | undefined;
 }
 
-export default function ChapterImage({ src, alt, priority, loading }: IProps) {
+export default function ChapterImage({ src, alt, priority }: IProps) {
   const [hide, setHide] = useState(true);
   const [width, setWidth] = useState(800);
   const [height, setHeight] = useState(1300);
   const [retry, setRetry] = useState(0);
+  const [loading, setLoading] = useState<"lazy" | "eager" | undefined>(
+    !priority ? "lazy" : undefined
+  );
 
   function handleError() {
     if (retry > 5) return;
     setRetry(retry + 1);
   }
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (!priority) setLoading("eager");
+    }, 5000);
+  }, []);
 
   return (
     <Image
