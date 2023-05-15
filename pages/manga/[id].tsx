@@ -197,13 +197,13 @@ export default function DetailManga() {
                   >
                     <option value="">Select Language</option>
                     {mangadex &&
-                      mangadex.attributes.availableTranslatedLanguages.map(
-                        (lang) => (
+                      mangadex.attributes.availableTranslatedLanguages
+                        .filter((code) => code)
+                        .map((lang) => (
                           <option value={lang} key={v4()}>
                             {getFlagEmoji(lang)} {lang}
                           </option>
-                        )
-                      )}
+                        ))}
                   </select>
                 </div>
 

@@ -25,5 +25,8 @@ export interface IMangaDex {
   id: string;
   attributes: {
     availableTranslatedLanguages: string[];
+    links: {
+      al: string;
+    };
   };
 }

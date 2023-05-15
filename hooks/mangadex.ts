@@ -44,7 +44,7 @@ export function useImagesChapter(chapterId: string) {
   };
 }
 
-export function useMangadexInfo(mangaId: string) {
+export function useMangadexInfo(mangaId: string | undefined) {
   const { data: mangadex, isLoading, error } = useSWR(
     mangaId ? `/api/mangadex/manga/info/${mangaId}` : null,
     genericFetcher<IMangaDex>

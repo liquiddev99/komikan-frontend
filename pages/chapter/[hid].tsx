@@ -40,6 +40,7 @@ export default function Chapter() {
     chapter?.attributes.translatedLanguage
   );
   const { images, loading: loadingImages } = useImagesChapter(hid);
+  const { mangadex } = useMangadexInfo(mangadexId);
 
   useEffect(() => {
     if (!mangadexId || !dexChapters) return;
@@ -60,6 +61,11 @@ export default function Chapter() {
       setPrevChapter(chapters[currentIndex + 1]);
     }
   }, [hid, chapters]);
+
+  useEffect(() => {
+    if (!mangadex?.attributes.links.al) return;
+    setAlId(mangadex.attributes.links.al);
+  }, [mangadex]);
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
@@ -88,11 +94,6 @@ export default function Chapter() {
   }, [chapter]);
 
   useEffect(() => {
-    if (!chapter?.chapter.md_comics.links.al) return;
-    setAlId(chapter.chapter.md_comics.links.al);
-  }, [chapter?.chapter.md_comics.links.al]);
-
-  useEffect(() => {
     if (!chapter?.next?.hid) return;
     router.prefetch(`/chapter/${chapter.next.hid}`);
   }, [chapter?.next?.hid]);
@@ -108,7 +109,7 @@ export default function Chapter() {
         <div className="w-full flex justify-center items-center mb-6">
           {alId && (
             <Link
-              href={`/manga/`}
+              href={`/manga/${alId}`}
               className="px-3 py-1 rounded-md bg-sky-500 font-medium mr-4"
             >
               Manga Info
