@@ -2,8 +2,14 @@ import ChapterImage from "@/components/chapter/ChapterImage";
 import ScrollToTopButton from "@/components/chapter/ScrollToTopButton";
 import { useAuth } from "@/hooks/auth";
 import { useComickChapter } from "@/hooks/manga";
-import { useImagesChapter } from "@/hooks/mangadex";
+import {
+  useChapterInfo,
+  useDexChapters,
+  useImagesChapter,
+  useMangadexInfo,
+} from "@/hooks/mangadex";
 import { IChapterInComick } from "@/types/manga";
+import { IChapterDex } from "@/types/mangadex";
 import { saveHistoryUnAuth } from "@/utils/history";
 import Head from "next/head";
 import Image from "next/image";
@@ -17,13 +23,57 @@ import {
 } from "react-icons/ai";
 
 export default function Chapter() {
-  const [chapters, setChapters] = useState<IChapterInComick[]>([]);
+  const [chapters, setChapters] = useState<IChapterDex[]>([]);
+  const [nextChapter, setNextChapter] = useState<IChapterDex>();
+  const [prevChapter, setPrevChapter] = useState<IChapterDex>();
   const [alId, setAlId] = useState("");
   const router = useRouter();
   const hid = router.query.hid as string;
 
   const { authenticated } = useAuth();
+  const { chapter } = useChapterInfo(hid);
+  const mangadexId = chapter?.relationships.find(
+    (item) => item["type"] === "manga"
+  )?.id;
+  const { chapters: dexChapters } = useDexChapters(
+    mangadexId,
+    chapter?.attributes.translatedLanguage
+  );
   const { images, loading: loadingImages } = useImagesChapter(hid);
+
+  useEffect(() => {
+    if (!mangadexId || !dexChapters) return;
+    setChapters(dexChapters);
+  }, [mangadexId, dexChapters]);
+
+  useEffect(() => {
+    if (!chapters.length) return;
+    const currentIndex = chapters.findIndex((chap) => chap.id === hid);
+    if (!chapters[currentIndex - 1]) {
+      setNextChapter(undefined);
+    } else {
+      setNextChapter(chapters[currentIndex - 1]);
+    }
+    if (!chapters[currentIndex + 1]) {
+      setPrevChapter(undefined);
+    } else {
+      setPrevChapter(chapters[currentIndex + 1]);
+    }
+  }, [hid, chapters]);
+
+  useEffect(() => {
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "ArrowLeft" && prevChapter)
+        router.push(`/chapter/${prevChapter.id}`);
+      if (event.key === "ArrowRight" && nextChapter)
+        router.push(`/chapter/${nextChapter.id}`);
+    }
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [prevChapter, nextChapter]);
 
   {
     /*
@@ -41,20 +91,6 @@ export default function Chapter() {
     if (!chapter?.chapter.md_comics.links.al) return;
     setAlId(chapter.chapter.md_comics.links.al);
   }, [chapter?.chapter.md_comics.links.al]);
-
-  useEffect(() => {
-    function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === "ArrowLeft" && chapter?.prev)
-        router.push(`/chapter/${chapter.prev.hid}`);
-      if (event.key === "ArrowRight" && chapter?.next)
-        router.push(`/chapter/${chapter.next.hid}`);
-    }
-    document.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [chapter]);
 
   useEffect(() => {
     if (!chapter?.next?.hid) return;
@@ -78,18 +114,16 @@ export default function Chapter() {
               Manga Info
             </Link>
           )}
-          {/*
-{chapters.length ? (
+          {chapters.length ? (
             <div className="flex items-center">
               <AiOutlineArrowLeft
                 className={`w-10 h-10 p-2.5 border-r border-slate-700 bg-slate-800 cursor-pointer ${
-                  !chapter?.prev
+                  !prevChapter
                     ? "cursor-not-allowed text-slate-600"
                     : "cursor-pointer"
                 }`}
                 onClick={() => {
-                  if (chapter?.prev)
-                    router.push(`/chapter/${chapter?.prev.hid}`);
+                  if (prevChapter) router.push(`/chapter/${prevChapter?.id}`);
                 }}
               />
               <select
@@ -102,25 +136,24 @@ export default function Chapter() {
                 value={hid}
               >
                 {chapters.map((chap) => (
-                  <option value={chap.hid} key={chap.hid}>
-                    Chap {chap.chap} {chap.title && " - "} {chap.title}
+                  <option value={chap.id} key={chap.id}>
+                    Chap {chap.attributes.chapter}{" "}
+                    {chap.attributes.title && " - "} {chap.attributes.title}
                   </option>
                 ))}
               </select>
               <AiOutlineArrowRight
                 className={`w-10 h-10 p-2.5 border-l border-slate-700 bg-slate-800 cursor-pointer ${
-                  !chapter?.next
+                  !nextChapter
                     ? "cursor-not-allowed text-slate-600"
                     : "cursor-pointer"
                 }`}
                 onClick={() => {
-                  if (chapter?.next)
-                    router.push(`/chapter/${chapter?.next.hid}`);
+                  if (nextChapter) router.push(`/chapter/${nextChapter.id}`);
                 }}
               />
             </div>
           ) : null}
-*/}
         </div>
         {loadingImages && (
           <div className="min-h-[80vh]">
@@ -145,18 +178,16 @@ export default function Chapter() {
               Manga Info
             </Link>
           )}
-          {/*
-{chapters.length ? (
+          {chapters.length ? (
             <div className="flex items-center">
               <AiOutlineArrowLeft
                 className={`w-10 h-10 p-2.5 border-r border-slate-700 bg-slate-800 cursor-pointer ${
-                  !chapter?.prev
+                  !prevChapter
                     ? "cursor-not-allowed text-slate-600"
                     : "cursor-pointer"
                 }`}
                 onClick={() => {
-                  if (chapter?.prev)
-                    router.push(`/chapter/${chapter?.prev.hid}`);
+                  if (prevChapter) router.push(`/chapter/${prevChapter?.id}`);
                 }}
               />
               <select
@@ -169,25 +200,24 @@ export default function Chapter() {
                 value={hid}
               >
                 {chapters.map((chap) => (
-                  <option value={chap.hid} key={chap.hid}>
-                    Chap {chap.chap} {chap.title && " - "} {chap.title}
+                  <option value={chap.id} key={chap.id}>
+                    Chap {chap.attributes.chapter}{" "}
+                    {chap.attributes.title && " - "} {chap.attributes.title}
                   </option>
                 ))}
               </select>
               <AiOutlineArrowRight
-                className={`w-10 h-10 p-2.5 border-l border-slate-700 bg-slate-800 ${
-                  !chapter?.next
-                    ? "text-slate-600 cursor-not-allowed"
+                className={`w-10 h-10 p-2.5 border-l border-slate-700 bg-slate-800 cursor-pointer ${
+                  !nextChapter
+                    ? "cursor-not-allowed text-slate-600"
                     : "cursor-pointer"
                 }`}
                 onClick={() => {
-                  if (chapter?.next)
-                    router.push(`/chapter/${chapter?.next.hid}`);
+                  if (nextChapter) router.push(`/chapter/${nextChapter.id}`);
                 }}
               />
             </div>
           ) : null}
-*/}
         </div>
       </div>
       <ScrollToTopButton />

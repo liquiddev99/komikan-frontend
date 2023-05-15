@@ -3,6 +3,7 @@ export interface IChapterDex {
   attributes: {
     chapter: string;
     title: string;
+    translatedLanguage: string;
     createdAt: string;
     pages: number;
   };

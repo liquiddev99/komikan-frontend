@@ -280,6 +280,11 @@ export async function fetchDexChapters(
     (a, b) => Number(b?.attributes.chapter) - Number(a?.attributes.chapter)
   );
 
+  chapters = chapters.filter((chapter, index, array) => {
+    if (!array[index - 1]) return true;
+    return array[index - 1].attributes.chapter !== chapter.attributes.chapter;
+  });
+
   return chapters;
 }
 

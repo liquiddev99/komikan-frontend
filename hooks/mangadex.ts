@@ -1,4 +1,4 @@
-import { IChapterImages, IMangaDex } from "@/types/mangadex";
+import { IChapterImages, IMangaDex, IChapterDex } from "@/types/mangadex";
 import { chaptersDexFetcher, fetcher, genericFetcher } from "@/utils/manga";
 import useSWR from "swr";
 
@@ -55,5 +55,17 @@ export function useMangadexInfo(mangaId: string) {
     loading: isLoading,
     error,
   };
+}
 
+export function useChapterInfo(chapterId: string) {
+  const { data: chapter, isLoading, error } = useSWR(
+    chapterId ? `/api/mangadex/chapter/info/${chapterId}` : null,
+    genericFetcher<IChapterDex>
+  );
+
+  return {
+    chapter,
+    loading: isLoading,
+    error,
+  };
 }
