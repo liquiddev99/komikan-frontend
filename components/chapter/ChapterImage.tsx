@@ -4,18 +4,15 @@ import Image from "next/image";
 interface IProps {
   src: string;
   alt: string;
-  priority: boolean;
+  initPriority: boolean;
 }
 
-export default function ChapterImage({ src, alt, priority }: IProps) {
+export default function ChapterImage({ src, alt, initPriority }: IProps) {
   const [hide, setHide] = useState(true);
   const [width, setWidth] = useState(800);
   const [height, setHeight] = useState(1300);
   const [retry, setRetry] = useState(0);
-  const [loading, setLoading] = useState<"lazy" | "eager" | undefined>(
-    !priority ? "lazy" : undefined
-  );
-
+  const [priority, setPriority] = useState(initPriority);
   function handleError() {
     if (retry > 5) return;
     setRetry(retry + 1);
@@ -23,7 +20,7 @@ export default function ChapterImage({ src, alt, priority }: IProps) {
 
   useEffect(() => {
     setTimeout(() => {
-      if (!priority) setLoading("eager");
+      if (!priority) setPriority(true);
     }, 5000);
   }, []);
 
@@ -35,7 +32,6 @@ export default function ChapterImage({ src, alt, priority }: IProps) {
       height={height}
       className={`${hide ? "opacity-0" : ""}`}
       priority={priority}
-      loading={loading}
       onLoadingComplete={(img) => {
         setWidth(
           img.naturalWidth >= 500 && img.naturalWidth < img.naturalHeight
