@@ -5,9 +5,10 @@ interface IProps {
   src: string;
   alt: string;
   priority: boolean;
+  loading: "lazy" | "eager" | undefined;
 }
 
-export default function ChapterImage({ src, alt, priority }: IProps) {
+export default function ChapterImage({ src, alt, priority, loading }: IProps) {
   const [hide, setHide] = useState(true);
   const [width, setWidth] = useState(800);
   const [height, setHeight] = useState(1300);
@@ -26,6 +27,7 @@ export default function ChapterImage({ src, alt, priority }: IProps) {
       height={height}
       className={`${hide ? "opacity-0" : ""}`}
       priority={priority}
+      loading={loading}
       onLoadingComplete={(img) => {
         setWidth(
           img.naturalWidth >= 500 && img.naturalWidth < img.naturalHeight

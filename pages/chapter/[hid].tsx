@@ -166,7 +166,8 @@ export default function Chapter() {
               key={image}
               src={`https://uploads.mangadex.org/data-saver/${images.chapter.hash}/${image}`}
               alt="Image"
-              priority={index > 5 ? true : false}
+              priority={index < 4 ? true : false}
+              loading={index > 4 ? "eager" : undefined}
             />
           ))}
         <div className="w-full flex justify-center items-center my-6">
