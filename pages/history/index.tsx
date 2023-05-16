@@ -45,7 +45,6 @@ export default function History() {
                       fill
                       sizes="20vw"
                       className="object-cover rounded-md"
-                      unoptimized
                     />
                   </div>
                   <div className="flex flex-col flex-grow justify-between py-2">
