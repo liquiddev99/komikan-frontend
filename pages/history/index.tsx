@@ -31,23 +31,28 @@ export default function History() {
           {history.length
             ? history.map((manga) => (
                 <div className="rounded-md flex flex-col h-full overflow-hidden">
-                  <Link href={`/manga/${manga.mangaId}`} key={manga.mangaId}>
-                    <div className="flex w-full pb-[140%] relative">
-                      <Image
-                        src={manga.coverImage}
-                        alt="Cover"
-                        fill
-                        sizes="20vw"
-                        className="object-cover rounded-md"
-                        unoptimized
-                      />
-                    </div>
-                    <div className="flex flex-col flex-grow justify-between py-2">
-                      <span className="font-semibold line-clamp-1">
-                        {manga.title}
-                      </span>
-                    </div>
-                  </Link>
+                  <div
+                    className="flex w-full pb-[140%] relative"
+                    onClick={() => {
+                      if (manga.alMangaId) {
+                        router.push(`/manga/${manga.alMangaId}`);
+                      }
+                    }}
+                  >
+                    <Image
+                      src={manga.coverImage}
+                      alt="Cover"
+                      fill
+                      sizes="20vw"
+                      className="object-cover rounded-md"
+                      unoptimized
+                    />
+                  </div>
+                  <div className="flex flex-col flex-grow justify-between py-2">
+                    <span className="font-semibold line-clamp-1">
+                      {manga.mangaTitle}
+                    </span>
+                  </div>
                   <button
                     className="mt-1 max-w-fit py-1 px-3 rounded-lg bg-red-500 font-medium"
                     onClick={() => router.push(manga.readingChapter.path)}

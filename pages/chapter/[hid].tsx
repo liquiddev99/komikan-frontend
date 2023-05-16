@@ -1,5 +1,6 @@
 import ChapterImage from "@/components/chapter/ChapterImage";
 import ScrollToTopButton from "@/components/chapter/ScrollToTopButton";
+import { useAuth } from "@/hooks/auth";
 import {
   useChapterInfo,
   useDexChapters,
@@ -7,6 +8,7 @@ import {
   useMangadexInfo,
 } from "@/hooks/mangadex";
 import { IChapterDex } from "@/types/mangadex";
+import { saveHistoryUnAuth } from "@/utils/history";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -24,6 +26,7 @@ export default function Chapter() {
   const [alId, setAlId] = useState("");
   const router = useRouter();
   const hid = router.query.hid as string;
+  const { authenticated } = useAuth();
 
   const { chapter } = useChapterInfo(hid);
   const mangadexId = chapter?.relationships.find(
@@ -35,6 +38,8 @@ export default function Chapter() {
   );
   const { images, loading: loadingImages } = useImagesChapter(hid);
   const { mangadex } = useMangadexInfo(mangadexId);
+
+  console.log("mangadex", mangadex);
 
   useEffect(() => {
     if (!mangadexId || !dexChapters) return;
@@ -75,18 +80,23 @@ export default function Chapter() {
     };
   }, [prevChapter, nextChapter]);
 
+  useEffect(() => {
+    if (!chapter || !mangadex || authenticated) return;
+    saveHistoryUnAuth({
+      coverImage: `https://uploads.mangadex.org/covers/${mangadex.id}/${
+        mangadex.relationships.find((item) => item.type === "cover_art")
+          ?.attributes?.fileName
+      }`,
+      alMangaId: alId,
+      mangadexId: mangadex.id,
+      mangaTitle:
+        mangadex.attributes.title.en || mangadex.attributes.title["ja-ro"],
+      readingChapter: { chap: chapter.attributes.chapter, path: router.asPath },
+    });
+  }, [chapter, mangadex, alId]);
+
   {
     /*
-  useEffect(() => {
-    if (!chapter || authenticated) return;
-    saveHistoryUnAuth({
-      coverImage: `https://meo.comick.pictures/${chapter.chapter?.md_comics?.md_covers[0]?.b2key}`,
-      mangaId: chapter.chapter.md_comics.links.al,
-      title: chapter.chapter.md_comics.title,
-      readingChapter: { chap: chapter.chapter.chap, path: router.asPath },
-    });
-  }, [chapter]);
-
   useEffect(() => {
     if (!chapter?.next?.hid) return;
     router.prefetch(`/chapter/${chapter.next.hid}`);

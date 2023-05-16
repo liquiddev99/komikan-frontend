@@ -156,8 +156,9 @@ export interface ITag {
 
 export interface IHistoryManga {
   userId?: string;
-  mangaId: string;
+  alMangaId?: string;
+  mangadexId: string;
   coverImage: string;
-  title: string;
+  mangaTitle: string;
   readingChapter: { chap: string; path: string };
 }

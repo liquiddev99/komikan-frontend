@@ -12,7 +12,7 @@ export function saveHistoryUnAuth(manga: IHistoryManga) {
 
     if (history.length > 50) history.pop();
     const newHistory = history.filter(
-      (historyManga) => historyManga.mangaId !== manga.mangaId
+      (historyManga) => historyManga.mangadexId !== manga.mangadexId
     );
     newHistory.unshift(manga);
 

@@ -9,7 +9,7 @@ export default async function handler(
   try {
     const mangaId = req.query.mangaId;
     const response = await axios.get(
-      `https://api.mangadex.org/manga/${mangaId}`
+      `https://api.mangadex.org/manga/${mangaId}?includes[]=cover_art`
     );
 
     const manga = response.data.data;

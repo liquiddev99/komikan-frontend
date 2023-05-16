@@ -24,10 +24,17 @@ export interface IChapterImages {
 export interface IMangaDex {
   id: string;
   attributes: {
-    title: { en: string };
+    title: { en: string; "ja-ro": string };
     availableTranslatedLanguages: string[];
     links: {
       al: string;
     };
   };
+  relationships: {
+    id: string;
+    type: string;
+    attributes?: {
+      fileName?: string;
+    };
+  }[];
 }
