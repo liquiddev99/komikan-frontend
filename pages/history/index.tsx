@@ -1,7 +1,6 @@
 import { useAuth } from "@/hooks/auth";
 import { IHistoryManga } from "@/types/manga";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
@@ -68,7 +67,6 @@ export default function History() {
             : null}
         </div>
       </div>
-      <div></div>
     </div>
   );
 }

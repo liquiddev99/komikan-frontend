@@ -12,6 +12,14 @@ export default function About() {
     <div>
       <Head>
         <title>About Us</title>
+        <meta name="description" content="Manga Reading Website" />
+        <meta property="og:title" content="About - Mangazine" />
+        <meta
+          property="og:description"
+          content="Free and no-ads manga reading website, provide high-quality images with a comprehensive finding system, helps you easier to find your favourite manga"
+        />
+        <meta property="og:URL" content="https://mangazine.site/about" />
+        <meta property="og:type" content="website" />
       </Head>
       <div className="layout min-h-screen">
         <div className="max-w-3xl mx-auto text-slate-300 flex flex-col items-center text-[1.1rem]">

@@ -66,6 +66,17 @@ export default function AdvancedSearch() {
     <div className="layout">
       <Head>
         <title>Mangazine | Advanced Search</title>
+        <meta name="description" content="Manga Reading Website" />
+        <meta property="og:title" content="Advanced Search - Mangazine" />
+        <meta
+          property="og:description"
+          content="Free and no-ads manga reading website, provide high-quality images with a comprehensive finding system, helps you easier to find your favourite manga"
+        />
+        <meta
+          property="og:URL"
+          content="https://mangazine.site/advanced-search"
+        />
+        <meta property="og:type" content="website" />
       </Head>
       <h3 className="text-3xl font-medium pb-1 border-b border-slate-500">
         Advanced Search
