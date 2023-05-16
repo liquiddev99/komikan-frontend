@@ -105,22 +105,22 @@ export default function Chapter() {
   }
 
   return (
-    <div className="layout min-h-[80vh]">
+    <div className="xs:layout min-h-[80vh]">
       <Head>
         <title>Mangazine</title>
       </Head>
       <div className="flex flex-col justify-center items-center">
-        <div className="w-full flex justify-center items-center mb-6">
+        <div className="xs:w-full flex flex-col xs:flex-row justify-between md:justify-center items-center mb-6 layout">
           {alId && (
             <Link
               href={`/manga/${alId}`}
-              className="px-3 py-1 rounded-md bg-sky-500 font-medium mr-4"
+              className="px-4 xs:flex items-center rounded-md bg-sky-500 font-medium mr-3 md:mr-4 min-w-max h-10 hidden"
             >
               Manga Info
             </Link>
           )}
           {chapters.length ? (
-            <div className="flex items-center">
+            <div className="flex items-center shrink max-w-min">
               <AiOutlineArrowLeft
                 className={`w-10 h-10 p-2.5 border-r border-slate-700 bg-slate-800 cursor-pointer ${
                   !prevChapter
@@ -132,7 +132,7 @@ export default function Chapter() {
                 }}
               />
               <select
-                className="text-slate-200 px-4 py-2 h-10 bg-slate-800 cursor-pointer"
+                className="text-slate-200 px-4 py-2 h-10 bg-slate-800 cursor-pointer w-64 xs:w-64 sm:w-auto"
                 onChange={(e) => {
                   if (e.target.value) {
                     router.push(`/chapter/${e.target.value}`);
@@ -174,17 +174,17 @@ export default function Chapter() {
               initPriority={index === 0 ? true : false}
             />
           ))}
-        <div className="w-full flex justify-center items-center my-6">
+        <div className="mt-8 xs:w-full flex flex-col xs:flex-row justify-between md:justify-center items-center mb-6 layout">
           {alId && (
             <Link
-              href={`/manga/`}
-              className="px-3 py-1 rounded-md bg-sky-500 font-medium mr-4"
+              href={`/manga/${alId}`}
+              className="px-4 xs:flex items-center rounded-md bg-sky-500 font-medium mr-3 md:mr-4 min-w-max h-10 hidden"
             >
               Manga Info
             </Link>
           )}
           {chapters.length ? (
-            <div className="flex items-center">
+            <div className="flex items-center shrink max-w-min">
               <AiOutlineArrowLeft
                 className={`w-10 h-10 p-2.5 border-r border-slate-700 bg-slate-800 cursor-pointer ${
                   !prevChapter
@@ -196,7 +196,7 @@ export default function Chapter() {
                 }}
               />
               <select
-                className="text-slate-200 px-4 py-2 h-10 bg-slate-800 cursor-pointer"
+                className="text-slate-200 px-4 py-2 h-10 bg-slate-800 cursor-pointer w-64 xs:w-64 sm:w-auto"
                 onChange={(e) => {
                   if (e.target.value) {
                     router.push(`/chapter/${e.target.value}`);
