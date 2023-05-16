@@ -32,7 +32,9 @@ export default function History() {
             ? history.map((manga) => (
                 <div className="rounded-md flex flex-col h-full overflow-hidden">
                   <div
-                    className="flex w-full pb-[140%] relative"
+                    className={`flex w-full pb-[140%] relative ${
+                      manga.alMangaId ? "cursor-pointer" : ""
+                    }`}
                     onClick={() => {
                       if (manga.alMangaId) {
                         router.push(`/manga/${manga.alMangaId}`);
