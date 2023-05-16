@@ -12,10 +12,9 @@ export default function About() {
     <div>
       <Head>
         <title>About Us</title>
-        <meta name="description" content="Manga Reading Website" />
-        <meta property="og:title" content="About - Mangazine" />
+        <meta property="og:title" content="Mangazine - About" />
         <meta
-          property="og:description"
+          property="description"
           content="Free and no-ads manga reading website, provide high-quality images with a comprehensive finding system, helps you easier to find your favourite manga"
         />
         <meta property="og:URL" content="https://mangazine.site/about" />
