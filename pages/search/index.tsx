@@ -31,7 +31,6 @@ export default function Search() {
         !validating &&
         !isEnd
       ) {
-        console.log("reach");
         setPage(page + 1);
       }
     }

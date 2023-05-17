@@ -39,8 +39,6 @@ export default function Chapter() {
   const { images, loading: loadingImages } = useImagesChapter(hid);
   const { mangadex } = useMangadexInfo(mangadexId);
 
-  console.log("mangadex", mangadex);
-
   useEffect(() => {
     if (!mangadexId || !dexChapters) return;
     setChapters(dexChapters);

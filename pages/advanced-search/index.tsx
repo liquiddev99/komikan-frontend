@@ -47,7 +47,6 @@ export default function AdvancedSearch() {
     )
       return;
 
-    console.log(selectedStatus);
     let query = "";
     if (selectedGenres.length) {
       query += (query ? "&" : "?") + "genres=" + selectedGenres.join(",");

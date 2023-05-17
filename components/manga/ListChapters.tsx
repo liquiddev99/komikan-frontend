@@ -21,8 +21,6 @@ export default function ListChapters({ mangadexId }: IProps) {
     lang
   );
 
-  console.log("dexChapters", dexChapters);
-
   function getFlagEmoji(countryCode: string) {
     let code = countryCode.slice(0, 2);
     if (code === "en") code = "gb";
