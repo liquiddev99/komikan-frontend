@@ -10,6 +10,10 @@ export interface IChapterDex {
   relationships: {
     id: string;
     type: string;
+    attributes?: {
+      name: string;
+      website?: string;
+    };
   }[];
 }
 

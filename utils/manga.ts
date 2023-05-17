@@ -250,7 +250,7 @@ export async function fetchDexChapters(
   lang: string
 ): Promise<IChapterDex[]> {
   const res = await axios.get(
-    `https://api.mangadex.org/manga/${mangadexId}/feed?translatedLanguage[]=${lang}&limit=300&order[chapter]=desc`
+    `https://api.mangadex.org/manga/${mangadexId}/feed?translatedLanguage[]=${lang}&limit=300&order[chapter]=desc&includes[]=scanlation_group`
   );
 
   let chapters = [...res.data?.data];

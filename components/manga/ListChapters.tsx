@@ -1,7 +1,10 @@
 import { useDexChapters, useMangadexInfo } from "@/hooks/mangadex";
 import { useState } from "react";
 import { IoLanguage } from "react-icons/io5";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import {
+  AiOutlineLoading3Quarters,
+  AiOutlineClockCircle,
+} from "react-icons/ai";
 import { useRouter } from "next/router";
 import { v4 } from "uuid";
 
@@ -18,7 +21,7 @@ export default function ListChapters({ mangadexId }: IProps) {
     lang
   );
 
-  console.log("mangadex", mangadex);
+  console.log("dexChapters", dexChapters);
 
   function getFlagEmoji(countryCode: string) {
     let code = countryCode.slice(0, 2);
@@ -76,38 +79,64 @@ export default function ListChapters({ mangadexId }: IProps) {
             <table className="w-full">
               <thead className="sticky top-0 bg-bg-color">
                 <tr className="text-lg">
-                  <th className="text-left pl-3 pb-1">Chap</th>
-                  <th className="text-left pl-3 pb-1">Group</th>
-                  <th className="text-left pl-3 pb-1 pr-8">Published At</th>
+                  <th className="text-left pl-1 md:pl-3 pb-1">Chap</th>
+                  <th className="text-left pl-1 md:pl-3 pb-1 min-w-fit">
+                    Group
+                  </th>
+                  <th className="text-left pl-1 md:pl-3 pb-1 pr-8">Time</th>
                 </tr>
               </thead>
               <tbody>
                 {dexChapters
                   .filter((chapter) => chapter.attributes.chapter)
-                  .map((chapter) => (
-                    <tr
-                      className="hover:bg-slate-700 cursor-pointer"
-                      key={chapter.id}
-                      onClick={() => router.push(`/chapter/${chapter.id}`)}
-                    >
-                      <td className="border-b border-slate-500 hover:bg-slate-700">
-                        <div className="flex justify-between py-2 px-3">
-                          <div>
-                            Chapter {chapter.attributes.chapter}{" "}
-                            {chapter.attributes.title && "-"}{" "}
-                            {chapter.attributes.title}
-                          </div>
-                        </div>
-                      </td>
-                      <td className="py-2 pl-3 border-b border-slate-500"></td>
-                      <td className="py-2 pl-3 border-b border-slate-500">
-                        {chapter.attributes.createdAt &&
-                          new Intl.DateTimeFormat("en-GB").format(
-                            new Date(chapter.attributes.createdAt)
+                  .map((chapter) => {
+                    const scanGroup = chapter.relationships.find(
+                      (item) => item.type === "scanlation_group"
+                    );
+                    const scanGroupName = scanGroup?.attributes?.name;
+                    const website = scanGroup?.attributes?.website;
+                    return (
+                      <tr
+                        className="hover:bg-slate-700 cursor-pointer"
+                        key={chapter.id}
+                        onClick={() => router.push(`/chapter/${chapter.id}`)}
+                      >
+                        <td className="border-b border-slate-500 hover:bg-slate-700 px-1 md:px-3">
+                          Chapter {chapter.attributes.chapter}{" "}
+                          {chapter.attributes.title && "-"}{" "}
+                          {chapter.attributes.title}
+                        </td>
+                        <td
+                          className={`py-2 pl-1 md:pl-3 border-b border-slate-500 min-w-fit`}
+                        >
+                          {website ? (
+                            <a
+                              className={`${
+                                website
+                                  ? "cursor-pointer hover:text-blue-500 hover:underline"
+                                  : ""
+                              }`}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                              }}
+                              href={website}
+                              target="_blank"
+                            >
+                              {scanGroupName}
+                            </a>
+                          ) : (
+                            <>{scanGroupName}</>
                           )}
-                      </td>
-                    </tr>
-                  ))}
+                        </td>
+                        <td className="py-2 pl-1 md:pl-3 border-b border-slate-500">
+                          {chapter.attributes.createdAt &&
+                            new Intl.DateTimeFormat("en-GB").format(
+                              new Date(chapter.attributes.createdAt)
+                            )}
+                        </td>
+                      </tr>
+                    );
+                  })}
               </tbody>
             </table>
           </div>

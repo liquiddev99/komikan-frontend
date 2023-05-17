@@ -173,7 +173,7 @@ export default function DetailManga() {
               </div>
 
               {mangadexIds && mangadexIds.length > 1 && (
-                <h3 className="text-2xl font-semibold mb-4">
+                <h3 className="text-2xl font-bold mb-4 text-green-500">
                   {mangadexIds.length} variants of manga found
                 </h3>
               )}
