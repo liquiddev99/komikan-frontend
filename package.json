@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postbuild": "next-sitemap"
   },
   "dependencies": {
     "@types/node": "18.16.2",
@@ -16,6 +17,7 @@
     "axios": "^1.4.0",
     "embla-carousel-react": "8.0.0-rc02",
     "next": "13.3.2",
+    "next-sitemap": "^4.0.9",
     "postcss": "8.4.23",
     "react": "18.2.0",
     "react-dom": "18.2.0",

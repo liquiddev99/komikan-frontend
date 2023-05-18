@@ -22,6 +22,9 @@ dependencies:
   next:
     specifier: 13.3.2
     version: 13.3.2(react-dom@18.2.0)(react@18.2.0)
+  next-sitemap:
+    specifier: ^4.0.9
+    version: 4.0.9(@next/env@13.3.2)(next@13.3.2)
   postcss:
     specifier: 8.4.23
     version: 8.4.23
@@ -60,6 +63,10 @@ packages:
   /@alloc/quick-lru@5.2.0:
     resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}
     engines: {node: '>=10'}
+    dev: false
+
+  /@corex/deepmerge@4.0.43:
+    resolution: {integrity: sha512-N8uEMrMPL0cu/bdboEWpQYb/0i2K5Qn8eCsxzOmxSggJbbQte7ljMRoXm917AbntqTGOzdTu+vP3KOOzoC70HQ==}
     dev: false
 
   /@jridgewell/gen-mapping@0.3.3:
@@ -748,6 +755,20 @@ packages:
 
   /napi-build-utils@1.0.2:
     resolution: {integrity: sha512-ONmRUqK7zj7DWX0D9ADe03wbwOBZxNAfF20PlGfCWQcD3+/MakShIHrMqx9YwPTfxDdF1zLeL+RGZiR9kGMLdg==}
+    dev: false
+
+  /next-sitemap@4.0.9(@next/env@13.3.2)(next@13.3.2):
+    resolution: {integrity: sha512-8pbcEe4vrmgGEc3beVbrSqd8mTQ9lCsGxP+AOlArrGmeLkKD4TbSR41R2unQHHSTkBG8cQ/7gjKkdLBlzwtu6g==}
+    engines: {node: '>=14.18'}
+    hasBin: true
+    peerDependencies:
+      '@next/env': '*'
+      next: '*'
+    dependencies:
+      '@corex/deepmerge': 4.0.43
+      '@next/env': 13.3.2
+      minimist: 1.2.8
+      next: 13.3.2(react-dom@18.2.0)(react@18.2.0)
     dev: false
 
   /next@13.3.2(react-dom@18.2.0)(react@18.2.0):
