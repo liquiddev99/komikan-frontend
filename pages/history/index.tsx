@@ -1,5 +1,6 @@
 import { useAuth } from "@/hooks/auth";
 import { IHistoryManga } from "@/types/manga";
+import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -19,6 +20,13 @@ export default function History() {
 
   return (
     <div className="layout min-h-screen">
+      <Head>
+        <title>Mangazine | History</title>
+        <meta property="title" content="Mangazine | History" />
+        <meta property="description" content="History of read manga" />
+        <meta property="URL" content="https://mangazine.site/history" />
+        <meta property="type" content="website" />
+      </Head>
       <h3 className="text-3xl font-medium border-b border-slate-400 pb-1">
         History
       </h3>

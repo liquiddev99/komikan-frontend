@@ -102,10 +102,18 @@ export default function Chapter() {
 */
   }
 
+  const title =
+    mangadex?.attributes.title.en || mangadex?.attributes.title["ja-ro"];
+  const titleManga = title ? `${title} - ` : "";
+  const titleChapter = chapter?.attributes.title
+    ? `: ${chapter.attributes.title}`
+    : "";
+  const titleHeader = `${titleManga}Chap ${chapter?.attributes.chapter}${titleChapter}`;
+
   return (
     <div className="xs:layout min-h-[80vh]">
       <Head>
-        <title>Mangazine</title>
+        <title>{chapter?.attributes.chapter ? titleHeader : "Mangazine"}</title>
       </Head>
       <div className="flex flex-col justify-center items-center">
         <div className="xs:w-full flex flex-col xs:flex-row justify-between md:justify-center items-center mb-6 layout">

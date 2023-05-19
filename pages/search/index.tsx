@@ -9,6 +9,7 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 import Status from "@/components/manga/Status";
 import ScrollToTopButton from "@/components/chapter/ScrollToTopButton";
+import Head from "next/head";
 
 export default function Search() {
   const router = useRouter();
@@ -42,6 +43,9 @@ export default function Search() {
 
   return (
     <div className="layout">
+      <Head>
+        <title>Mangazine | Search</title>
+      </Head>
       <h3 className="text-3xl font-medium border-b border-slate-400 pb-1">
         Result for "{q}"
       </h3>
