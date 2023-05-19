@@ -1,15 +1,21 @@
-import { useGenres, useTags } from "@/hooks/manga";
+import { GetStaticProps } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
-export default function AdvancedSearch() {
+import { fetchGenres, fetchTags } from "../../utils/manga";
+import { ITag } from "@/types/manga";
+
+interface Props {
+  genres: string[];
+  tags: ITag[];
+}
+
+export default function AdvancedSearch({ genres, tags }: Props) {
   const router = useRouter();
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [selectedStatus, setSelectedStatus] = useState<string[]>([]);
-  const { genres } = useGenres();
-  const { tags } = useTags();
 
   function handleGenres(e: React.ChangeEvent<HTMLInputElement>) {
     if (e.target.checked) {
@@ -203,3 +209,16 @@ export default function AdvancedSearch() {
     </div>
   );
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+  const genres = await fetchGenres();
+  const tags = await fetchTags();
+
+  return {
+    props: {
+      genres,
+      tags,
+    },
+    revalidate: 60,
+  };
+};

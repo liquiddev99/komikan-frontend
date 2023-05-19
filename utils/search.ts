@@ -7,7 +7,7 @@ function searchQuery(genres: string[], tags: string[], status: string[]) {
     tags?.length ? ", $tags: [String]" : ""
   }${status?.length ? ", $status: [MediaStatus]" : ""}) {
       Page(page: $page, perPage: 36) {
-        media(type: MANGA, sort: UPDATED_AT_DESC${
+        media(type: MANGA, sort: SCORE_DESC${
           genres?.length ? ", genre_in: $genres" : ""
         }${tags?.length ? ", tag_in: $tags" : ""}${
     status?.length ? ", status_in: $status" : ""
