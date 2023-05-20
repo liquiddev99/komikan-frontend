@@ -22,10 +22,11 @@ export default function History() {
     <div className="layout min-h-screen">
       <Head>
         <title>Mangazine | History</title>
-        <meta property="title" content="Mangazine | History" />
-        <meta property="description" content="History of read manga" />
-        <meta property="URL" content="https://mangazine.site/history" />
-        <meta property="type" content="website" />
+        <meta property="og:title" content="Mangazine | History" />
+        <meta property="og:description" content="History of read manga" />
+        <meta name="description" content="History of read manga" />
+        <meta property="og:URL" content="https://mangazine.site/history" />
+        <meta property="og:type" content="website" />
       </Head>
       <h3 className="text-3xl font-medium border-b border-slate-400 pb-1">
         History

@@ -12,10 +12,11 @@ export default function About() {
     <div>
       <Head>
         <title>Mangazine | About Us</title>
-        <meta property="title" content="Mangazine | About Us" />
-        <meta property="description" content="About us" />
-        <meta property="URL" content="https://mangazine.site/about" />
-        <meta property="type" content="website" />
+        <meta property="og:title" content="Mangazine | About Us" />
+        <meta property="og:description" content="About us" />
+        <meta name="description" content="About us" />
+        <meta property="og:URL" content="https://mangazine.site/about" />
+        <meta property="og:type" content="website" />
       </Head>
       <div className="layout min-h-screen">
         <div className="max-w-3xl mx-auto text-slate-300 flex flex-col items-center text-[1.1rem]">

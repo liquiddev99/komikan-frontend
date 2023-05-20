@@ -39,13 +39,17 @@ export default function Home({ trendingManga, popularManga }: Props) {
     <main className="layout">
       <Head>
         <title>Mangazine</title>
-        <meta property="title" content="Mangazine" />
+        <meta property="og:title" content="Mangazine" />
         <meta
-          property="description"
+          name="description"
           content="Free and no-ads manga reading website, provide high-quality images with a comprehensive finding system, helps you easier to find your favourite manga"
         />
-        <meta property="URL" content="https://mangazine.site/" />
-        <meta property="type" content="website" />
+        <meta
+          property="og:description"
+          content="Free and no-ads manga reading website, provide high-quality images with a comprehensive finding system, helps you easier to find your favourite manga"
+        />
+        <meta property="og:URL" content="https://mangazine.site/" />
+        <meta property="og:type" content="website" />
       </Head>
       {trendingManga && (
         <div
