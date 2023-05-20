@@ -10,6 +10,7 @@ import Link from "next/link";
 import Status from "@/components/manga/Status";
 import { IMangaList } from "@/types/manga";
 import { fetchPopularManga, fetchTrendingManga } from "@/utils/manga";
+import MangaItem from "@/components/manga/MangaItem";
 
 interface Props {
   trendingManga: IMangaList;
@@ -133,41 +134,9 @@ export default function Home({ trendingManga, popularManga }: Props) {
         <h3 className="text-3xl font-medium">Trending Manga</h3>
         <div className="mt-8 container-list-manga">
           {trendingManga &&
-            trendingManga.data.Page.media.slice(6).map((manga) => (
-              <Link href={`/manga/${manga.id}`} key={v4()}>
-                <div className="rounded-md flex flex-col h-full overflow-hidden">
-                  <div className="flex w-full pb-[140%] relative">
-                    <Image
-                      src={manga.coverImage.extraLarge}
-                      alt="Cover"
-                      fill
-                      sizes="20vw"
-                      className="object-cover rounded-md"
-                    />
-                  </div>
-                  <div className="flex flex-col flex-grow justify-between py-2">
-                    <span className="font-semibold line-clamp-1">
-                      {manga.title.english || manga.title.romaji}
-                    </span>
-
-                    <div className="mt-1">
-                      <div className="mb-3 flex items-center">
-                        <div className="flex items-center mr-3">
-                          <FaSmile className="h-5 w-5 text-green-500 mr-2" />
-                          <span>{manga.averageScore}%</span>
-                        </div>
-                        <div className="flex items-center">
-                          <FaHeart className="h-5 w-5 text-rose-500 mr-2" />
-                          <span>{manga.favourites}</span>
-                        </div>
-                      </div>
-
-                      <Status status={manga.status} />
-                    </div>
-                  </div>
-                </div>
-              </Link>
-            ))}
+            trendingManga.data.Page.media
+              .slice(6)
+              .map((manga) => <MangaItem manga={manga} key={v4()} />)}
         </div>
       </div>
 
@@ -175,41 +144,9 @@ export default function Home({ trendingManga, popularManga }: Props) {
         <h3 className="text-3xl font-medium">All Time Popular</h3>
         <div className="mt-8 container-list-manga">
           {popularManga &&
-            popularManga.data.Page.media.slice(6).map((manga) => (
-              <Link href={`/manga/${manga.id}`} key={v4()}>
-                <div className="rounded-md flex flex-col h-full overflow-hidden">
-                  <div className="flex w-full pb-[140%] relative">
-                    <Image
-                      src={manga.coverImage.extraLarge}
-                      alt="Cover"
-                      fill
-                      sizes="20vw"
-                      className="object-cover rounded-md"
-                    />
-                  </div>
-                  <div className="flex flex-col flex-grow justify-between py-2">
-                    <span className="font-semibold line-clamp-1">
-                      {manga.title.english || manga.title.romaji}
-                    </span>
-
-                    <div className="mt-1">
-                      <div className="mb-3 flex items-center">
-                        <div className="flex items-center mr-3">
-                          <FaSmile className="h-5 w-5 text-green-500 mr-2" />
-                          <span>{manga.averageScore}%</span>
-                        </div>
-                        <div className="flex items-center">
-                          <FaHeart className="h-5 w-5 text-rose-500 mr-2" />
-                          <span>{manga.favourites}</span>
-                        </div>
-                      </div>
-
-                      <Status status={manga.status} />
-                    </div>
-                  </div>
-                </div>
-              </Link>
-            ))}
+            popularManga.data.Page.media
+              .slice(6)
+              .map((manga) => <MangaItem manga={manga} key={v4()} />)}
         </div>
       </div>
     </main>
