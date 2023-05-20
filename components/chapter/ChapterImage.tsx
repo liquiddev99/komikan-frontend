@@ -14,14 +14,14 @@ export default function ChapterImage({ src, alt, initPriority }: IProps) {
   const [retry, setRetry] = useState(0);
   const [priority, setPriority] = useState(initPriority);
   function handleError() {
-    if (retry > 5) return;
+    if (retry > 3) return;
     setRetry(retry + 1);
   }
 
   useEffect(() => {
     setTimeout(() => {
       if (!priority) setPriority(true);
-    }, 5000);
+    }, 7000);
   }, []);
 
   return (
