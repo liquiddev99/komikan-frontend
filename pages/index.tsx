@@ -39,7 +39,7 @@ export default function Home({ trendingManga, popularManga }: Props) {
   return (
     <main className="layout">
       <Head>
-        <title>Mangazine</title>
+        <title>Mangazine - Free and no-ads manga reading website</title>
         <meta property="og:title" content="Mangazine" />
         <meta
           name="description"

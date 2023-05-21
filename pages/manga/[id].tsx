@@ -26,12 +26,12 @@ export default function DetailManga() {
   const { manga, loading } = useDetailManga(id);
   const { mangadexIds } = useDexId(manga?.idMal);
 
+  const mangaTitle = manga?.title.english || manga?.title.romaji;
+
   return (
     <div className="min-h-[90vh]">
       <Head>
-        <title>
-          {manga?.title.english || manga?.title.romaji || "Mangazine"}
-        </title>
+        <title>{mangaTitle ? `${mangaTitle} - Mangazine` : "Mangazine"}</title>
       </Head>
       {loading && <DetailMangaSkeleton />}
       {manga && (
@@ -62,9 +62,9 @@ export default function DetailManga() {
                 className="rounded-xl self-center sm:self-auto"
               />
               <div className="grow">
-                <h3 className="text-3xl font-medium mb-2 sm:hidden">
+                <h1 className="text-3xl font-medium mb-2 sm:hidden">
                   {manga.title.english || manga.title.romaji}
-                </h3>
+                </h1>
                 <button
                   onClick={() => {}}
                   className="mt-5 mb-4 bg-teal-500 rounded-lg px-6 py-1 flex items-center font-semibold text-slate-100"
@@ -154,9 +154,9 @@ export default function DetailManga() {
             </div>
 
             <div className="w-full md:w-[76%] lg:w-4/5 mt-0 md:mt-6">
-              <h3 className="text-3xl font-medium mb-2 hidden sm:block">
+              <h1 className="text-3xl font-medium mb-2 hidden sm:block">
                 {manga.title.english || manga.title.romaji}
-              </h3>
+              </h1>
               <div
                 dangerouslySetInnerHTML={{ __html: manga.description }}
               ></div>
