@@ -161,7 +161,6 @@ export function useAdvancedSearch(
   status: string[],
   sort: string
 ) {
-  console.log("sortttt", sort);
   const [isEnd, setIsEnd] = useState(false);
   const { data, error, isLoading, setSize, size, isValidating } =
     useSWRInfinite(

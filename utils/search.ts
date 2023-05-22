@@ -42,7 +42,6 @@ export async function advancedSearch(
   page: number,
   sort: string
 ): Promise<IManga[]> {
-  console.log("sort", sort);
   const res = await axios.post("https://graphql.anilist.co", {
     query: searchQuery(genres, tags, status, sort),
     variables: {
