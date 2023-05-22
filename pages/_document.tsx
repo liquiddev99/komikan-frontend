@@ -8,7 +8,7 @@ export default function Document() {
           name="google-site-verification"
           content="oVr2qOSHJpPbvUVt1731vAgcnhNdcN7oEgQdC43c2dI"
         />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="https://mangazine.site/favicon.ico" />
       </Head>
       <body className="bg-bg-color">
         <Main />

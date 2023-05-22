@@ -40,7 +40,7 @@ export default function Home({ trendingManga, popularManga }: Props) {
     <main className="layout">
       <Head>
         <title>Mangazine - Free and no-ads manga reading website</title>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="https://mangazine.site/favicon.ico" />
         <meta property="og:title" content="Mangazine" />
         <meta
           name="description"
