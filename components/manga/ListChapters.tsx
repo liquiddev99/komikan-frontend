@@ -45,7 +45,7 @@ export default function ListChapters({ mangadexId }: IProps) {
           <IoLanguage className="h-6 w-6 mr-1" /> Language
         </div>
         <select
-          className="text-slate-200 rounded-md px-3 py-1 bg-slate-800"
+          className="text-slate-200 rounded-md px-3 py-1 bg-slate-600"
           onChange={(e) => {
             if (e.target.value) {
               setLang(e.target.value);
@@ -109,11 +109,10 @@ export default function ListChapters({ mangadexId }: IProps) {
                         >
                           {website ? (
                             <a
-                              className={`${
-                                website
+                              className={`${website
                                   ? "cursor-pointer hover:text-blue-500 hover:underline"
                                   : ""
-                              }`}
+                                }`}
                               onClick={(e) => {
                                 e.stopPropagation();
                               }}
