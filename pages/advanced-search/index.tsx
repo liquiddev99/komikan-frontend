@@ -16,6 +16,7 @@ export default function AdvancedSearch({ genres, tags }: Props) {
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [selectedStatus, setSelectedStatus] = useState<string[]>([]);
+  const [sort, setSort] = useState("TRENDING_DESC");
 
   function handleGenres(e: React.ChangeEvent<HTMLInputElement>) {
     if (e.target.checked) {
@@ -64,7 +65,7 @@ export default function AdvancedSearch({ genres, tags }: Props) {
       query += (query ? "&" : "?") + "status=" + selectedStatus.join(",");
     }
 
-    router.push(`/advanced-search/query${query}`);
+    router.push(`/advanced-search/query${query}&sort=${sort}`);
   }
 
   return (
@@ -93,7 +94,23 @@ export default function AdvancedSearch({ genres, tags }: Props) {
       >
         Search
       </button>
-
+      <div className="mt-3">
+        <p className="text-2xl font-medium">Sort by</p>
+        <select
+          className="rounded-md px-3 py-1 mt-2 bg-slate-300 text-slate-800"
+          onChange={(e) => {
+            if (e.target.value) {
+              setSort(e.target.value);
+            }
+          }}
+          value={sort}
+        >
+          <option value="TRENDING_DESC">Trending</option>
+          <option value="UPDATED_AT_DESC">Updated</option>
+          <option value="POPULARITY_DESC">Popularity</option>
+          <option value="FAVOURITES_DESC">Favourites</option>
+        </select>
+      </div>
       <div className="mt-3">
         <p className="text-2xl font-medium">Genres</p>
         <div className="w-full grid grid-cols-2 xs:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-6 gap-2 gap-y-2.5 mt-2">

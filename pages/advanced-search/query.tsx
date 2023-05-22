@@ -13,6 +13,7 @@ export default function Query() {
   const [genres, setGenres] = useState<string[]>([]);
   const [tags, setTags] = useState<string[]>([]);
   const [status, setStatus] = useState<string[]>([]);
+  const [sort, setSort] = useState("");
   const router = useRouter();
 
   useEffect(() => {
@@ -22,10 +23,11 @@ export default function Query() {
     if (router.query.tags) setTags((router.query.tags as string)?.split(","));
     if (router.query.status)
       setStatus((router.query.status as string)?.split(","));
+    if (router.query.sort) setSort(router.query.sort as string);
   }, [router.isReady]);
 
   const { outerListManga, loading, setPage, page, validating, isEnd } =
-    useAdvancedSearch(genres, tags, status);
+    useAdvancedSearch(genres, tags, status, sort);
 
   useEffect(() => {
     if (isEnd) {

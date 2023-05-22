@@ -158,8 +158,10 @@ export function useSearchManga(q: string) {
 export function useAdvancedSearch(
   genres: string[],
   tags: string[],
-  status: string[]
+  status: string[],
+  sort: string
 ) {
+  console.log("sortttt", sort);
   const [isEnd, setIsEnd] = useState(false);
   const { data, error, isLoading, setSize, size, isValidating } =
     useSWRInfinite(
@@ -169,15 +171,16 @@ export function useAdvancedSearch(
           return null;
         } // reached the end
         return [
-          `/api/manga/advanced-search?page=${pageIndex}`,
+          `/api/manga/advanced-search?page=${pageIndex}&sort=${sort}`,
           genres,
           tags,
           status,
+          sort,
           pageIndex + 1,
         ];
       },
-      ([_, genres, tags, status, page]) =>
-        advancedSearch(genres, tags, status, page)
+      ([_, genres, tags, status, sort, page]) =>
+        advancedSearch(genres, tags, status, page, sort)
     );
 
   return {
