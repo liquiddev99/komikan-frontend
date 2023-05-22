@@ -109,10 +109,11 @@ export default function ListChapters({ mangadexId }: IProps) {
                         >
                           {website ? (
                             <a
-                              className={`${website
+                              className={`${
+                                website
                                   ? "cursor-pointer hover:text-blue-500 hover:underline"
                                   : ""
-                                }`}
+                              }`}
                               onClick={(e) => {
                                 e.stopPropagation();
                               }}
