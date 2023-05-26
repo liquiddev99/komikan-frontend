@@ -16,7 +16,7 @@ export default function AdvancedSearch({ genres, tags }: Props) {
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [selectedStatus, setSelectedStatus] = useState<string[]>([]);
-  const [sort, setSort] = useState("TRENDING_DESC");
+  const [sort, setSort] = useState("");
 
   function handleGenres(e: React.ChangeEvent<HTMLInputElement>) {
     if (e.target.checked) {
@@ -64,8 +64,11 @@ export default function AdvancedSearch({ genres, tags }: Props) {
     if (selectedStatus.length) {
       query += (query ? "&" : "?") + "status=" + selectedStatus.join(",");
     }
+    if (sort) {
+      query += (query ? "&" : "?") + "sort=" + sort;
+    }
 
-    router.push(`/advanced-search/query${query}&sort=${sort}`);
+    router.push(`/advanced-search/query${query}`);
   }
 
   return (
@@ -105,6 +108,7 @@ export default function AdvancedSearch({ genres, tags }: Props) {
           }}
           value={sort}
         >
+          <option value="">Sort By</option>
           <option value="TRENDING_DESC">Trending</option>
           <option value="UPDATED_AT_DESC">Updated</option>
           <option value="POPULARITY_DESC">Popularity</option>

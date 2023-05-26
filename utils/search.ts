@@ -10,9 +10,11 @@ function searchQuery(
   return `
     query($page: Int${genres?.length ? ", $genres: [String]" : ""}${
     tags?.length ? ", $tags: [String]" : ""
-  }${status?.length ? ", $status: [MediaStatus]" : ""}) {
+  }${status?.length ? ", $status: [MediaStatus]" : ""}${
+    sort ? ", $sort: [MediaSort]" : ""
+  }) {
       Page(page: $page, perPage: 36) {
-        media(type: MANGA, sort: ${sort}${
+        media(type: MANGA${sort ? ", sort: $sort" : ""}${
     genres?.length ? ", genre_in: $genres" : ""
   }${tags?.length ? ", tag_in: $tags" : ""}${
     status?.length ? ", status_in: $status" : ""
@@ -49,7 +51,7 @@ export async function advancedSearch(
       tags: tags.length ? tags : null,
       status: status.length ? status : null,
       page,
-      sort,
+      sort: sort ? sort : null,
     },
   });
 
