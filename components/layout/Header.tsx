@@ -19,17 +19,8 @@ export default function Header() {
   }
 
   return (
-    <div className="pt-6 pb-7 layout">
-      <div className="flex relative justify-between items-center">
-        <Link href="/">
-          <div className="flex items-center">
-            <Image src={Logo} alt="Logo" width={50} height={50} />
-            <span className={`ml-3 mt-3 text-slate-100 text-2xl font-medium`}>
-              Mangazine
-            </span>
-          </div>
-        </Link>
-
+    <div className="pt-8 pb-7 layout">
+      <div className="flex relative justify-end items-center">
         <div
           className="block lg:hidden cursor-pointer"
           onClick={() => setMenu(!menu)}
@@ -71,19 +62,6 @@ export default function Header() {
         </div>
 
         <div className="hidden lg:flex items-center">
-          <Link href="/" className="mr-7 font-medium">
-            Home
-          </Link>
-          <Link href="/advanced-search" className="mr-7 font-medium">
-            Advanced Search
-          </Link>
-          <Link href="/history" className="mr-7 font-medium">
-            History
-          </Link>
-          <Link href="/about" className="mr-7 font-medium">
-            About Us
-          </Link>
-
           <form onSubmit={onSearch}>
             <input
               type="text"
