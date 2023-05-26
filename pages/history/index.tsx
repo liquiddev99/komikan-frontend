@@ -21,8 +21,8 @@ export default function History() {
   return (
     <div className="layout min-h-screen">
       <Head>
-        <title>Mangazine | History</title>
-        <meta property="og:title" content="Mangazine | History" />
+        <title>Komikan | History</title>
+        <meta property="og:title" content="Komikan | History" />
         <meta property="og:description" content="History of read manga" />
         <meta name="description" content="History of read manga" />
         <meta property="og:URL" content="https://mangazine.site/history" />

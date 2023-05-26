@@ -11,8 +11,8 @@ export default function About() {
   return (
     <div>
       <Head>
-        <title>Mangazine | About Us</title>
-        <meta property="og:title" content="Mangazine | About Us" />
+        <title>Komikan | About Us</title>
+        <meta property="og:title" content="Komikan | About Us" />
         <meta property="og:description" content="About us" />
         <meta name="description" content="About us" />
         <meta property="og:URL" content="https://mangazine.site/about" />
@@ -30,7 +30,7 @@ export default function About() {
           </p>
           <Image src={SadMeme} alt="Sad" width={330} className="mt-4" />
           <p className="mt-4">
-            That's why I created Mangazine—an online platform for free manga
+            That's why I created Komikan—an online platform for free manga
             reading that offers a continuous influx of updated titles, a
             recommendation system for finding comparable narratives, and a
             comprehensive search engine encompassing a myriad of genres. It is
@@ -39,7 +39,7 @@ export default function About() {
           </p>
           <Image src={HappyMeme} alt="Sad" width={330} className="mt-4" />
           <p className="mt-4">
-            I hope you enjoy the experience of reading manga on Mangazine and
+            I hope you enjoy the experience of reading manga on Komikan and
             can find your favorite manga to immerse yourself in it.
             <br /> Happy reading!
           </p>
@@ -68,7 +68,7 @@ export default function About() {
                 onClick={() => setKofi(!kofi)}
               >
                 <Image src={Kofi} alt="Kofi" className="mr-1" width={40} />
-                Support Mangazine
+                Support Komikan
               </button>
               <div className="mt-2">
                 <a

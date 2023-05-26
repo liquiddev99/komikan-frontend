@@ -71,12 +71,12 @@ export default function AdvancedSearch({ genres, tags }: Props) {
   return (
     <div className="layout">
       <Head>
-        <title>Mangazine | Advanced Search</title>
-        <meta property="og:title" content="Mangazine | Advanced Search" />
-        <meta name="description" content="Advanced search manga in Mangazine" />
+        <title>Komikan | Advanced Search</title>
+        <meta property="og:title" content="Komikan | Advanced Search" />
+        <meta name="description" content="Advanced search manga in Komikan" />
         <meta
           property="og:description"
-          content="Advanced search manga in Mangazine"
+          content="Advanced search manga in Komikan"
         />
         <meta
           property="og:URL"
