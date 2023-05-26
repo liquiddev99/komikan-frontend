@@ -39,9 +39,9 @@ export default function Home({ trendingManga, popularManga }: Props) {
   return (
     <main className="layout">
       <Head>
-        <title>Mangazine - Free and no-ads manga reading website</title>
+        <title>Komikan - Free and no-ads manga reading website</title>
         <link rel="icon" href="https://mangazine.site/favicon.ico" />
-        <meta property="og:title" content="Mangazine" />
+        <meta property="og:title" content="Komikan" />
         <meta
           name="description"
           content="Free and no-ads manga reading website, provide high-quality images with a comprehensive finding system, helps you easier to find your favourite manga"
