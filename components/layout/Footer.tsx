@@ -1,15 +1,14 @@
 import Image from "next/image";
 import Logo from "../../public/logo.png";
 import Link from "next/link";
-import { FaGithub } from "react-icons/fa";
 
 import { SiBuymeacoffee } from "react-icons/si";
 
 export default function Footer() {
   return (
-    <div className="pt-20 pb-6">
-      <div className="flex flex-col items-center md:flex-row justify-between layout">
-        <div className="md:w-1/3 px-4 sm:px-8 md:px-0 mb-0 sm:mb-8 md:mb-4">
+    <div className="pt-16 pb-6">
+      <div className="flex flex-col md:flex-row justify-between layout">
+        <div className="md:w-1/3 px-4 sm:px-8 md:px-0 mb-0 sm:mb-8 md:mb-4 mt-1">
           <div className="flex items-center">
             <Image src={Logo} alt="Logo" width={60} height={60} />
             <span className={`ml-3 mt-3 text-slate-100 text-2xl font-medium`}>
@@ -21,13 +20,6 @@ export default function Footer() {
             hectic day with Komikan
           </p>
           <div className="flex text-[#989CAD] mt-4 items-center">
-            <a
-              target="_blank"
-              href="https://github.com/liquiddev99/komikan-frontend"
-              className="mr-3 hover:text-red-400 transition-colors"
-            >
-              <FaGithub className="w-7 h-7" />
-            </a>
             <a
               target="_blank"
               href="https://ko-fi.com/komikan"
@@ -125,7 +117,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="mt-10 text-center text-sm text-slate-300 px-3 sm:px-0">
+      <div className="mt-8 text-center text-sm text-slate-300 px-3 sm:px-0">
         © 2023 Komikan. Built with ❤ by liquiddev99
       </div>
     </div>

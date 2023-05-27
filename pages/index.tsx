@@ -132,7 +132,9 @@ export default function Home({ trendingManga, popularManga }: Props) {
       )}
 
       <div className="sm:mt-12">
-        <h3 className="text-3xl font-medium">Trending Manga</h3>
+        <h3 className="text-3xl font-semibold text-yellow-300">
+          Trending Manga
+        </h3>
         <div className="mt-8 container-list-manga">
           {trendingManga &&
             trendingManga.data.Page.media
@@ -142,7 +144,9 @@ export default function Home({ trendingManga, popularManga }: Props) {
       </div>
 
       <div className="mt-16">
-        <h3 className="text-3xl font-medium">All Time Popular</h3>
+        <h3 className="text-3xl font-semibold text-yellow-300">
+          All Time Popular
+        </h3>
         <div className="mt-8 container-list-manga">
           {popularManga &&
             popularManga.data.Page.media

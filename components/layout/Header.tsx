@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { IoMenu, IoClose } from "react-icons/io5";
 import { AiOutlineSearch } from "react-icons/ai";
+import { GrSearchAdvanced } from "react-icons/gr";
 
 export default function Header() {
   const [textSearch, setTextSearch] = useState("");
@@ -44,8 +45,9 @@ export default function Header() {
         </div>
 
         <div
-          className={`absolute flex lg:hidden top-full rounded-lg bg-slate-800 w-full flex-col z-50 p-4 transition-transform origin-top duration-500 ${menu ? "scale-y-100" : "scale-y-0"
-            }`}
+          className={`absolute flex lg:hidden top-full rounded-lg bg-slate-800 w-full flex-col z-50 p-4 transition-transform origin-top duration-500 ${
+            menu ? "scale-y-100" : "scale-y-0"
+          }`}
         >
           <Link href="/" className="mr-7 font-medium mb-2">
             Home
@@ -74,29 +76,33 @@ export default function Header() {
         <div className="hidden lg:flex items-center">
           <Link
             href="/"
-            className={`mr-7 font-semibold hover:active-link hover:text-red-400 ${router.asPath === "/" ? "active-link" : ""
-              }`}
+            className={`mr-7 font-semibold hover:active-link hover:text-red-400 ${
+              router.asPath === "/" ? "active-link" : ""
+            }`}
           >
             Home
           </Link>
           <Link
             href="/advanced-search"
-            className={`mr-7 font-semibold hover:active-link hover:text-red-400 ${router.asPath === "/advanced-search" ? "active-link" : ""
-              }`}
+            className={`mr-7 font-semibold hover:active-link hover:text-red-400 ${
+              router.asPath === "/advanced-search" ? "active-link" : ""
+            }`}
           >
             Advanced Search
           </Link>
           <Link
             href="/history"
-            className={`mr-7 font-semibold hover:active-link hover:text-red-400 ${router.asPath === "/history" ? "active-link" : ""
-              }`}
+            className={`mr-7 font-semibold hover:active-link hover:text-red-400 ${
+              router.asPath === "/history" ? "active-link" : ""
+            }`}
           >
             History
           </Link>
           <Link
             href="/about"
-            className={`mr-7 font-semibold hover:active-link hover:text-red-400 ${router.asPath === "/about" ? "active-link" : ""
-              }`}
+            className={`mr-7 font-semibold hover:active-link hover:text-red-400 ${
+              router.asPath === "/about" ? "active-link" : ""
+            }`}
           >
             About Us
           </Link>
