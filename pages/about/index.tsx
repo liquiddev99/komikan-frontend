@@ -72,7 +72,7 @@ export default function About() {
               </button>
               <div className="mt-2">
                 <a
-                  href="https://ko-fi.com/V7V5L69QP"
+                  href="https://ko-fi.com/komikan"
                   target="_blank"
                   rel="noreferrer"
                   className="text-slate-400"

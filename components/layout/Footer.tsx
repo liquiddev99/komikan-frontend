@@ -6,14 +6,16 @@ import {
   FaTwitter,
   FaDiscord,
   FaLinkedin,
-  FaFacebook,
+  FaCoffee,
 } from "react-icons/fa";
+
+import { SiBuymeacoffee } from "react-icons/si";
 
 export default function Footer() {
   return (
     <div className="pt-20 pb-6">
       <div className="flex flex-col items-center md:flex-row justify-between layout">
-        <div className="md:w-1/3 px-4 sm:px-8 md:px-0 mb-0 sm:mb-8 md:mb-0">
+        <div className="md:w-1/3 px-4 sm:px-8 md:px-0 mb-0 sm:mb-8 md:mb-4">
           <div className="flex items-center">
             <Image src={Logo} alt="Logo" width={60} height={60} />
             <span className={`ml-3 mt-3 text-slate-100 text-2xl font-medium`}>
@@ -21,30 +23,24 @@ export default function Footer() {
             </span>
           </div>
           <p className="text-[#989CAD] mt-4">
-            Komikan is the perfect destination for anyone who loves manga. So
-            check us out today and start reading your favorite manga series!
+            Immerse yourself in different emotions with various stories after a
+            hectic day with Komikan
           </p>
           <div className="flex text-[#989CAD] mt-4 items-center">
-            <Link href="#" className="mr-3 hover:text-pink transition-colors">
-              <FaGithub className="w-7 h-7" />
-            </Link>
             <a
               target="_blank"
-              href="https://www.facebook.com/liquiddev99"
+              href="https://github.com/liquiddev99/komikan-frontend"
               className="mr-3 hover:text-pink transition-colors"
             >
-              <FaFacebook className="w-7 h-7" />
+              <FaGithub className="w-7 h-7" />
             </a>
-            <Link href="#" className="mr-3 hover:text-pink transition-colors">
-              <FaTwitter className="w-7 h-7" />
-            </Link>
-
-            <Link href="#" className="mr-3 hover:text-pink transition-colors">
-              <FaDiscord className="w-8 h-8" />
-            </Link>
-            <Link href="#" className="mr-3 hover:text-pink transition-colors">
-              <FaLinkedin className="w-7 h-7" />
-            </Link>
+            <a
+              target="_blank"
+              href="https://ko-fi.com/komikan"
+              className="mr-3 hover:text-pink transition-colors"
+            >
+              <SiBuymeacoffee className="w-[1.65rem] h-[1.65rem]" />
+            </a>
           </div>
         </div>
 
