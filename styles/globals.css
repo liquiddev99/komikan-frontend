@@ -18,6 +18,9 @@
   .container-list-manga {
     @apply grid grid-cols-2 xs:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 md:gap-6 gap-4;
   }
+  .active-link {
+    @apply text-red-400 relative after:absolute after:left-0 after:w-full after:h-1 after:bg-red-400 after:bottom-[-5px] after:transition-all;
+  }
 }
 
 .embla {
