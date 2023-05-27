@@ -1,13 +1,7 @@
 import Image from "next/image";
 import Logo from "../../public/logo.png";
 import Link from "next/link";
-import {
-  FaGithub,
-  FaTwitter,
-  FaDiscord,
-  FaLinkedin,
-  FaCoffee,
-} from "react-icons/fa";
+import { FaGithub } from "react-icons/fa";
 
 import { SiBuymeacoffee } from "react-icons/si";
 
@@ -30,14 +24,14 @@ export default function Footer() {
             <a
               target="_blank"
               href="https://github.com/liquiddev99/komikan-frontend"
-              className="mr-3 hover:text-pink transition-colors"
+              className="mr-3 hover:text-red-400 transition-colors"
             >
               <FaGithub className="w-7 h-7" />
             </a>
             <a
               target="_blank"
               href="https://ko-fi.com/komikan"
-              className="mr-3 hover:text-pink transition-colors"
+              className="mr-3 hover:text-red-400 transition-colors"
             >
               <SiBuymeacoffee className="w-[1.65rem] h-[1.65rem]" />
             </a>
@@ -49,20 +43,20 @@ export default function Footer() {
             <p className="mb-7 font-medium">INFOMATION</p>
             <div className="flex flex-col">
               <Link
-                href="#"
-                className="hover:text-pink text-[#989CAD] transition-colors mb-3 max-w-fit"
+                href="/about"
+                className="hover:text-red-400 text-[#989CAD] transition-colors mb-3 max-w-fit"
               >
                 About Us
               </Link>
               <Link
                 href="#"
-                className="hover:text-pink text-[#989CAD] transition-colors mb-3 max-w-fit"
+                className="hover:text-red-400 text-[#989CAD] transition-colors mb-3 max-w-fit"
               >
                 Media
               </Link>
               <Link
                 href="#"
-                className="hover:text-pink text-[#989CAD] transition-colors mb-3 max-w-fit"
+                className="hover:text-red-400 text-[#989CAD] transition-colors mb-3 max-w-fit"
               >
                 Blog
               </Link>
@@ -74,25 +68,25 @@ export default function Footer() {
             <div className="flex flex-col">
               <Link
                 href="#"
-                className="hover:text-pink text-[#989CAD] transition-colors mb-3 max-w-fit whitespace-nowrap"
+                className="hover:text-red-400 text-[#989CAD] transition-colors mb-3 max-w-fit whitespace-nowrap"
               >
                 Privacy policy
               </Link>
               <Link
                 href="#"
-                className="hover:text-pink text-[#989CAD] transition-colors mb-3 max-w-fit whitespace-nowrap"
+                className="hover:text-red-400 text-[#989CAD] transition-colors mb-3 max-w-fit whitespace-nowrap"
               >
                 Cookies policy
               </Link>
               <Link
                 href="#"
-                className="hover:text-pink text-[#989CAD] transition-colors mb-3 max-w-fit whitespace-nowrap"
+                className="hover:text-red-400 text-[#989CAD] transition-colors mb-3 max-w-fit whitespace-nowrap"
               >
                 Security policy
               </Link>
               <Link
                 href="#"
-                className="hover:text-pink text-[#989CAD] transition-colors mb-3 max-w-fit whitespace-nowrap"
+                className="hover:text-red-400 text-[#989CAD] transition-colors mb-3 max-w-fit whitespace-nowrap"
               >
                 License FAQs
               </Link>
@@ -104,25 +98,25 @@ export default function Footer() {
             <div className="flex flex-col">
               <Link
                 href="#"
-                className="hover:text-pink text-[#989CAD] transition-colors mb-3 max-w-fit"
+                className="hover:text-red-400 text-[#989CAD] transition-colors mb-3 max-w-fit"
               >
                 Documentation
               </Link>
               <Link
                 href="#"
-                className="hover:text-pink text-[#989CAD] transition-colors mb-3 max-w-fit"
+                className="hover:text-red-400 text-[#989CAD] transition-colors mb-3 max-w-fit"
               >
                 Installation
               </Link>
               <Link
                 href="#"
-                className="hover:text-pink text-[#989CAD] transition-colors mb-3 max-w-fit"
+                className="hover:text-red-400 text-[#989CAD] transition-colors mb-3 max-w-fit"
               >
                 Features
               </Link>
               <Link
                 href="#"
-                className="hover:text-pink text-[#989CAD] transition-colors mb-3 max-w-fit"
+                className="hover:text-red-400 text-[#989CAD] transition-colors mb-3 max-w-fit"
               >
                 Releases
               </Link>
