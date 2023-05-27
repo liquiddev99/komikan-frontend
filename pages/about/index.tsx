@@ -39,8 +39,8 @@ export default function About() {
           </p>
           <Image src={HappyMeme} alt="Sad" width={330} className="mt-4" />
           <p className="mt-4">
-            I hope you enjoy the experience of reading manga on Komikan and
-            can find your favorite manga to immerse yourself in it.
+            I hope you enjoy the experience of reading manga on Komikan and can
+            find your favorite manga to immerse yourself in it.
             <br /> Happy reading!
           </p>
         </div>
@@ -56,13 +56,13 @@ export default function About() {
             <div className="relative mr-4">
               <iframe
                 id="kofiframe"
-                src="https://ko-fi.com/liquiddev99/?hidefeed=true&widget=true&embed=true&preview=true"
-                className={`border-0 w-[330px] p-2 bg-[#f9f9f9] rounded-lg absolute bottom-[125%] right-[-25%] transition-all origin-bottom duration-[420ms] ${
-                  kofi ? "scale-100 opacity-100" : "scale-0 opacity-0"
-                }`}
-                height="650"
-                title="liquiddev99"
+                className={`border-0 w-[330px] p-2 bg-[#f9f9f9] rounded-lg absolute bottom-[125%] right-[-33%] transition-all origin-bottom duration-[420ms] ${kofi ? "scale-100 opacity-100" : "scale-0 opacity-0"
+                  }`}
+                src="https://ko-fi.com/komikan/?hidefeed=true&widget=true&embed=true&preview=true"
+                height="690"
+                title="komikan"
               ></iframe>
+
               <button
                 className="flex items-center rounded-full bg-[#FF5F5F] px-4 font-bold"
                 onClick={() => setKofi(!kofi)}
