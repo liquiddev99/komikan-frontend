@@ -31,7 +31,7 @@ export default function DetailManga() {
   return (
     <div className="min-h-[90vh]">
       <Head>
-        <title>{mangaTitle ? `${mangaTitle} - Mangazine` : "Mangazine"}</title>
+        <title>{mangaTitle ? `${mangaTitle} - Komikan` : "Komikan"}</title>
       </Head>
       {loading && <DetailMangaSkeleton />}
       {manga && (

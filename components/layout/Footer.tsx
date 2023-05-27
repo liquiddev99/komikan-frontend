@@ -17,11 +17,11 @@ export default function Footer() {
           <div className="flex items-center">
             <Image src={Logo} alt="Logo" width={60} height={60} />
             <span className={`ml-3 mt-3 text-slate-100 text-2xl font-medium`}>
-              Mangazine
+              Komikan
             </span>
           </div>
           <p className="text-[#989CAD] mt-4">
-            Mangazine is the perfect destination for anyone who loves manga. So
+            Komikan is the perfect destination for anyone who loves manga. So
             check us out today and start reading your favorite manga series!
           </p>
           <div className="flex text-[#989CAD] mt-4 items-center">
@@ -136,7 +136,7 @@ export default function Footer() {
       </div>
 
       <div className="mt-10 text-center text-sm text-slate-300 px-3 sm:px-0">
-        © 2023 Mangazine. Built with ❤ by liquiddev99
+        © 2023 Komikan. Built with ❤ by liquiddev99
       </div>
     </div>
   );

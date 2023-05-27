@@ -44,7 +44,7 @@ export default function Search() {
   return (
     <div className="layout">
       <Head>
-        <title>Mangazine | Search</title>
+        <title>Komikan | Search</title>
       </Head>
       <h3 className="text-3xl font-medium border-b border-slate-400 pb-1">
         Result for "{q}"

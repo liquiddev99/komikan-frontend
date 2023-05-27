@@ -25,7 +25,7 @@ export default function Header() {
           <div className="flex items-center">
             <Image src={Logo} alt="Logo" width={50} height={50} />
             <span className={`ml-3 mt-3 text-slate-100 text-2xl font-medium`}>
-              Mangazine
+              Komikan
             </span>
           </div>
         </Link>
