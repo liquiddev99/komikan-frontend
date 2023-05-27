@@ -4,6 +4,7 @@ import Logo from "../../public/logo.png";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { IoMenu, IoClose } from "react-icons/io5";
+import { AiOutlineSearch } from "react-icons/ai";
 
 export default function Header() {
   const [textSearch, setTextSearch] = useState("");
@@ -15,6 +16,7 @@ export default function Header() {
   }
   function onSearch(e: React.FormEvent) {
     e.preventDefault();
+    if (!textSearch) return;
     router.push(`/search?q=${textSearch}`);
   }
 
@@ -99,14 +101,20 @@ export default function Header() {
             About Us
           </Link>
 
-          <form onSubmit={onSearch}>
+          <form
+            onSubmit={onSearch}
+            className="bg-slate-800 flex items-center rounded-md w-64"
+          >
             <input
               type="text"
               placeholder="Search Manga"
-              className="bg-slate-800 px-4 py-1 rounded-md outline-none"
+              className="bg-slate-800 px-4 py-1 pr-0 rounded-md outline-none w-[90%]"
               value={textSearch}
               onChange={handleChange}
             />
+            <button type="submit">
+              <AiOutlineSearch className="h-6 w-6 text-slate-400 mr-2" />
+            </button>
           </form>
         </div>
       </div>
