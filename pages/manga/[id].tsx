@@ -104,7 +104,7 @@ export default function DetailManga() {
                   {manga.genres.map((genre) => (
                     <div
                       key={v4()}
-                      className="px-6 py-1 bg-rose-500 rounded-full"
+                      className="px-6 py-1 bg-rose-600 rounded-full"
                     >
                       {genre}
                     </div>
@@ -165,7 +165,7 @@ export default function DetailManga() {
                 {manga.genres.map((genre) => (
                   <div
                     key={v4()}
-                    className="px-6 py-1 bg-rose-500 rounded-full"
+                    className="px-6 py-1 bg-rose-600 rounded-full"
                   >
                     {genre}
                   </div>

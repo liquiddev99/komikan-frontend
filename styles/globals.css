@@ -10,7 +10,7 @@
 
 @layer base {
   .layout {
-    @apply max-w-screen-xl w-11/12 xl:w-5/6 mx-auto;
+    @apply max-w-screen-xl w-11/12 xl:w-[90%] mx-auto;
   }
 }
 

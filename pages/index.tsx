@@ -27,7 +27,7 @@ export default function Home({ trendingManga, popularManga }: Props) {
       embla?.scrollNext();
     }
 
-    let id = setInterval(autoPlay, 3500);
+    let id = setInterval(autoPlay, 4000);
 
     if (pause) {
       clearInterval(id);
@@ -117,7 +117,7 @@ export default function Home({ trendingManga, popularManga }: Props) {
                         {manga.genres.map((genre) => (
                           <div
                             key={v4()}
-                            className="mr-3 px-6 py-1 bg-rose-500 rounded-full"
+                            className="mr-3 px-6 py-1 bg-rose-600 rounded-full"
                           >
                             {genre}
                           </div>

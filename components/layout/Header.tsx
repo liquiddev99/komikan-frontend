@@ -71,7 +71,10 @@ export default function Header() {
         </div>
 
         <div className="hidden lg:flex items-center">
-          <Link href="/" className="mr-7 font-medium">
+          <Link
+            href="/"
+            className="mr-7 text-red-400 font-semibold relative after:absolute after:left-0 after:w-full after:h-1 after:bg-red-400 after:bottom-[-5px]"
+          >
             Home
           </Link>
           <Link href="/advanced-search" className="mr-7 font-medium">
