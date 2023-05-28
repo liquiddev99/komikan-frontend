@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { IoMenu, IoClose } from "react-icons/io5";
 import { AiOutlineSearch } from "react-icons/ai";
-import { GrSearchAdvanced } from "react-icons/gr";
 
 export default function Header() {
   const [textSearch, setTextSearch] = useState("");

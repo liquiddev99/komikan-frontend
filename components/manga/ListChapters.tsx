@@ -1,10 +1,7 @@
 import { useDexChapters, useMangadexInfo } from "@/hooks/mangadex";
 import { useState } from "react";
 import { IoLanguage } from "react-icons/io5";
-import {
-  AiOutlineLoading3Quarters,
-  AiOutlineClockCircle,
-} from "react-icons/ai";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useRouter } from "next/router";
 import { v4 } from "uuid";
 
