@@ -1,10 +1,7 @@
 import { useDexChapters, useMangadexInfo } from "@/hooks/mangadex";
 import { useState } from "react";
 import { IoLanguage } from "react-icons/io5";
-import {
-  AiOutlineLoading3Quarters,
-  AiOutlineClockCircle,
-} from "react-icons/ai";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useRouter } from "next/router";
 import { v4 } from "uuid";
 
@@ -126,7 +123,7 @@ export default function ListChapters({ mangadexId }: IProps) {
                             <>{scanGroupName}</>
                           )}
                         </td>
-                        <td className="py-2 pl-1 md:pl-3 border-b border-slate-500">
+                        <td className="py-2 pl-1 pr-2 md:pl-3 border-b border-slate-500">
                           {chapter.attributes.createdAt &&
                             new Intl.DateTimeFormat("en-GB").format(
                               new Date(chapter.attributes.createdAt)

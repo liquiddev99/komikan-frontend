@@ -113,7 +113,7 @@ export default function Chapter() {
   return (
     <div className="xs:layout min-h-[80vh]">
       <Head>
-        <title>{chapter?.attributes.chapter ? titleHeader : "Mangazine"}</title>
+        <title>{chapter?.attributes.chapter ? titleHeader : "Komikan"}</title>
       </Head>
       <div className="flex flex-col justify-center items-center">
         <div className="xs:w-full flex flex-col xs:flex-row justify-between md:justify-center items-center mb-6 layout">

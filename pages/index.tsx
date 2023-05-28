@@ -27,7 +27,7 @@ export default function Home({ trendingManga, popularManga }: Props) {
       embla?.scrollNext();
     }
 
-    let id = setInterval(autoPlay, 3500);
+    let id = setInterval(autoPlay, 4000);
 
     if (pause) {
       clearInterval(id);
@@ -39,9 +39,9 @@ export default function Home({ trendingManga, popularManga }: Props) {
   return (
     <main className="layout">
       <Head>
-        <title>Mangazine - Free and no-ads manga reading website</title>
+        <title>Komikan - Free and no-ads manga reading website</title>
         <link rel="icon" href="https://mangazine.site/favicon.ico" />
-        <meta property="og:title" content="Mangazine" />
+        <meta property="og:title" content="Komikan" />
         <meta
           name="description"
           content="Free and no-ads manga reading website, provide high-quality images with a comprehensive finding system, helps you easier to find your favourite manga"
@@ -117,7 +117,7 @@ export default function Home({ trendingManga, popularManga }: Props) {
                         {manga.genres.map((genre) => (
                           <div
                             key={v4()}
-                            className="mr-3 px-6 py-1 bg-rose-500 rounded-full"
+                            className="mr-3 px-6 py-1 bg-rose-600 rounded-full"
                           >
                             {genre}
                           </div>
@@ -132,7 +132,9 @@ export default function Home({ trendingManga, popularManga }: Props) {
       )}
 
       <div className="sm:mt-12">
-        <h3 className="text-3xl font-medium">Trending Manga</h3>
+        <h3 className="text-3xl font-semibold text-yellow-300">
+          Trending Manga
+        </h3>
         <div className="mt-8 container-list-manga">
           {trendingManga &&
             trendingManga.data.Page.media
@@ -142,7 +144,9 @@ export default function Home({ trendingManga, popularManga }: Props) {
       </div>
 
       <div className="mt-16">
-        <h3 className="text-3xl font-medium">All Time Popular</h3>
+        <h3 className="text-3xl font-semibold text-yellow-300">
+          All Time Popular
+        </h3>
         <div className="mt-8 container-list-manga">
           {popularManga &&
             popularManga.data.Page.media

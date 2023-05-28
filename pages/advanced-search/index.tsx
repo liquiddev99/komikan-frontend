@@ -74,12 +74,12 @@ export default function AdvancedSearch({ genres, tags }: Props) {
   return (
     <div className="layout">
       <Head>
-        <title>Mangazine | Advanced Search</title>
-        <meta property="og:title" content="Mangazine | Advanced Search" />
-        <meta name="description" content="Advanced search manga in Mangazine" />
+        <title>Komikan | Advanced Search</title>
+        <meta property="og:title" content="Komikan | Advanced Search" />
+        <meta name="description" content="Advanced search manga in Komikan" />
         <meta
           property="og:description"
-          content="Advanced search manga in Mangazine"
+          content="Advanced search manga in Komikan"
         />
         <meta
           property="og:URL"
@@ -124,7 +124,7 @@ export default function AdvancedSearch({ genres, tags }: Props) {
                 <input
                   type="checkbox"
                   id={genre}
-                  className="mr-1"
+                  className="mr-1.5 w-4 h-4"
                   name=""
                   value={genre}
                   onChange={handleGenres}
@@ -144,7 +144,7 @@ export default function AdvancedSearch({ genres, tags }: Props) {
             <input
               type="checkbox"
               id="Finished"
-              className="mr-1"
+              className="mr-1.5 w-4 h-4"
               value="FINISHED"
               onChange={handleStatus}
             />
@@ -156,7 +156,7 @@ export default function AdvancedSearch({ genres, tags }: Props) {
             <input
               type="checkbox"
               id="Releasing"
-              className="mr-1"
+              className="mr-1.5 w-4 h-4"
               value="RELEASING"
               onChange={handleStatus}
             />
@@ -168,7 +168,7 @@ export default function AdvancedSearch({ genres, tags }: Props) {
             <input
               type="checkbox"
               id="Not_yet_released"
-              className="mr-1"
+              className="mr-1.5 w-4 h-4"
               value="NOT_YET_RELEASED"
               onChange={handleStatus}
             />
@@ -183,7 +183,7 @@ export default function AdvancedSearch({ genres, tags }: Props) {
             <input
               type="checkbox"
               id="Cancelled"
-              className="mr-1"
+              className="mr-1.5 w-4 h-4"
               value="CANCELLED"
               onChange={handleStatus}
             />
@@ -195,7 +195,7 @@ export default function AdvancedSearch({ genres, tags }: Props) {
             <input
               type="checkbox"
               id="Hiatus"
-              className="mr-1"
+              className="mr-1.5 w-4 h-4"
               value="HIATUS"
               onChange={handleStatus}
             />
@@ -215,7 +215,7 @@ export default function AdvancedSearch({ genres, tags }: Props) {
                 <input
                   type="checkbox"
                   id={tag.id.toString()}
-                  className="mr-1"
+                  className="mr-1.5 w-4 h-4"
                   value={tag.name}
                   onChange={handleTags}
                 />

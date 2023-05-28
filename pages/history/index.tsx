@@ -21,8 +21,8 @@ export default function History() {
   return (
     <div className="layout min-h-screen">
       <Head>
-        <title>Mangazine | History</title>
-        <meta property="og:title" content="Mangazine | History" />
+        <title>Komikan | History</title>
+        <meta property="og:title" content="Komikan | History" />
         <meta property="og:description" content="History of read manga" />
         <meta name="description" content="History of read manga" />
         <meta property="og:URL" content="https://mangazine.site/history" />
@@ -38,41 +38,43 @@ export default function History() {
         <div className="container-list-manga">
           {history.length
             ? history.map((manga) => (
-                <div className="rounded-md flex flex-col h-full overflow-hidden">
-                  <div
-                    className={`flex w-full pb-[140%] relative ${
-                      manga.alMangaId ? "cursor-pointer" : ""
+              <div
+                className="rounded-md flex flex-col h-full overflow-hidden"
+                key={manga.mangadexId}
+              >
+                <div
+                  className={`flex w-full pb-[140%] relative ${manga.alMangaId ? "cursor-pointer" : ""
                     }`}
-                    onClick={() => {
-                      if (manga.alMangaId) {
-                        router.push(`/manga/${manga.alMangaId}`);
-                      }
-                    }}
-                  >
-                    <Image
-                      src={manga.coverImage}
-                      alt="Cover"
-                      fill
-                      sizes="20vw"
-                      className="object-cover rounded-md"
-                    />
-                  </div>
-                  <div className="flex flex-col flex-grow justify-between py-2">
-                    <span className="font-semibold line-clamp-1">
-                      {manga.mangaTitle}
-                    </span>
-                  </div>
-                  <button
-                    className="mt-1 max-w-fit py-1 px-3 rounded-lg bg-red-500 font-medium"
-                    onClick={() => router.push(manga.readingChapter.path)}
-                  >
-                    Continue
-                    {manga.readingChapter.chap
-                      ? ` Chap ${manga.readingChapter.chap}`
-                      : " Reading"}
-                  </button>
+                  onClick={() => {
+                    if (manga.alMangaId) {
+                      router.push(`/manga/${manga.alMangaId}`);
+                    }
+                  }}
+                >
+                  <Image
+                    src={manga.coverImage}
+                    alt="Cover"
+                    fill
+                    sizes="20vw"
+                    className="object-cover rounded-md"
+                  />
                 </div>
-              ))
+                <div className="flex flex-col flex-grow justify-between py-2">
+                  <span className="font-semibold line-clamp-1">
+                    {manga.mangaTitle}
+                  </span>
+                </div>
+                <button
+                  className="mt-1 max-w-fit py-1 px-3 rounded-lg bg-red-500 font-medium"
+                  onClick={() => router.push(manga.readingChapter.path)}
+                >
+                  Continue
+                  {manga.readingChapter.chap
+                    ? ` Chap ${manga.readingChapter.chap}`
+                    : " Reading"}
+                </button>
+              </div>
+            ))
             : null}
         </div>
       </div>

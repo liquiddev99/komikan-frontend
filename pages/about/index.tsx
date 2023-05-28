@@ -11,8 +11,8 @@ export default function About() {
   return (
     <div>
       <Head>
-        <title>Mangazine | About Us</title>
-        <meta property="og:title" content="Mangazine | About Us" />
+        <title>Komikan | About Us</title>
+        <meta property="og:title" content="Komikan | About Us" />
         <meta property="og:description" content="About us" />
         <meta name="description" content="About us" />
         <meta property="og:URL" content="https://mangazine.site/about" />
@@ -30,7 +30,7 @@ export default function About() {
           </p>
           <Image src={SadMeme} alt="Sad" width={330} className="mt-4" />
           <p className="mt-4">
-            That's why I created Mangazine—an online platform for free manga
+            That's why I created Komikan—an online platform for free manga
             reading that offers a continuous influx of updated titles, a
             recommendation system for finding comparable narratives, and a
             comprehensive search engine encompassing a myriad of genres. It is
@@ -39,8 +39,8 @@ export default function About() {
           </p>
           <Image src={HappyMeme} alt="Sad" width={330} className="mt-4" />
           <p className="mt-4">
-            I hope you enjoy the experience of reading manga on Mangazine and
-            can find your favorite manga to immerse yourself in it.
+            I hope you enjoy the experience of reading manga on Komikan and can
+            find your favorite manga to immerse yourself in it.
             <br /> Happy reading!
           </p>
         </div>
@@ -56,23 +56,23 @@ export default function About() {
             <div className="relative mr-4">
               <iframe
                 id="kofiframe"
-                src="https://ko-fi.com/liquiddev99/?hidefeed=true&widget=true&embed=true&preview=true"
-                className={`border-0 w-[330px] p-2 bg-[#f9f9f9] rounded-lg absolute bottom-[125%] right-[-25%] transition-all origin-bottom duration-[420ms] ${
-                  kofi ? "scale-100 opacity-100" : "scale-0 opacity-0"
-                }`}
-                height="650"
-                title="liquiddev99"
+                className={`border-0 w-[330px] p-2 bg-[#f9f9f9] rounded-lg absolute bottom-[125%] right-[-33%] transition-all origin-bottom duration-[420ms] ${kofi ? "scale-100 opacity-100" : "scale-0 opacity-0"
+                  }`}
+                src="https://ko-fi.com/komikan/?hidefeed=true&widget=true&embed=true&preview=true"
+                height="690"
+                title="komikan"
               ></iframe>
+
               <button
                 className="flex items-center rounded-full bg-[#FF5F5F] px-4 font-bold"
                 onClick={() => setKofi(!kofi)}
               >
                 <Image src={Kofi} alt="Kofi" className="mr-1" width={40} />
-                Support Mangazine
+                Support Komikan
               </button>
               <div className="mt-2">
                 <a
-                  href="https://ko-fi.com/V7V5L69QP"
+                  href="https://ko-fi.com/komikan"
                   target="_blank"
                   rel="noreferrer"
                   className="text-slate-400"
