@@ -312,13 +312,13 @@ export default function DetailManga() {
                       onClick={() => {
                         embla?.scrollTo(embla.selectedScrollSnap() + 5);
                       }}
-                      className="w-11 h-11 absolute top-1/3 right-1 z-10 rounded-full bg-black/70 p-2.5 cursor-pointer"
+                      className="w-11 h-11 absolute top-1/3 right-1 z-10 rounded-full bg-black/70 p-2.5 cursor-pointer hover:bg-black/90"
                     />
                     <AiOutlineArrowLeft
                       onClick={() => {
                         embla?.scrollTo(embla.selectedScrollSnap() - 5);
                       }}
-                      className="w-11 h-11 absolute top-1/3 left-1 z-10 rounded-full bg-black/70 p-2.5 cursor-pointer"
+                      className="w-11 h-11 absolute top-1/3 left-1 z-10 rounded-full bg-black/70 p-2.5 cursor-pointer hover:bg-black/90"
                     />
                   </div>
                 </div>
