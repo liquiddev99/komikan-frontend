@@ -1,10 +1,4 @@
-import {
-  IMangaList,
-  IChapter,
-  ITag,
-  IManga,
-  IDetailManga,
-} from "../types/manga";
+import { IMangaList, ITag, IManga, IDetailManga } from "../types/manga";
 import { IChapterDex, IChapterImages, IMangaDex } from "../types/mangadex";
 import axios from "axios";
 
@@ -179,22 +173,7 @@ const popularity = "POPULARITY_DESC";
 const trendingQuery = queryFactory(trending, 30);
 const popularityQuery = queryFactory(popularity, 30);
 
-export async function fetcher(url: string) {
-  const res = await axios.get(url);
-  return res.data;
-}
-
 export async function genericFetcher<Type>(url: string): Promise<Type> {
-  const res = await axios.get(url);
-  return res.data;
-}
-
-export async function chaptersFetcher(url: string): Promise<IChapter[]> {
-  const res = await axios.get(url);
-  return res.data;
-}
-
-export async function chaptersDexFetcher(url: string): Promise<IChapterDex[]> {
   const res = await axios.get(url);
   return res.data;
 }
