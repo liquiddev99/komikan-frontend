@@ -5,7 +5,7 @@ import { FaUser } from "react-icons/fa";
 import { RiProfileLine } from "react-icons/ri";
 import { IoSettingsOutline } from "react-icons/io5";
 import { BiLogOut, BiLogIn } from "react-icons/bi";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 
 import Fox from "@/public/fox.jpg";
@@ -17,9 +17,16 @@ interface Props {
 
 export default function UserMenu({ accessToken }: Props) {
   const router = useRouter();
+  const pathname = usePathname();
   async function handleLogout() {
     await fetch("http://localhost:3000/gapi/logout", { method: "POST" });
-    router.refresh();
+    console.log("pathname", pathname);
+    if (pathname === "/profile") {
+      router.push("/");
+      router.refresh();
+    } else {
+      router.refresh();
+    }
   }
   return (
     <Menu as="div" className="relative inline-block text-left">
@@ -49,21 +56,27 @@ export default function UserMenu({ accessToken }: Props) {
           <div className="px-1 py-1 ">
             {accessToken && (
               <Menu.Item>
-                <button className="text-slate-200 hover:bg-slate-500 group flex w-full items-center rounded-md px-2 py-2">
+                <Link
+                  href="/profile"
+                  className="text-slate-200 hover:bg-slate-500 group flex w-full items-center rounded-md px-2 py-2"
+                >
                   <RiProfileLine className="mr-2 h-5 w-5" aria-hidden="true" />
                   My Profile
-                </button>
+                </Link>
               </Menu.Item>
             )}
 
             <Menu.Item>
-              <button className="text-slate-200 hover:bg-slate-500 group flex w-full items-center rounded-md px-2 py-2">
+              <Link
+                href="/settings"
+                className="text-slate-200 hover:bg-slate-500 group flex w-full items-center rounded-md px-2 py-2"
+              >
                 <IoSettingsOutline
                   className="mr-2 h-5 w-5"
                   aria-hidden="true"
                 />
                 Settings
-              </button>
+              </Link>
             </Menu.Item>
           </div>
 

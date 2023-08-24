@@ -12,6 +12,7 @@ import * as history_pb from "./history_pb";
 interface IKomikanService extends grpc.ServiceDefinition<grpc.UntypedServiceImplementation> {
     createUser: IKomikanService_ICreateUser;
     loginUser: IKomikanService_ILoginUser;
+    getUser: IKomikanService_IGetUser;
     createHistory: IKomikanService_ICreateHistory;
     getHistories: IKomikanService_IGetHistories;
     updateHistory: IKomikanService_IUpdateHistory;
@@ -35,6 +36,15 @@ interface IKomikanService_ILoginUser extends grpc.MethodDefinition<user_pb.Login
     requestDeserialize: grpc.deserialize<user_pb.LoginUserRequest>;
     responseSerialize: grpc.serialize<user_pb.LoginUserResponse>;
     responseDeserialize: grpc.deserialize<user_pb.LoginUserResponse>;
+}
+interface IKomikanService_IGetUser extends grpc.MethodDefinition<user_pb.GetUserRequest, user_pb.UserResponse> {
+    path: "/pb.Komikan/GetUser";
+    requestStream: false;
+    responseStream: false;
+    requestSerialize: grpc.serialize<user_pb.GetUserRequest>;
+    requestDeserialize: grpc.deserialize<user_pb.GetUserRequest>;
+    responseSerialize: grpc.serialize<user_pb.UserResponse>;
+    responseDeserialize: grpc.deserialize<user_pb.UserResponse>;
 }
 interface IKomikanService_ICreateHistory extends grpc.MethodDefinition<history_pb.CreateHistoryRequest, history_pb.History> {
     path: "/pb.Komikan/CreateHistory";
@@ -78,6 +88,7 @@ export const KomikanService: IKomikanService;
 export interface IKomikanServer extends grpc.UntypedServiceImplementation {
     createUser: grpc.handleUnaryCall<user_pb.CreateUserRequest, user_pb.CreateUserResponse>;
     loginUser: grpc.handleUnaryCall<user_pb.LoginUserRequest, user_pb.LoginUserResponse>;
+    getUser: grpc.handleUnaryCall<user_pb.GetUserRequest, user_pb.UserResponse>;
     createHistory: grpc.handleUnaryCall<history_pb.CreateHistoryRequest, history_pb.History>;
     getHistories: grpc.handleUnaryCall<history_pb.GetHistoriesRequest, history_pb.HistoriesResponse>;
     updateHistory: grpc.handleUnaryCall<history_pb.UpdateHistoryRequest, history_pb.UpdateHistoryResponse>;
@@ -91,6 +102,9 @@ export interface IKomikanClient {
     loginUser(request: user_pb.LoginUserRequest, callback: (error: grpc.ServiceError | null, response: user_pb.LoginUserResponse) => void): grpc.ClientUnaryCall;
     loginUser(request: user_pb.LoginUserRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: user_pb.LoginUserResponse) => void): grpc.ClientUnaryCall;
     loginUser(request: user_pb.LoginUserRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: user_pb.LoginUserResponse) => void): grpc.ClientUnaryCall;
+    getUser(request: user_pb.GetUserRequest, callback: (error: grpc.ServiceError | null, response: user_pb.UserResponse) => void): grpc.ClientUnaryCall;
+    getUser(request: user_pb.GetUserRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: user_pb.UserResponse) => void): grpc.ClientUnaryCall;
+    getUser(request: user_pb.GetUserRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: user_pb.UserResponse) => void): grpc.ClientUnaryCall;
     createHistory(request: history_pb.CreateHistoryRequest, callback: (error: grpc.ServiceError | null, response: history_pb.History) => void): grpc.ClientUnaryCall;
     createHistory(request: history_pb.CreateHistoryRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: history_pb.History) => void): grpc.ClientUnaryCall;
     createHistory(request: history_pb.CreateHistoryRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: history_pb.History) => void): grpc.ClientUnaryCall;
@@ -113,6 +127,9 @@ export class KomikanClient extends grpc.Client implements IKomikanClient {
     public loginUser(request: user_pb.LoginUserRequest, callback: (error: grpc.ServiceError | null, response: user_pb.LoginUserResponse) => void): grpc.ClientUnaryCall;
     public loginUser(request: user_pb.LoginUserRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: user_pb.LoginUserResponse) => void): grpc.ClientUnaryCall;
     public loginUser(request: user_pb.LoginUserRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: user_pb.LoginUserResponse) => void): grpc.ClientUnaryCall;
+    public getUser(request: user_pb.GetUserRequest, callback: (error: grpc.ServiceError | null, response: user_pb.UserResponse) => void): grpc.ClientUnaryCall;
+    public getUser(request: user_pb.GetUserRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: user_pb.UserResponse) => void): grpc.ClientUnaryCall;
+    public getUser(request: user_pb.GetUserRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: user_pb.UserResponse) => void): grpc.ClientUnaryCall;
     public createHistory(request: history_pb.CreateHistoryRequest, callback: (error: grpc.ServiceError | null, response: history_pb.History) => void): grpc.ClientUnaryCall;
     public createHistory(request: history_pb.CreateHistoryRequest, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: history_pb.History) => void): grpc.ClientUnaryCall;
     public createHistory(request: history_pb.CreateHistoryRequest, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: history_pb.History) => void): grpc.ClientUnaryCall;

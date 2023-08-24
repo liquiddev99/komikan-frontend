@@ -104,6 +104,17 @@ function deserialize_pb_CreateUserResponse(buffer_arg) {
   return user_pb.CreateUserResponse.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_pb_GetUserRequest(arg) {
+  if (!(arg instanceof user_pb.GetUserRequest)) {
+    throw new Error('Expected argument of type pb.GetUserRequest');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_pb_GetUserRequest(buffer_arg) {
+  return user_pb.GetUserRequest.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 function serialize_pb_LoginUserRequest(arg) {
   if (!(arg instanceof user_pb.LoginUserRequest)) {
     throw new Error('Expected argument of type pb.LoginUserRequest');
@@ -124,6 +135,17 @@ function serialize_pb_LoginUserResponse(arg) {
 
 function deserialize_pb_LoginUserResponse(buffer_arg) {
   return user_pb.LoginUserResponse.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_pb_UserResponse(arg) {
+  if (!(arg instanceof user_pb.UserResponse)) {
+    throw new Error('Expected argument of type pb.UserResponse');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_pb_UserResponse(buffer_arg) {
+  return user_pb.UserResponse.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
 
@@ -149,6 +171,17 @@ var KomikanService = exports.KomikanService = {
     requestDeserialize: deserialize_pb_LoginUserRequest,
     responseSerialize: serialize_pb_LoginUserResponse,
     responseDeserialize: deserialize_pb_LoginUserResponse,
+  },
+  getUser: {
+    path: '/pb.Komikan/GetUser',
+    requestStream: false,
+    responseStream: false,
+    requestType: user_pb.GetUserRequest,
+    responseType: user_pb.UserResponse,
+    requestSerialize: serialize_pb_GetUserRequest,
+    requestDeserialize: deserialize_pb_GetUserRequest,
+    responseSerialize: serialize_pb_UserResponse,
+    responseDeserialize: deserialize_pb_UserResponse,
   },
   createHistory: {
     path: '/pb.Komikan/CreateHistory',

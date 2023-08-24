@@ -10,6 +10,8 @@ service Komikan {
 
   rpc LoginUser (LoginUserRequest) returns (LoginUserResponse){}
 
+  rpc GetUser (GetUserRequest) returns (UserResponse){}
+
   rpc CreateHistory (CreateHistoryRequest) returns (History){}
 
   rpc GetHistories (GetHistoriesRequest) returns (HistoriesResponse){}
