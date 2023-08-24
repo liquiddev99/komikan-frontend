@@ -32,14 +32,6 @@ export default function Links() {
       >
         History
       </Link>
-      <Link
-        href="/about"
-        className={`mr-7 font-semibold hover:active-link hover:text-red-400 ${
-          pathname === "/about" ? "active-link" : ""
-        }`}
-      >
-        About Us
-      </Link>
     </>
   );
 }

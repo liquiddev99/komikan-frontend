@@ -9,6 +9,7 @@ import ListChapters from "../components/ListChapters";
 import Recommendation from "../components/Recommendation";
 import FollowBtn from "../components/FollowBtn";
 import { Metadata } from "next";
+import { cookies } from "next/headers";
 
 interface Props {
   params: { id: string };
@@ -24,6 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function DetailManga({ params }: Props) {
   const manga = await fetchDetailManga(params.id);
+  const accessToken = cookies().get("access_token");
 
   const jsonLd = {
     "@context": `https://komikan.org/manga/${manga.id}`,
@@ -72,7 +74,7 @@ export default async function DetailManga({ params }: Props) {
                   {manga.title.english || manga.title.romaji}
                 </h1>
 
-                <FollowBtn />
+                <FollowBtn accessToken={accessToken} />
 
                 <div className="text-lg mb-1 font-semibold text-teal-500">
                   Status
