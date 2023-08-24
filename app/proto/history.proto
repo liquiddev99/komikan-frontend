@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+message History {
+  string user_agent = 1;
+  string user_id = 2;
+  string client_ip = 3;
+  string mangadex_id = 4;
+  string al_id = 5;
+  string path = 6;
+  string cover_image = 7;
+  string title = 8;
+  string reading_chapter = 9;
+  google.protobuf.Timestamp last_read_at = 10;
+  google.protobuf.Timestamp created_at = 11;
+}
+
+message CreateHistoryRequest {
+  string user_agent = 1;
+  string mangadex_id = 2;
+  string cover_image = 3;
+  string title = 4;
+  string reading_chapter = 5;
+  string al_id = 6;
+  string path = 7;
+}
+
+message CreateHistoryResponse {
+  bool ok = 1;
+  string message = 2;
+}
+
+
+message GetHistoriesRequest {
+  string user_agent = 1;
+  int32 limit = 2;
+  int32 offset = 3;
+}
+
+message HistoriesResponse {
+  repeated History histories = 1;
+}
+
+message UpdateHistoryRequest {
+  string mangadex_id = 1;
+  string reading_chapter = 2;
+  string user_agent = 3;
+  string user_id = 4;
+}
+
+message UpdateHistoryResponse {
+  bool ok = 1;
+  string message = 2;
+}

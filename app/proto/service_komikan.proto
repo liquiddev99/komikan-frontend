@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package pb;
+
+import "user.proto";
+import "history.proto";
+
+service Komikan {
+  rpc CreateUser (CreateUserRequest) returns (CreateUserResponse){}
+
+  rpc LoginUser (LoginUserRequest) returns (LoginUserResponse){}
+
+  rpc CreateHistory (CreateHistoryRequest) returns (History){}
+
+  rpc GetHistories (GetHistoriesRequest) returns (HistoriesResponse){}
+
+  rpc UpdateHistory (UpdateHistoryRequest) returns (UpdateHistoryResponse){}
+
+  rpc UpsertHistory (CreateHistoryRequest) returns (CreateHistoryResponse){}
+}
