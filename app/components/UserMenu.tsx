@@ -20,7 +20,6 @@ export default function UserMenu({ accessToken }: Props) {
   const pathname = usePathname();
   async function handleLogout() {
     await fetch("http://localhost:3000/gapi/logout", { method: "POST" });
-    console.log("pathname", pathname);
     if (pathname === "/profile") {
       router.push("/");
       router.refresh();
