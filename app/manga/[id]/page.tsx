@@ -171,7 +171,7 @@ export default async function DetailManga({ params }: Props) {
                 ))}
               </div>
 
-              <ListChapters malId={manga.idMal} />
+              {manga.idMal && <ListChapters malId={manga.idMal} />}
 
               {manga.characters.edges.length ? (
                 <div className="mt-8 hidden sm:block">
