@@ -40,6 +40,6 @@ export default function SaveHistory({
     }
 
     saveHistory();
-  }, []);
+  }, [alId, coverImage, mangadexId, readingChapter, title, mutate, pathname]);
   return <></>;
 }
