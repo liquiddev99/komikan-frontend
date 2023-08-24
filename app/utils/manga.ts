@@ -174,22 +174,33 @@ const trendingQuery = queryFactory(trending, 30);
 const popularityQuery = queryFactory(popularity, 30);
 
 export async function genericFetcher<Type>(url: string): Promise<Type> {
-  const res = await axios.get(url);
-  return res.data;
+  const res = await fetch(url);
+  const data = await res.json();
+  return data;
 }
 
 export async function fetchTrendingManga(): Promise<IMangaList> {
-  const res = await axios.post("https://graphql.anilist.co", {
-    query: trendingQuery,
+  const res = await fetch("https://graphql.anilist.co", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ query: trendingQuery }),
   });
-  return res.data;
+  const data = await res.json();
+  return data;
 }
 
 export async function fetchPopularManga(): Promise<IMangaList> {
-  const res = await axios.post("https://graphql.anilist.co", {
-    query: popularityQuery,
+  const res = await fetch("https://graphql.anilist.co", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ query: popularityQuery }),
   });
-  return res.data;
+  const data = await res.json();
+  return data;
 }
 
 export async function fetchDetailManga(id: string): Promise<IDetailManga> {
@@ -210,11 +221,15 @@ export async function fetchDetailManga(id: string): Promise<IDetailManga> {
 }
 
 export async function searchManga(q: string, page: number): Promise<IManga[]> {
-  const res = await axios.post("https://graphql.anilist.co", {
-    query: searchQuery,
-    variables: { q, page },
+  const res = await fetch("https://graphql.anilist.co", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ query: searchQuery, variables: { q, page } }),
   });
-  return res.data?.data?.Page?.media;
+  const data = await res.json();
+  return data?.data?.Page?.media;
 }
 
 export async function fetchDexChapters(
@@ -266,17 +281,27 @@ export function showStatus(status: string) {
 }
 
 export async function fetchGenres(): Promise<string[]> {
-  const res = await axios.post("https://graphql.anilist.co", {
-    query: genreQuery,
+  const res = await fetch("https://graphql.anilist.co", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ query: genreQuery }),
   });
-  return res.data?.data?.GenreCollection;
+  const data = await res.json();
+  return data?.data?.GenreCollection;
 }
 
 export async function fetchTags(): Promise<ITag[]> {
-  const res = await axios.post("https://graphql.anilist.co", {
-    query: tagsQuery,
+  const res = await fetch("https://graphql.anilist.co", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ query: tagsQuery }),
   });
-  return res.data?.data?.MediaTagCollection;
+  const data = await res.json();
+  return data?.data?.MediaTagCollection;
 }
 
 export async function fetchMangaDexIds(
