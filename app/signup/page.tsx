@@ -11,7 +11,7 @@ export default function Login() {
   }
 
   return (
-    <div className="flex flex-col items-center min-h-[60vh] mt-8">
+    <div className="flex flex-col items-center min-h-[68vh] mt-6">
       <Image src={Logo} alt="Logo" width={100} />
       <p className="text-2xl mb-3 mt-4">Signup</p>
       <SignupForm />

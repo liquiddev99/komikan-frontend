@@ -6,7 +6,7 @@ import { SiBuymeacoffee } from "react-icons/si";
 
 export default function Footer() {
   return (
-    <div className="pt-16 pb-2">
+    <div className="pt-16 pb-2.5">
       <div className="layout border-t border-slate-700 text-slate-300 pt-4 pb-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center">
@@ -38,9 +38,6 @@ export default function Footer() {
             </a>
           </div>
           <div className="text-2xl text-slate-300">Komikan</div>
-        </div>
-        <div className="mt-4 text-center text-sm text-slate-400 px-3 sm:px-0">
-          © 2023 Komikan. Built with ❤ by liquiddev99
         </div>
       </div>
     </div>
