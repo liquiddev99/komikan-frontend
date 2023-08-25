@@ -101,44 +101,10 @@ export interface IReturnDetailManga {
   };
 }
 
-interface IPages {
-  b2key: string;
-  w: number;
-  h: number;
-}
-
 export interface IChapterInComick {
   chap: string;
   hid: string;
   title: string;
-}
-
-export interface IComick {
-  chapter: {
-    chap: string;
-    title: string;
-    md_images: IPages[];
-    md_comics: {
-      md_covers: { b2key: string; w: number; h: number }[];
-      id: number;
-      title: string;
-      links: {
-        al: string;
-      };
-    };
-  };
-  chapters: IChapterInComick[];
-  langList: string[];
-  next: {
-    chap: string;
-    title: string;
-    hid: string;
-  };
-  prev: {
-    chap: string;
-    title: string;
-    hid: string;
-  };
 }
 
 export interface IChapter {
