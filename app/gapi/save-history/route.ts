@@ -1,25 +1,9 @@
 import { Metadata } from "@grpc/grpc-js";
 import { client } from "@/app/grpc/client";
 import { NextResponse } from "next/server";
-import { KomikanClient } from "@/app/pb/service_komikan_grpc_pb";
-import {
-  CreateHistoryRequest,
-  CreateHistoryResponse,
-} from "@/app/pb/history_pb";
+import { CreateHistoryRequest } from "@/app/pb/history_pb";
 import { cookies } from "next/headers";
-
-function createHistoryAsync(
-  client: KomikanClient,
-  metadata: Metadata,
-  request: CreateHistoryRequest
-): Promise<CreateHistoryResponse> {
-  return new Promise<CreateHistoryResponse>((resolve, reject) => {
-    client.upsertHistory(request, metadata, (err, res) => {
-      if (err) return reject(err);
-      return resolve(res);
-    });
-  });
-}
+import { createHistoryAsync } from "@/app/utils/history";
 
 export async function POST(req: Request) {
   try {

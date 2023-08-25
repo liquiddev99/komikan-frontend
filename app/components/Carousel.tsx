@@ -13,21 +13,6 @@ interface Props {
   trendingManga: IMangaList;
 }
 
-async function createUser() {
-  const res = await fetch("/gapi/create-user", {
-    method: "POST",
-    body: JSON.stringify({
-      full_name: "Ngoc Thang",
-      username: "liquiddev99",
-      email: "tnthangg@gmail.com",
-      password: "123456",
-      user_agent: navigator.userAgent,
-    }),
-  });
-  const data = await res.json();
-  console.log(data);
-}
-
 export default function Carousel({ trendingManga }: Props) {
   const [emblaRef, embla] = useEmblaCarousel({ loop: true });
   const [pause, setPause] = useState(false);
@@ -91,10 +76,7 @@ export default function Carousel({ trendingManga }: Props) {
                         >
                           Detail
                         </Link>
-                        <button
-                          className="rounded-lg bg-green-600 flex items-center justify-center px-5 py-1.5 uppercase"
-                          onClick={createUser}
-                        >
+                        <button className="rounded-lg bg-green-600 flex items-center justify-center px-5 py-1.5 uppercase">
                           Follow
                         </button>
                       </div>

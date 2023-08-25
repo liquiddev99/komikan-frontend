@@ -1,20 +1,8 @@
 import { client } from "@/app/grpc/client";
-import { LoginUserRequest, LoginUserResponse } from "@/app/pb/user_pb";
+import { LoginUserRequest } from "@/app/pb/user_pb";
 import { NextResponse } from "next/server";
-import { KomikanClient } from "@/app/pb/service_komikan_grpc_pb";
 import { cookies } from "next/headers";
-
-function loginUserAsync(
-  client: KomikanClient,
-  request: LoginUserRequest
-): Promise<LoginUserResponse> {
-  return new Promise<LoginUserResponse>((resolve, reject) => {
-    client.loginUser(request, (err, res) => {
-      if (err) return reject(err);
-      return resolve(res);
-    });
-  });
-}
+import { loginUserAsync } from "@/app/utils/user";
 
 export async function POST(req: Request) {
   try {
