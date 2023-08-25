@@ -1,20 +1,8 @@
 import { client } from "@/app/grpc/client";
-import { CreateUserRequest, CreateUserResponse } from "@/app/pb/user_pb";
+import { CreateUserRequest } from "@/app/pb/user_pb";
 import { NextResponse } from "next/server";
-import { KomikanClient } from "@/app/pb/service_komikan_grpc_pb";
 import { cookies } from "next/headers";
-
-function createUserAsync(
-  client: KomikanClient,
-  request: CreateUserRequest
-): Promise<CreateUserResponse> {
-  return new Promise<CreateUserResponse>((resolve, reject) => {
-    client.createUser(request, (err, res) => {
-      if (err) return reject(err);
-      return resolve(res);
-    });
-  });
-}
+import { createUserAsync } from "@/app/utils/user";
 
 export async function POST(req: Request) {
   try {
