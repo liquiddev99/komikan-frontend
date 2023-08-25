@@ -3,7 +3,7 @@ import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { FaUser } from "react-icons/fa";
 import { RiProfileLine } from "react-icons/ri";
-import { IoSettingsOutline } from "react-icons/io5";
+import { IoLibraryOutline } from "react-icons/io5";
 import { BiLogOut, BiLogIn } from "react-icons/bi";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
@@ -52,32 +52,33 @@ export default function UserMenu({ accessToken }: Props) {
         leaveTo="transform opacity-0 scale-95"
       >
         <Menu.Items className="z-20 absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-slate-700 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-          <div className="px-1 py-1 ">
-            {accessToken && (
+          {accessToken && (
+            <div className="px-1 py-1 ">
               <Menu.Item>
                 <Link
                   href="/profile"
                   className="text-slate-200 hover:bg-slate-500 group flex w-full items-center rounded-md px-2 py-2"
                 >
                   <RiProfileLine className="mr-2 h-5 w-5" aria-hidden="true" />
-                  My Profile
+                  User Settings
                 </Link>
               </Menu.Item>
-            )}
-
-            <Menu.Item>
-              <Link
-                href="/settings"
-                className="text-slate-200 hover:bg-slate-500 group flex w-full items-center rounded-md px-2 py-2"
-              >
-                <IoSettingsOutline
-                  className="mr-2 h-5 w-5"
-                  aria-hidden="true"
-                />
-                Settings
-              </Link>
-            </Menu.Item>
-          </div>
+              {/*
+              <Menu.Item>
+                <Link
+                  href="/follows"
+                  className="text-slate-200 hover:bg-slate-500 group flex w-full items-center rounded-md px-2 py-2"
+                >
+                  <IoLibraryOutline
+                    className="mr-2 h-5 w-5"
+                    aria-hidden="true"
+                  />
+                  My Follows
+                </Link>
+              </Menu.Item>
+              */}
+            </div>
+          )}
 
           <div className="px-1 py-1">
             {accessToken ? (
@@ -94,7 +95,7 @@ export default function UserMenu({ accessToken }: Props) {
               <Menu.Item>
                 <Link
                   href="/login"
-                  className="hover:bg-orange-500 group flex w-full items-center rounded-md px-2 py-2"
+                  className="hover:bg-red-500 group flex w-full items-center rounded-md px-2 py-2"
                 >
                   <BiLogIn className="mr-2 h-5 w-5" aria-hidden="true" />
                   Login/Signup
