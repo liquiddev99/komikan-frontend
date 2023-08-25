@@ -6,8 +6,6 @@ export default async function Home() {
   const popularManga = await fetchPopularManga();
   const trendingManga = await fetchTrendingManga();
 
-  console.log("server addr: ", process.env.SERVER_ADDRESS);
-
   return (
     <main className="layout">
       <Carousel trendingManga={trendingManga} />

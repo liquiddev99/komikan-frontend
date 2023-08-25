@@ -24,7 +24,7 @@ export default function SaveHistory({
   useEffect(() => {
     async function saveHistory() {
       const userAgent = navigator.userAgent;
-      const res = await fetch("/gapi/save-history", {
+      await fetch("/gapi/save-history", {
         method: "POST",
         body: JSON.stringify({
           user_agent: userAgent,
@@ -36,8 +36,6 @@ export default function SaveHistory({
           path: pathname,
         }),
       });
-      const data = await res.json();
-      console.log("data", data);
       await mutate(`/gapi/get-histories?userAgent=${userAgent}`);
     }
 
