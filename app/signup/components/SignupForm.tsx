@@ -24,7 +24,7 @@ export default function SignupForm() {
     e.preventDefault();
     setErr("");
     setSigning(true);
-    const res = await fetch("http://localhost:3000/gapi/signup", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_FE_URL}/gapi/signup`, {
       method: "POST",
       body: JSON.stringify({
         full_name: signupForm.fullName,

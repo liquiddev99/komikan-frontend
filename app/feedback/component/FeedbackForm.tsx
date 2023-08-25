@@ -22,7 +22,7 @@ export default function FeedbackForm() {
       /*
     setErr("");
     setSubmitting(true);
-    const res = await fetch("http://localhost:3000/gapi/feedback", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_FE_URL}/gapi/feedback`, {
       method: "POST",
       body: JSON.stringify({
         nickname: fbForm.nickname,
