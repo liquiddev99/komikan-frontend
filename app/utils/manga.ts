@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { IMangaList, ITag, IManga, IDetailManga } from "../types/manga";
 import { IChapterDex, IChapterImages, IMangaDex } from "../types/mangadex";
 import axios from "axios";
@@ -179,7 +180,7 @@ export async function genericFetcher<Type>(url: string): Promise<Type> {
   return data;
 }
 
-export async function fetchTrendingManga(): Promise<IMangaList> {
+export const fetchTrendingManga = cache(async (): Promise<IMangaList> => {
   const res = await fetch("https://graphql.anilist.co", {
     method: "POST",
     headers: {
@@ -189,9 +190,9 @@ export async function fetchTrendingManga(): Promise<IMangaList> {
   });
   const data = await res.json();
   return data;
-}
+});
 
-export async function fetchPopularManga(): Promise<IMangaList> {
+export const fetchPopularManga = cache(async (): Promise<IMangaList> => {
   const res = await fetch("https://graphql.anilist.co", {
     method: "POST",
     headers: {
@@ -201,36 +202,40 @@ export async function fetchPopularManga(): Promise<IMangaList> {
   });
   const data = await res.json();
   return data;
-}
+});
 
-export async function fetchDetailManga(id: string): Promise<IDetailManga> {
-  const data = {
-    query: mangaQuery,
-    variables: { id },
-  };
-  const res = await fetch("https://graphql.anilist.co", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  });
-  if (!res.ok) throw new Error("Failed to fetch detail manga from AniList");
-  const json = await res.json();
-  return json?.data?.Media;
-}
+export const fetchDetailManga = cache(
+  async (id: string): Promise<IDetailManga> => {
+    const data = {
+      query: mangaQuery,
+      variables: { id },
+    };
+    const res = await fetch("https://graphql.anilist.co", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    if (!res.ok) throw new Error("Failed to fetch detail manga from AniList");
+    const json = await res.json();
+    return json?.data?.Media;
+  }
+);
 
-export async function searchManga(q: string, page: number): Promise<IManga[]> {
-  const res = await fetch("https://graphql.anilist.co", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ query: searchQuery, variables: { q, page } }),
-  });
-  const data = await res.json();
-  return data?.data?.Page?.media;
-}
+export const searchManga = cache(
+  async (q: string, page: number): Promise<IManga[]> => {
+    const res = await fetch("https://graphql.anilist.co", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ query: searchQuery, variables: { q, page } }),
+    });
+    const data = await res.json();
+    return data?.data?.Page?.media;
+  }
+);
 
 export async function fetchDexChapters(
   mangadexId: string,
@@ -280,7 +285,7 @@ export function showStatus(status: string) {
   return status.charAt(0).toUpperCase() + status.slice(1).toLowerCase();
 }
 
-export async function fetchGenres(): Promise<string[]> {
+export const fetchGenres = cache(async (): Promise<string[]> => {
   const res = await fetch("https://graphql.anilist.co", {
     method: "POST",
     headers: {
@@ -290,9 +295,9 @@ export async function fetchGenres(): Promise<string[]> {
   });
   const data = await res.json();
   return data?.data?.GenreCollection;
-}
+});
 
-export async function fetchTags(): Promise<ITag[]> {
+export const fetchTags = cache(async (): Promise<ITag[]> => {
   const res = await fetch("https://graphql.anilist.co", {
     method: "POST",
     headers: {
@@ -302,7 +307,7 @@ export async function fetchTags(): Promise<ITag[]> {
   });
   const data = await res.json();
   return data?.data?.MediaTagCollection;
-}
+});
 
 export async function fetchMangaDexIds(
   malId: number | null | undefined

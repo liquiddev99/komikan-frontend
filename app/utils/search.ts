@@ -1,5 +1,6 @@
 import axios from "axios";
 import { IManga } from "@/app/types/manga";
+import { cache } from "react";
 
 function searchQuery(
   genres: string[],
@@ -37,23 +38,33 @@ function searchQuery(
     }
   `;
 }
-export async function advancedSearch(
-  genres: string[],
-  tags: string[],
-  status: string[],
-  page: number,
-  sort: string
-): Promise<IManga[]> {
-  const res = await axios.post("https://graphql.anilist.co", {
-    query: searchQuery(genres, tags, status, sort),
-    variables: {
-      genres: genres.length ? genres : null,
-      tags: tags.length ? tags : null,
-      status: status.length ? status : null,
-      page,
-      sort: sort ? sort : null,
-    },
-  });
 
-  return res.data?.data?.Page?.media;
-}
+export const advancedSearch = cache(
+  async (
+    genres: string[],
+    tags: string[],
+    status: string[],
+    page: number,
+    sort: string
+  ): Promise<IManga[]> => {
+    const queryData = {
+      query: searchQuery(genres, tags, status, sort),
+      variables: {
+        genres: genres.length ? genres : null,
+        tags: tags.length ? tags : null,
+        status: status.length ? status : null,
+        page,
+        sort: sort ? sort : null,
+      },
+    };
+    const res = await fetch("https://graphql.anilist.co", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(queryData),
+    });
+    const data = await res.json();
+    return data?.data?.Page?.media;
+  }
+);
