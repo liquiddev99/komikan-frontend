@@ -23,7 +23,7 @@ export default function LoginForm() {
     setErr("");
     setLogging(true);
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_FE_URL}/gapi/login`, {
+    const res = await fetch(`/gapi/login`, {
       method: "POST",
       body: JSON.stringify({
         credential: loginForm.credential,
