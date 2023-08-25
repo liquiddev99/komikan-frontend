@@ -16,8 +16,7 @@ COPY --from=builder /app/.next/standalone .
 COPY --from=builder /app/.next/static ./.next/static
 ENV PORT=3000
 ENV HOSTNAME=0.0.0.0
-ENV SERVER_ADDRESS=159.65.129.57:9090
-ENV NEXT_PUBLIC_FE_URL=http://159.65.129.57:3000
+ENV SERVER_ADDRESS=komikan-backend:9090
 ENV NODE_ENV=production
 EXPOSE 3000
 CMD ["node", "server.js"]

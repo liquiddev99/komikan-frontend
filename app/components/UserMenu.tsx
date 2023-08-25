@@ -19,7 +19,7 @@ export default function UserMenu({ accessToken }: Props) {
   const router = useRouter();
   const pathname = usePathname();
   async function handleLogout() {
-    await fetch(`${process.env.NEXT_PUBLIC_FE_URL}/gapi/logout`, {
+    await fetch("/gapi/logout", {
       method: "POST",
     });
     if (pathname === "/profile") {

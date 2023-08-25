@@ -7,7 +7,6 @@ export default async function Home() {
   const trendingManga = await fetchTrendingManga();
 
   console.log("server addr: ", process.env.SERVER_ADDRESS);
-  console.log("fe addr: ", process.env.NEXT_PUBLIC_FE_URL);
 
   return (
     <main className="layout">
