@@ -22,9 +22,11 @@ export default function SaveHistory({
   const { mutate } = useSWRConfig();
 
   useEffect(() => {
+    console.log("run");
+    console.log(process.env.NEXT_PUBLIC_FE_URL);
     async function saveHistory() {
       const userAgent = navigator.userAgent;
-      await fetch("/gapi/save-history", {
+      const res = await fetch("http://159.65.129.57:3000/gapi/save-history", {
         method: "POST",
         body: JSON.stringify({
           user_agent: userAgent,
@@ -36,6 +38,8 @@ export default function SaveHistory({
           path: pathname,
         }),
       });
+      const data = await res.json();
+      console.log("data", data);
       await mutate(`/gapi/get-histories?userAgent=${userAgent}`);
     }
 
