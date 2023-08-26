@@ -5,6 +5,7 @@ import UserMenu from "./UserMenu";
 import Links from "./header/Links";
 import SearchBar from "./header/SearchBar";
 import { cookies } from "next/headers";
+import MobileMenu from "./header/MobileMenu";
 
 export default function Header() {
   const accessToken = cookies().get("access_token");
@@ -26,6 +27,7 @@ export default function Header() {
           <SearchBar />
           <UserMenu accessToken={accessToken?.value} />
         </div>
+        <MobileMenu accessToken={accessToken?.value} />
       </div>
     </div>
   );

@@ -18,7 +18,7 @@ export default function MangaItem({ manga }: Props) {
             src={manga.coverImage.extraLarge}
             alt="Cover"
             fill
-            sizes="20vw"
+            sizes="(max-width: 499px) 50vw, (max-width: 767px) 33vw, (max-width: 1023px) 25vw, 20vw"
             className="object-cover rounded-md"
           />
         </div>

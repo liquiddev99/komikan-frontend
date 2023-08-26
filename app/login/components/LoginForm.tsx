@@ -42,8 +42,8 @@ export default function LoginForm() {
   }
 
   return (
-    <div className="flex flex-col">
-      <form className="flex flex-col" onSubmit={handleLogin}>
+    <div className="flex flex-col xs:w-80">
+      <form className="flex flex-col px-1" onSubmit={handleLogin}>
         <label htmlFor="credential">
           Email or Username<span className="text-red-500"> *</span>
         </label>
@@ -51,7 +51,7 @@ export default function LoginForm() {
           type="text"
           placeholder="Email or Username"
           id="credential"
-          className="mt-2 px-4 py-2 bg-slate-800 text-slate-300 rounded-md outline-none w-80 focus:outline-orange-500 mb-2"
+          className="mt-2 px-4 py-2 bg-slate-800 text-slate-300 rounded-md outline-none focus:outline-orange-500 mb-2"
           value={loginForm.credential}
           onChange={handleChange}
           required
@@ -63,7 +63,7 @@ export default function LoginForm() {
           type="password"
           placeholder="Password"
           id="password"
-          className="mt-2 mb-3 px-4 py-2 bg-slate-800 text-slate-300 rounded-md outline-none w-80 focus:outline-orange-500"
+          className="mt-2 mb-3 px-4 py-2 bg-slate-800 text-slate-300 rounded-md outline-none focus:outline-orange-500"
           value={loginForm.password}
           onChange={handleChange}
           required

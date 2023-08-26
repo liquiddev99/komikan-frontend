@@ -20,10 +20,10 @@ export default async function Profile() {
   const user = userRes.toObject();
 
   return (
-    <div className="max-w-screen-lg mx-auto min-h-[65vh] mt-6">
-      <div className="flex">
+    <div className="max-w-screen-lg mx-auto min-h-[69vh] mt-6 w-5/6">
+      <div className="flex flex-col items-center sm:flex-row">
         <Image src={Fox} alt="Fox" width={170} className="rounded-full" />
-        <div className="ml-10 mt-4 text-lg">
+        <div className="sm:ml-10 mt-4 text-lg">
           <p className="text-4xl mb-2">{user.fullName}</p>
           <p>Username: {user.username}</p>
           <p>Email: {user.email}</p>

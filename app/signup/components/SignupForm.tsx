@@ -46,7 +46,7 @@ export default function SignupForm() {
   }
 
   return (
-    <div className="flex flex-col min-w-[20rem]">
+    <div className="flex flex-col xs:w-80">
       <form className="flex flex-col" onSubmit={handleSignup}>
         <label htmlFor="fullName">
           Full Name<span className="text-red-500"> *</span>
