@@ -2,9 +2,9 @@
 FROM node:18.17.1-alpine3.17 as builder
 WORKDIR /app
 COPY package*.json .
-RUN npm ci
+RUN yarn
 COPY . .
-RUN npm run build
+RUN yarn build
 
 # Run stage
 FROM node:18.17.1-alpine3.17 as production
