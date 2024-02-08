@@ -4,11 +4,11 @@ import useSWR from "swr";
 
 export function useDexChapters(
   mangadexId: string | null | undefined,
-  lang = "en"
+  lang = "en",
 ) {
   const { data, isLoading, error } = useSWR(
     mangadexId ? `/api/mangadex/chapters/${mangadexId}?lang=${lang}` : null,
-    genericFetcher<IChapterDex[]>
+    genericFetcher<IChapterDex[]>,
   );
 
   return {
@@ -25,11 +25,28 @@ export function useMangadexInfo(mangaId: string | undefined) {
     error,
   } = useSWR(
     mangaId ? `/api/mangadex/manga/info/${mangaId}` : null,
-    genericFetcher<IMangaDex>
+    genericFetcher<IMangaDex>,
   );
 
   return {
     mangadex,
+    loading: isLoading,
+    error,
+  };
+}
+
+export function useMangadexIds(malId: number | null | undefined) {
+  const {
+    data: mangadexIds,
+    isLoading,
+    error,
+  } = useSWR(
+    malId ? `/api/mal/mangadex/${malId}` : null,
+    genericFetcher<string[]>,
+  );
+
+  return {
+    mangadexIds,
     loading: isLoading,
     error,
   };

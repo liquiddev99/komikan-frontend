@@ -10,6 +10,7 @@ import Recommendation from "../components/Recommendation";
 import FollowBtn from "../components/FollowBtn";
 import { Metadata } from "next";
 import { cookies } from "next/headers";
+import { Suspense } from "react";
 
 interface Props {
   params: { id: string };
@@ -176,7 +177,11 @@ export default async function DetailManga({ params }: Props) {
                 ))}
               </div>
 
-              {manga.idMal && <ListChapters malId={manga.idMal} />}
+              {manga.idMal && (
+                <Suspense fallback={<div></div>}>
+                  <ListChapters malId={manga.idMal} />
+                </Suspense>
+              )}
 
               {manga.characters.edges.length ? (
                 <div className="mt-8 hidden sm:block">

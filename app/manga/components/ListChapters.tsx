@@ -1,11 +1,16 @@
-import { fetchMangaDexIds } from "@/app/utils/manga";
+"use client";
 import ChapterTable from "./ChapterTable";
+import { useMangadexIds } from "@/app/hooks/mangadex";
 
 interface IProps {
   malId: number | null | undefined;
 }
 export default async function ListChapters({ malId }: IProps) {
-  const mangadexIds = await fetchMangaDexIds(malId);
+  const { mangadexIds, error } = useMangadexIds(malId);
+
+  if (error) {
+    return <div></div>;
+  }
 
   return (
     <div>

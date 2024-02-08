@@ -3,15 +3,19 @@ import { NextResponse } from "next/server";
 
 export async function GET(
   _: Request,
-  { params }: { params: { malId: string } }
+  { params }: { params: { malId: string } },
 ) {
-  const malId = params.malId;
+  try {
+    const malId = params.malId;
 
-  const res = await fetch(`https://api.malsync.moe/mal/manga/${malId}`);
-  const data: any = await res.json();
+    const res = await fetch(`https://api.malsync.moe/mal/manga/${malId}`);
+    const data: any = await res.json();
 
-  const malDex = data?.Sites?.Mangadex;
-  const mangadexIds = Object.keys(malDex);
+    const malDex = data?.Sites?.Mangadex;
+    const mangadexIds = Object.keys(malDex);
 
-  return NextResponse.json(mangadexIds);
+    return NextResponse.json(mangadexIds);
+  } catch (error) {
+    return new Response("asdf", { status: 500 });
+  }
 }
